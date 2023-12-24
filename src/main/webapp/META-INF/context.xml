@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Pool de conexão JDBC (Necessário configurar tambémno web.xml -->
+<Context crossContext="true">
+	<Resource name="jdbc/mysql" auth="Container"
+		type="javax.sql.DataSource" minIdle="5" maxIdle="100" maxWait="30000"
+		username="admin" password="admin"
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/itall_dev?serverTimezone=UTC" />
+</Context>
