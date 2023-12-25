@@ -2,35 +2,28 @@ package br.com.itall.model;
 
 import java.time.LocalDateTime;
 
+import br.com.itall.tool.Email;
+
 /**
- * @apiNote Tabela "usuario"
+ * Entidade da tabela "usuario"
  * @author MarcosVP
+ * @since 24/12/2023
  *
  */
-//@Entity
-//@Table(name = "usuario", indexes = {
-//		@Index(name = "usuario_nome_idx", columnList = "nome"),
-//		@Index(name = "usuario_email_idx", columnList = "email")
-//})
 public class UsuarioModel {
 
-	//@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     public final static short FIELD_LEN_NOME = 80;
-    //@Column(name = "nome", length = FIELD_LEN_NOME, nullable = false)
     private String nome;
     
     public final static int FIELD_LEN_EMAIL = 255;
-    //@Column(name = "email", length = FIELD_LEN_EMAIL, nullable = false)
-    private String email;
+    private Email email;
     
     public final static short FIELD_LEN_SENHA = 80;
-    //@Column(name = "senha", length = FIELD_LEN_SENHA)
+    public final static int FIELD_LEN_MIN_SENHA = 3;
     private String senha;
     
-    //@Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
     //CONSTRUCTORS
@@ -58,11 +51,11 @@ public class UsuarioModel {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEmail() {
+	public Email getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = Email.get(email);
 	}
 	public String getSenha() {
 		return senha;

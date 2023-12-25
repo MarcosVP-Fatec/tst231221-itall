@@ -1,17 +1,20 @@
-<jsp:include page="../include/content.jsp" />
+<jsp:include page="/jsp/include/content.jsp"/>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+
+<jsp:include page="/jsp/include/meta.jsp"/>
+
 <title>Novo Usuário</title>
 
-<jsp:include page="../include/links.jsp" />
+<jsp:include page="/jsp/include/links.jsp"/>
 
 	<script>
 		function preValid() {
+			msgHideAll();
 			if (document.getElementById("fieldSenha1").value !== document.getElementById("fieldSenha2").value) {
-				alert("As senhas digitados estão diferentes!");
+				msgShowErro("As senhas digitadas estão diferentes!");
 				return false;
 			}
 			return true;
@@ -30,7 +33,7 @@
 				<h2>Cadastro de Usuário</h2>
 				
 				<form onsubmit="return preValid();"
-				      action="${pageContext.request.contextPath}/public?opc=usuarioinserir"
+				      action="${pageContext.request.contextPath}/usr?opc=usuarioinserir"
 				      method="post">
 					<div class="mb-2">
 						<label for="fieldNome" class="form-label">Nome Completo</label> <input
@@ -60,8 +63,8 @@
 							placeholder=".....Repita a senha digitada anteriormente.">
 					</div>
 
-					<button type="submit" class="btn btn-primary">Incluir</button>
-					
+					<button type="submit" class="btn btn-primary" >Incluir</button>
+										
 				</form>
 				
 				<jsp:include page="../include/mensagens.jsp" />

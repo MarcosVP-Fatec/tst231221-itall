@@ -2,34 +2,33 @@ package br.com.itall.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.TimeZone;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.itall.model.UsuarioModel;
-import br.com.itall.model.dao.UsuarioDAO;
-import br.com.itall.tool.Data;
+import br.com.itall.service.UsuarioService;
+import br.com.itall.service.implement.UsuarioServiceImpl1;
+import br.com.itall.tool.Texto;
 
 /**
- * Servlet implementation class HomeController
+ *     Servlet de Usuários 
+ * @author MarcosVP
+ * @since 25/12/2023
+ * @category SERVLET
  */
-@WebServlet("/public")
-public class HomeController extends HttpServlet {
+@WebServlet("/usr")
+public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	private UsuarioDAO usuarioDAO;
-	
-    public HomeController() { super(); }
-    
-    public void init() {
-    	this.usuarioDAO = new UsuarioDAO();
+	private UsuarioService usuarioService;
+    public void init(){
+    	this.usuarioService = new UsuarioServiceImpl1();
     }
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		runReq(request, response);
 	}
@@ -63,12 +62,12 @@ public class HomeController extends HttpServlet {
 	 */
 	private void usuarioNovo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.getRequestDispatcher("jsp/public/usuario-novo.jsp")
+		request.getRequestDispatcher("jsp/usr/usuario-novo.jsp")
 		       .forward(request, response);
 	}
 			
 	/**
-	 * @apiNote Abre a página de Cadastro de Usuário
+	 * @apiNote Insere um novo usuário
 	 * @param request (HttpServletRequest)
 	 * @param response (HttpServletResponse)
 	 * @throws ServletException
@@ -77,18 +76,19 @@ public class HomeController extends HttpServlet {
 	 */
 	private void usuarioInc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	
-		String nome = request.getParameter("nome");
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
+		try {
+	
+			usuarioService.usuarioInc(usuarioService.usuarioModelFromRequest(request));
+			request.setAttribute("msg_sucesso", "Novo usuário cadastrado com sucesso!");
+			
+		} catch (Exception e) {
+			request.setAttribute("msg_erro", e.getMessage());
+			
+		}
 		
-		UsuarioModel usuario = new UsuarioModel(null, nome, email, senha, null);
-		
-		usuarioDAO.inc(usuario);
-		
-		request.setAttribute("msg_sucesso", "Usuário cadastrado com sucesso!");
-		request.getRequestDispatcher("jsp/public/usuario-novo.jsp")
+		request.getRequestDispatcher("jsp/usr/usuario-novo.jsp")
 	           .forward(request, response);
-
+		
 	}
 
 }

@@ -15,4 +15,8 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 
+	<listener>
+		<listener-class>br.com.itall.controller.AppContextListener</listener-class>
+	</listener>
+
 </web-app>

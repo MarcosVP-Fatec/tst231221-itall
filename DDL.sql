@@ -4,7 +4,7 @@
 create schema if not exists itall_dev;
 use itall_dev;
 create user if not exists 'admin'@'localhost' identified by 'admin';
-grant select, insert, delete, update on itall_dev.* to admin@'localhost';
+grant all on itall_dev.* to admin@'localhost';
 
 -- ------------------------------------------------------------------------
 -- PROCEDURE drop_index
@@ -43,7 +43,7 @@ create table if not exists usuario (
     , nome                  varchar(80)     not null
     , email                 varchar(255)    not null
     , senha                 varchar(80)     not null
-    , data_criacao    		datetime
+    , data_criacao    		timestamp		not null
     , constraint usuario_email_uk unique (email)
 );
 

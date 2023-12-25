@@ -1,13 +1,14 @@
-<jsp:include page="include/content.jsp" />
+<jsp:include page="/jsp/include/content.jsp"/>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+
+<jsp:include page="/jsp/include/meta.jsp"/>
+
 <title>Itall - Comercial</title>
 
-<jsp:include page="include/links.jsp" />
-
+<jsp:include page="/jsp/include/links.jsp"/>
 
 </head>
 
@@ -16,9 +17,9 @@
 	<jsp:include page="/jsp/include/navbar.jsp" />
 		
 	<div class="container">
-		<div class="row">
+		<div class="row mt-4" >
 			<div class="col">
-				<h2>Página Principal da Aplicação</h2>
+				<h2>Teste de Programação Java</h2>
 			</div>
 		</div>
 	</div>
