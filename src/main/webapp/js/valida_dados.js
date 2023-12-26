@@ -1,5 +1,6 @@
 /****************************************************************************************
  * @author MarcosVP
+ * @version 1.01.0
  * @description Verifica se o string de uma data é válido
  * @param sData {string}
  */

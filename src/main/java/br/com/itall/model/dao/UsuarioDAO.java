@@ -6,17 +6,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import br.com.itall.model.UsuarioModel;
+import javax.naming.NamingException;
+
 import br.com.itall.model.dao.util.ConnectDAO;
+import br.com.itall.model.entity.cad.UsuarioModel;
 
 /**
  * DAO da entidade UsuarioModel
  * @author MarcosVP
- * @see br.com.itall.model.UsuarioModel
+ * @see br.com.itall.model.entity.cad.UsuarioModel
  */
 public class UsuarioDAO extends ConnectDAO {
 	
-	public UsuarioModel inc(UsuarioModel usuario) throws SQLException {
+	/**
+	 * Método para inclusão de usuário
+	 * 
+	 * @param usuario (UsuarioModel)
+	 * @return UsuarioModel (Com o id já identificado)
+	 * @throws SQLException Se ocorrer erro na execução do SQL
+	 * @throws NamingException Se ocorrer algum erro de Sintaxe SQL
+	 */
+	public UsuarioModel inc(UsuarioModel usuario) throws SQLException, NamingException {
 	
 		String sql = "insert into usuario (nome, email, senha, data_criacao)"
 				   + " values (?,?,?,?)";

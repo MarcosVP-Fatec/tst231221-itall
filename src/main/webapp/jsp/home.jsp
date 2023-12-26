@@ -1,12 +1,13 @@
-<jsp:include page="/jsp/include/content.jsp"/>
+<jsp:include page="/jsp/include/libs.jsp"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 
 <jsp:include page="/jsp/include/meta.jsp"/>
+<meta name="keywords" content="home, itall, it-all">
 
-<title>Itall - Comercial</title>
+<title>ITALL Comercial</title>
 
 <jsp:include page="/jsp/include/links.jsp"/>
 

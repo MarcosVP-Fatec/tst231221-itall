@@ -1,6 +1,7 @@
 /****************************************************************************************
  * @author MarcosVP
  * @description Função que fecha as mensagens exibidas em tela
+ * @version 1.01.0
  */
 function msgHideAll() {
 	if ($('#msgErro')) $('#msgErro').hide();		

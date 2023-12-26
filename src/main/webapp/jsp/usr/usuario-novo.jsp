@@ -1,10 +1,16 @@
-<jsp:include page="/jsp/include/content.jsp"/>
+<%-- Página de Usuário Novo (Cadastro de Usuário) 
+@author MarcosVP
+@since 24/12/2023
+@version 1.01.0
+--%>
+<jsp:include page="/jsp/include/libs.jsp"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 
 <jsp:include page="/jsp/include/meta.jsp"/>
+<meta name="keywords" content="usuário novo, cadastre-se">
 
 <title>Novo Usuário</title>
 
@@ -67,7 +73,7 @@
 										
 				</form>
 				
-				<jsp:include page="../include/mensagens.jsp" />
+				<jsp:include page="/jsp/include/mensagens.jsp" />
 				
 			</div>
 		</div>

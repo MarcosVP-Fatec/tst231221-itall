@@ -9,10 +9,13 @@ import br.com.itall.tool.Texto;
 
 /**
  * Configuração de contexto da JVM. <br>
- * Ajusta o fuso horário para GMT-3 
+ * Ajusta o fuso horário para GMT-3
+ *  
  * @author MarcosVP
  * @since 25/12/2023
- * @see web.xml
+ * @version 1.01.0
+ * @see <a href="file:../../../../../webapp/WEB-INF/web.xml">web.xml</a>
+ * 
  */
 public class AppContextListener implements ServletContextListener {
 	

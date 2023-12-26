@@ -1,3 +1,14 @@
+<%-- Compomente de menu do sistema 
+@author MarcosVP
+@since 24/12/2023
+@version 1.01.0
+
+Coloque na primeira linha após a tag <body>
+
+<body>
+	<jsp:include page="/jsp/include/navbar.jsp" />
+
+--%>
 <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
 
 	<div class="container-fluid">

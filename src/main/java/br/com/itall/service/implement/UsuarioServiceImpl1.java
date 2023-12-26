@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.itall.model.UsuarioModel;
 import br.com.itall.model.dao.UsuarioDAO;
+import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.tool.Data;
 
@@ -20,7 +20,9 @@ import br.com.itall.tool.Data;
 public class UsuarioServiceImpl1 implements UsuarioService {
 	
 	private UsuarioDAO usuarioDAO;
+	/** Básico */
 	public UsuarioServiceImpl1() { this.init();	}
+	/** Injeção das dependências do serviço */
 	public void init() {
 		this.usuarioDAO = new UsuarioDAO();
 	}
@@ -61,7 +63,7 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			if (!usuario.getEmail().isValid()) throw new RuntimeException(usuario.getEmail().toMessages());
 			
 			if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
-			if (usuario.getSenha().length() < UsuarioModel.FIELD_LEN_MIN_SENHA) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+			if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
 			
 			return usuarioDAO.inc(usuario);
 			

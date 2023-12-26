@@ -1,3 +1,18 @@
+<%-- Compomente usado para exibir mensagens nas páginas 
+@author MarcosVP
+@since 24/12/2023
+@version 1.01.0
+
+Coloque no local onde quer que apareça.
+Este include habilita três tipos de mensagens: 
+Alerta : Fundo Laranja
+Erro   : Funco Vermelho
+Sucesso: Fundo Verde
+ 
+<jsp:include page="/jsp/include/links.jsp"/>
+
+--%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:if test="${msg_erro != null}">

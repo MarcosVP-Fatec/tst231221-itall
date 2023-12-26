@@ -2,7 +2,6 @@ package br.com.itall.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.itall.service.UsuarioService;
 import br.com.itall.service.implement.UsuarioServiceImpl1;
-import br.com.itall.tool.Texto;
 
 /**
- *     Servlet de Usuários 
+ * SERVLET de Usuários
+ *  
  * @author MarcosVP
  * @since 25/12/2023
- * @category SERVLET
+ * @version 1.01.0
  */
 @WebServlet("/usr")
 public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	/** Dependência de Serviços de Usuário utilizada nesta classe */
 	private UsuarioService usuarioService;
+	/** Método de injeção de dependências desta classe. */
     public void init(){
     	this.usuarioService = new UsuarioServiceImpl1();
     }
