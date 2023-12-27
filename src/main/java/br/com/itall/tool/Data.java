@@ -172,12 +172,7 @@ public class Data {
      * @return Date
      */
     public static Date localDateTimeToDate(LocalDateTime localDT) {
-        
-            
-            Date date = Date.from(localDT.atZone(ZoneId.systemDefault()).toInstant());
-//DEBUGMVP
-Texto.CONSOLE_LOG(date);
-			return date;
+			return Date.from(localDT.atZone(ZoneId.systemDefault()).toInstant());
     }
     
     

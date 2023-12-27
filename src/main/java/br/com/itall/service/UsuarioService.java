@@ -51,5 +51,14 @@ public interface UsuarioService {
 	 */
 	public List<UsuarioDTO> listAllUsuarios(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, NamingException, Exception;
 	
+	/**
+	 * Método que exclui novo usuário pelo seu id
+	 * 
+	 * @param id (Long)
+	 * @return UsuarioModel que foi incluído localizado para exclusão
+	 * @throws Exception Trata quaisquer erros que venham a ocorrer
+	 */
+	public UsuarioModel usuarioDel(Long id) throws Exception;
+
 
 }

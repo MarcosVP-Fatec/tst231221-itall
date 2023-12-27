@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.itall.model.dto.UsuarioDTO;
+import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.service.implement.UsuarioServiceImpl1;
 import br.com.itall.tool.Texto;
@@ -55,6 +56,10 @@ public class UsuarioController extends HttpServlet {
 				
 			case "listarusuarios":
 				listAllUsuarios(request, response);
+				break;	
+
+			case "removerusuario":
+				usuarioDel(request, response);
 				break;	
 			}
 		} catch (Exception e) {
@@ -128,6 +133,31 @@ public class UsuarioController extends HttpServlet {
 		
 		request.getRequestDispatcher("jsp/usr/usuario-lista.jsp")
 	           .forward(request, response);
+		
+	}
+
+	/**
+	 * @apiNote Exclui um novo usuário pelo seu id
+	 * @param request (HttpServletRequest)
+	 * @param response (HttpServletResponse)
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	private void usuarioDel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	
+		try {
+	
+			Long id = Long.parseLong(request.getParameter("id"));
+			UsuarioModel usuario = usuarioService.usuarioDel(id);
+			request.setAttribute("msg_sucesso", String.format("Sucesso na exclusão do usuário: %s", usuario.getNome()));
+			
+		} catch (Exception e) {
+			request.setAttribute("msg_erro", e.getMessage());
+			
+		}
+		
+		listAllUsuarios(request, response);
 		
 	}
 }

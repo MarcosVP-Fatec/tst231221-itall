@@ -71,6 +71,30 @@ function gotoHome(){
 	window.location.href = getContext();	
 }
 
+/****************************************************************************************
+ * @author MarcosVP
+ * @example confirma("Você gosta de amora",()=>{alert("sim, eu gosto")},()=>{alert("Não gosto")})
+ * @description Função que abre um modal de confirmação
+ */
+function confirma( texto , f_sim, f_nao ){
+	if (texto){
+		texto = texto.trim();
+		if (texto.indexOf('?') == -1) texto += ' ?';
+		$('#modalConfirmaTexto').html(texto);
 
+		if (typeof f_sim == 'function'){
+			$('#modalConfirmaSim').click(f_sim);	
+		} else {
+			$('#modalConfirmaSim').click(new Function('return true;'));
+			$('#modalConfirmaSim').attr('href', getContext() + f_sim);		
+		}
 
-
+		if (typeof f_nao == 'function') {
+			$('#modalConfirmaNao').click(f_nao);
+		} else {
+			$('#modalConfirmaNao').click(new Function('return true;'));
+			$('#modalConfirmaNao').attr('href', getContext() + f_nao);		
+		}
+		$("#modalConfirma").modal("show");
+	}
+}

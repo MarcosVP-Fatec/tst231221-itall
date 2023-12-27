@@ -103,4 +103,23 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 		
 	}
 
+	@Override
+	public UsuarioModel usuarioDel(Long id) throws Exception {
+		UsuarioModel usuario = null;
+		try {
+			if (id == null || id == 0) throw new RuntimeException("O identificador do usuário não foi informado!");
+			usuario = usuarioDAO.findById(id);
+			
+			if (usuario == null) throw new RuntimeException(String.format("Usuário não localizado: Id %d", id));
+			
+			usuarioDAO.del(id);
+			
+		} catch (Exception e) {
+			final String msg = String.format("Falha inesperada ao excluir usuário: %s", e.getMessage());
+			try {e.printStackTrace();} finally {}
+			throw new Exception(msg);
+		}
+		return usuario;
+	}
+
 }

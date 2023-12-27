@@ -18,19 +18,6 @@
 
 <jsp:include page="/jsp/include/links.jsp" />
 
-<script>
-	function preValid() {
-		msgHideAll();
-		//DEBUGMVP
-		/* 			if (document.getElementById("fieldSenha1").value !== document.getElementById("fieldSenha2").value) {
-		 msgShowErro("As senhas digitadas estão diferentes!");
-		 return false;
-		 } 
-		 */
-		return true;
-	}
-</script>
-
 </head>
 <body>
 
@@ -47,6 +34,7 @@
 							<th>Nome</th>
 							<th>E-mail</th>
 							<th>Data Inclusão</th>
+							<th>Edição</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -56,6 +44,12 @@
 								<td><c:out value="${usu.nome}" /></td>
 								<td><c:out value="${usu.email}" /></td>
 								<td><fmt:formatDate value="${usu.dataCriacao}" type="date" pattern="dd/MM/yyyy hh:mm" /></td>
+								<td> 																			
+									<a class="btn btn-outline-danger btn-sm"
+									onclick="return confirm('Confirma a exclusão do usuário <c:out value="${usu.nome}"/> ?');"
+									href="${pageContext.request.contextPath}/usr?opc=removerusuario&id=<c:out value="${usu.id}"/>">excluir</a>
+								</td>
+								
 							</tr>
 						</c:forEach>
 					</tbody>

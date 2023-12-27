@@ -71,15 +71,6 @@ public class UsuarioDAO extends ConnectDAO {
 	}
 
 	/**
-	 * Método para selecionar todos os usuários
-	 * 
-	 * @param usuario (UsuarioModel)
-	 * @return UsuarioModel (Com o id já identificado)
-	 * @throws SQLException Se ocorrer erro na execução do SQL
-	 * @throws NamingException Se ocorrer algum erro de Sintaxe SQL
-	 */
-	
-	/**
 	 * Lista todos os usuários em ordem alfabética
 	 * 
 	 * @return List&lt;Usuario&gt;
@@ -93,8 +84,8 @@ public class UsuarioDAO extends ConnectDAO {
 
 		conectar();
 		PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		getConexao().setAutoCommit(true);
 		ResultSet rs = ps.executeQuery();
-
 
 		while (rs.next()) {
 			
@@ -143,6 +134,96 @@ public class UsuarioDAO extends ConnectDAO {
 			Texto.logConsole(e);
 			throw new RuntimeException(String.format("Erro inesperado na pesquisa do email \"%s\": %s",email,e.getMessage()));
 		}
+		
+	}
+
+	/**
+	 * Busca um UsuarioModel pelo seu id
+	 * 
+	 * @param id (Long) identificador do usuário.
+	 * @return UsuarioModel
+	 * @throws SQLException Trata erros de execução SQL.
+	 */
+	public UsuarioModel findById(Long id) throws SQLException {
+		
+		UsuarioModel usuario = null;
+		
+		try {
+			
+			final String sql = "select * from usuario u where u.id = ?";
+
+			conectar();
+
+			PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			ps.setLong(1, id );
+			
+			getConexao().setAutoCommit(true);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				usuario = usuarioModelFromResultSet(rs);
+			}
+
+		} catch (Exception e) {
+			desconectar();
+			Texto.logConsole(e);
+			throw new RuntimeException(String.format("Erro inesperado na localização do usuário (Id: %d): ",id,e.getMessage()));
+		}
+		
+		desconectar();
+		return usuario;
+		
+	}
+
+	/**
+	 * Monta um UsuarioModel a partir de um ResultSet
+	 * @param rs (ResultSet)
+	 * @return UsuarioModel
+	 */
+	public UsuarioModel usuarioModelFromResultSet(ResultSet rs) {
+		try {
+			return new UsuarioModel(rs.getLong("id")
+	                               ,rs.getString("nome")
+	                               ,rs.getString("email")
+	                               ,rs.getString("senha")
+	                               ,rs.getTimestamp("data_criacao").toLocalDateTime()
+	                               );
+
+		} catch (Exception e) {
+			Texto.logConsole(e);
+		}
+		return null;
+	}
+
+	/**
+	 * Método para exclusão de usuário
+	 * 
+	 * @param id (Long) Identificador do usuário
+	 * @throws SQLException 
+	 */
+	public void del(Long id) throws SQLException {
+
+		try {
+			
+			final String sql = "delete from usuario where id = ?";
+
+			conectar();
+
+			PreparedStatement ps = getConexao().prepareStatement(sql);
+
+			ps.setLong(1, id );
+
+			getConexao().setAutoCommit(false);
+			ps.executeUpdate();
+			getConexao().commit();
+
+		} catch (Exception e) {
+			desconectar();
+			Texto.logConsole(e);
+			throw new RuntimeException(String.format("Erro inesperado na inclusão do usuário: %s",e.getMessage()));
+		}
+		
+		desconectar();
 		
 	}
 
