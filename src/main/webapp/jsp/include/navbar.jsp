@@ -34,7 +34,7 @@ Coloque na primeira linha após a tag <body>
 						Usuários</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/usr?opc=usuarionovo">Novo</a></li>
-						<li><a class="dropdown-item" href="#">Lista</a></li>
+						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/usr?opc=listarusuarios">Lista</a></li>
 <!-- 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="#">Something else here</a></li>
  -->					</ul></li>

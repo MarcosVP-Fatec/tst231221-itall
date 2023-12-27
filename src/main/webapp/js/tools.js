@@ -15,16 +15,7 @@ function msgHideAll() {
  * @param msg {string} 
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShowErro(msg) {
-	msgHideAll();
-	const id = '#msgErro'
-	if ($(id)){
-		$(id).find('<span>').html(msg);
-		$(id).show();	
-	} else {
-		alert(msg);
-	}
-}
+function msgShowErro(msg) { return msgShow("msgErro", msg); }
 
 /****************************************************************************************
  * @author MarcosVP
@@ -32,16 +23,7 @@ function msgShowErro(msg) {
  * @param msg {string} 
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShowAlerta(msg) {
-	msgHideAll();
-	const id = '#msgAlerta'
-	if ($(id)){
-		$(id).find('<span>').html(msg);
-		$(id).show();	
-	} else {
-		alert(msg);
-	}
-}
+function msgShowAlerta(msg) { return msgShow("msgAlerta", msg); }
 
 /****************************************************************************************
  * @author MarcosVP
@@ -49,13 +31,46 @@ function msgShowAlerta(msg) {
  * @param msg {string} 
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShowAlerta(msg) {
-	msgHideAll();
-	const id = '#msgSucesso'
-	if ($(id)){
-		$(id).find('<span>').html(msg);
-		$(id).show();	
-	} else {
-		alert(msg);
-	}
+function msgShowSucesso(msg) { return msgShow("msgSucesso", msg); }
+
+/****************************************************************************************
+ * @author MarcosVP
+ * @description Função que exibe uma mensagem conforme o id do componente
+ * @param msg {string} 
+ * @requires jsp:include page="../include/links.jsp"  
+ */
+function msgShow(idName,msg) {
+	try {
+		msgHideAll();
+		const id = $("#"+idName);
+		if (id.length > 0){
+			id.find('span').html(msg);
+			id.show();	
+		} else {
+			alert(msg);
+		}
+	} finally {
+		alert(msg);	
+	} 
 }
+	
+
+/****************************************************************************************
+ * @author MarcosVP
+ * @description Função que retorna o path de contexto da aplicação
+ */
+function getContext() {
+    return '/' + window.location.pathname.split('/')[1]; // Adicionamos a barra inicial para formar o contexto completo
+}
+
+/****************************************************************************************
+ * @author MarcosVP
+ * @description Função que redireciona para a página Home
+ */
+function gotoHome(){ 
+	window.location.href = getContext();	
+}
+
+
+
+

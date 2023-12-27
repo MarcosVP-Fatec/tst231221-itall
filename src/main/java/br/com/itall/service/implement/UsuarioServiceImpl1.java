@@ -4,10 +4,13 @@
 package br.com.itall.service.implement;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.itall.model.dao.UsuarioDAO;
+import br.com.itall.model.dto.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.tool.Data;
@@ -60,7 +63,11 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			if (usuario.getId() != null) throw new RuntimeException(String.format("Tentativa de incluir usuário com identificador informado!: %s", usuario.getId()));
 			if (usuario.getNome().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"nome\" em branco!");
 			
-			if (!usuario.getEmail().isValid()) throw new RuntimeException(usuario.getEmail().toMessages());
+			if (!usuario.getEmail().isValid()) {
+				throw new RuntimeException(usuario.getEmail().toMessages());
+			} else {
+				if (usuarioDAO.existByEmail(usuario.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", usuario.getEmail().getDescription()));
+			}
 			
 			if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
 			if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
@@ -74,6 +81,24 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			final String msg = String.format("Falha inesperada ao incluir usuário: %s", e.getMessage());
 			try {e.printStackTrace();} finally {}
 			throw new Exception(msg);
+		}
+		
+	}
+	
+	/**
+	 * Lista todos os usuários em ordem alfabética
+	 * 
+	 * @param request (HttpServletRequest)
+	 * @param response (HttpServletResponse)
+	 * @throws Exception Erros na execução da pesquisa
+	 */
+	@Override
+	public List<UsuarioDTO> listAllUsuarios(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		try {
+			return usuarioDAO.listarTodosUsuarios();
+		} catch (Exception e) {
+			throw new Exception(String.format("Erro na pesquisa de usuarios: %s",e.getMessage()));
 		}
 		
 	}

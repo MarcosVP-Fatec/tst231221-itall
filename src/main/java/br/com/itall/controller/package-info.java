@@ -1,5 +1,5 @@
 /**
- * CONTROLLER/SERVLET - Rotas e Acessos
+ * SERVLET - Rotas e Acessos
  * 
  * @author MarcosVP
  * @since 26/12/2023

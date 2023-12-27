@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.itall</groupId>
 	<artifactId>comercial</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.01.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

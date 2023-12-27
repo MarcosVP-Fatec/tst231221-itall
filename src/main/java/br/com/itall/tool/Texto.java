@@ -20,9 +20,14 @@ public class Texto {
 	/**
 	 * Gera um log no console do servidor com data e hora local<br>
 	 * Utilizado para colocar logs intencionais de rastreio.
+	 * Este comando inibe quaisquer exceptions para poder imprimir o StackTrace sem interromper neste momento.
 	 * @param texto (String) Mensagem que será impressa no console do servidor.
 	 */
-	public static void logConsole(Object texto) { System.out.println(Data.dateMask("[yy-MM-dd hh:mm:ss,SSS] ") + texto); }
+	public static void logConsole(Object texto) { 
+		try {
+			System.out.println(Data.dateMask("[yy-MM-dd hh:mm:ss,SSS] ") + texto);
+		} catch (Exception e) {}
+	}
 	
 	
 }

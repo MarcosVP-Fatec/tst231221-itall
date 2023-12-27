@@ -60,19 +60,23 @@ public class UsuarioModel {
 	public Long getId() {
 		return id;
 	}
-    /** @param id (Long)
-     *  @return UsuarioModel */
-	public UsuarioModel setId(Long id) {
+    /** @param id (Long) */
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
     /** @return nome (String) */
 	public String getNome() {
 		return nome;
 	}
-	/** @param nome (String) */
+	/**
+	 * Set do nome<br>
+	 * Independente da forma como é transmitodo sempre é gravado em caixa alta. 
+	 * 
+	 * @param nome (String) 
+	 * 
+	 * */
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.trim().toUpperCase();
 	}
 	/** @return email (Email) 
 	 *  @see Email	 */
@@ -81,13 +85,14 @@ public class UsuarioModel {
 	}
 	/**
 	 * Set do Email <br>
-	 * Armazena um objeto da classe Email gerado a partir do parâmetro 
+	 * Armazena um objeto da classe Email gerado a partir do parâmetro <br>
+	 * Independente da forma como os e-mails são transmitidos sempre são gravados em caixa baixa.
 	 * 
 	 * @param email (String)
 	 * @see Email
 	 */
 	public void setEmail(String email) {
-		this.email = Email.get(email);
+		this.email = Email.get(email.trim().toLowerCase());
 	}
     /** @return senha (String) */
 	public String getSenha() {

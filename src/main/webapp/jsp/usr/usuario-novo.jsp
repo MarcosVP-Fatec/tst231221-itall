@@ -41,6 +41,8 @@
 				<form onsubmit="return preValid();"
 				      action="${pageContext.request.contextPath}/usr?opc=usuarioinserir"
 				      method="post">
+				      
+					<!-- NOME -->
 					<div class="mb-2">
 						<label for="fieldNome" class="form-label">Nome Completo</label> <input
 							type="text" class="form-control" name="nome" maxlength="80"
@@ -48,6 +50,7 @@
 							placeholder=".....Informe o seu nome completo...">
 					</div>
 
+					<!-- EMAIL -->
 					<div class="mb-2">
 						<label for="fieldEmail" class="form-label">Endereço de
 							E-mail</label> <input type="email" class="form-control" name="email"
@@ -55,6 +58,7 @@
 							placeholder=".....Fique tranquilo! Seu e-mail não será divulgado.">
 					</div>
 
+					<!-- SENHA -->
 					<div class="mb-1">
 						<label for="fieldSenha1" class="form-label">Senha</label> <input
 							type="password" class="form-control" name="senha" maxlength="80"
@@ -62,6 +66,7 @@
 							placeholder=".....Digite uma senha de acesso.">
 					</div>
 
+					<!-- SENHA REPETE -->
 					<div class="mb-2">
 						<label for="fieldSenha2" class="form-label">Repita a Senha</label>
 						<input type="password" class="form-control" maxlength="80"
@@ -69,13 +74,15 @@
 							placeholder=".....Repita a senha digitada anteriormente.">
 					</div>
 
-					<button type="submit" class="btn btn-primary" >Incluir</button>
+					<button type="submit" class="btn btn-primary" aria-pressed="true">Incluir</button>
+					<a href="#" class="btn btn-secondary active" role="button" onclick="gotoHome();" aria-pressed="false">Voltar</a>
 										
 				</form>
 				
-				<jsp:include page="/jsp/include/mensagens.jsp" />
-				
 			</div>
+			
+			<jsp:include page="/jsp/include/mensagens.jsp" />
+			
 		</div>
 	</div>
 

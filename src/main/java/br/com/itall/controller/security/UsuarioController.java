@@ -1,7 +1,9 @@
-package br.com.itall.controller;
+package br.com.itall.controller.security;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.itall.model.dto.UsuarioDTO;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.service.implement.UsuarioServiceImpl1;
+import br.com.itall.tool.Texto;
 
 /**
  * SERVLET de Usuários
@@ -44,12 +48,17 @@ public class UsuarioController extends HttpServlet {
 			case "usuarionovo":
 				usuarioNovo(request,response);
 				break;
+				
 			case "usuarioinserir":
 				usuarioInc(request,response);
 				break;
+				
+			case "listarusuarios":
+				listAllUsuarios(request, response);
+				break;	
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Texto.logConsole(e);
 			throw new ServletException(e);
 		}
 	}
@@ -92,4 +101,33 @@ public class UsuarioController extends HttpServlet {
 		
 	}
 
+	/**
+	 * Método de controle da visão de lista de usuário
+	 * 
+	 * @param request (HttpServletRequest)
+	 * @param response (HttpServletResponse)
+	 * @throws IOException Tratamento de erros de disco
+	 * @throws ServletException Tratamento de Erros de Servlet
+	 */
+	private void listAllUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		List<UsuarioDTO> lista = new ArrayList<UsuarioDTO>();
+		
+		try {
+			
+			lista = usuarioService.listAllUsuarios(request,response);
+			if (lista.size() == 0) request.setAttribute("msg_alerta", "Não há usuários cadastrados!");
+			request.setAttribute("lista_usu", lista);
+			
+		} catch (Exception e) {
+			
+			Texto.logConsole(e);
+			request.setAttribute("msg_erro", e.getMessage());
+			
+		}
+		
+		request.getRequestDispatcher("jsp/usr/usuario-lista.jsp")
+	           .forward(request, response);
+		
+	}
 }

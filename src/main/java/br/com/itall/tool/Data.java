@@ -3,6 +3,7 @@ package br.com.itall.tool;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ public class Data {
      * @param sData String "dd/mm/yyyy"
      * @return LocalDate
      */
-    public static LocalDate toDate(String sData) {
+    public static LocalDate sToDate(String sData) {
     	
     	try {
     		return LocalDate.of(Integer.parseInt(sData.substring(6,10))
@@ -141,6 +142,43 @@ public class Data {
     public static String dateMask(Date data, String mask) {
     	return new SimpleDateFormat(mask).format(data);
     }
+    
+    /**
+     * Converte <b>java.util.Date</b> => <b>LocalDateTime</b>  
+     * @param data (java.util.Date)
+     */
+    @SuppressWarnings("deprecation")
+	public static LocalDateTime dataToLocalDateTime( Date data ) {
+    	
+    	int horas, minutos, segundos;
+    	try { horas = data.getHours();} finally {}
+    	try { minutos = data.getMinutes();} finally {}
+    	try { segundos = data.getSeconds();} finally {}
+    	
+    	return LocalDateTime.of(data.getYear()+1900
+    			               ,data.getMonth()+1
+    			               ,data.getDate()
+    			               ,horas
+    			               ,minutos
+    			               ,segundos);
+    }
+    
+    /**
+     * Converte <b>LocalDateTime</b> => <b>java.util.Date</b> <br>
+     * Faz a conversão do fuso horário antes.
+     *  
+     * @param localDT (LocalDateTime)
+     * @return Date
+     */
+    public static Date localDateTimeToDate(LocalDateTime localDT) {
+        
+            
+            Date date = Date.from(localDT.atZone(ZoneId.systemDefault()).toInstant());
+//DEBUGMVP
+Texto.CONSOLE_LOG(date);
+			return date;
+    }
+    
     
 }
 

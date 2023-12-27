@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
+import br.com.itall.tool.Texto;
+
 /**
  * Classe de Controle do Pool de Conexões. <br>
  * Esta classe fornece conexões conforme a necessidade da aplicação. <br>
@@ -30,12 +32,17 @@ public class ConnectDAO {
 	}
 	
 	/**
-	 * Método que fecha a conexão recebida anteriormente para uso da classe filha DAO.
+	 * Método que fecha a conexão recebida anteriormente para uso da classe filha DAO.<br>
+	 * Antes de fechar a conexão faz um Rollback(). 
 	 * 
 	 * @throws SQLException Se ocorrer erro na execução do SQL 
 	 */
 	public void desconectar() throws SQLException {
-		if (con != null && !con.isClosed()) con.close();
+		if (con != null && !con.isClosed()) {
+			try                 { getConexao().rollback();          } 
+			catch (Exception e) { Texto.logConsole(e.getMessage()); }
+			con.close();
+		}
 	}
 	
 	/**

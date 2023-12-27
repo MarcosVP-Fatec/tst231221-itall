@@ -15,41 +15,35 @@ Sucesso: Fundo Verde
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:if test="${msg_erro != null}">
+<!-- Mensagens de ERRO -->
+<div class="alert alert-danger alert-dismissible fade show local_msg animacao-surgir" 
+    id="msgErro" role="alert" style="display: none; margin-top: 10px;">
+	<strong><span><c:out value="${msg_erro}" /></span></strong>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 
-	<br />
-	<div class="alert alert-danger alert-dismissible fade show"
-		id="msgErro"
-		role="alert">
-		<strong><span><c:out value="${msg_erro}" /></span></strong>
-		<button type="button" class="btn-close" data-bs-dismiss="alert"
-			aria-label="Close"></button>
-	</div>
+<!-- Mensagens de ALERTA -->
+<div class="alert alert-warning alert-dismissible fade show local_msg animacao-surgir"
+	id="msgAlerta" role="alert" style="display: none; margin-top: 10px;">
+	<strong><span><c:out value="${msg_alerta}" /></span></strong>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 
+<!-- Mensagens de SUCESSO -->
+<div class="alert alert-success alert-dismissible fade show local_msg animacao-surgir"
+	id="msgSucesso"	role="alert" style="display: none; margin-top: 10px;">
+	<strong><span><c:out value="${msg_sucesso}" /></span></strong>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+ 
+<!-- Script que exibe as mensagens na abertura da tela -->
+<c:if test="${msg_erro != null}">  
+	<script>$("#msgErro").show();</script>
+</c:if>
+<c:if test="${msg_alerta != null}">  
+	<script>$("#msgAlerta").show();</script>
+</c:if>
+<c:if test="${msg_sucesso != null}">  
+	<script>$("#msgSucesso").show();</script>
 </c:if>
 
-<c:if test="${msg_alerta != null}">
-
-	<br />
-	<div class="alert alert-warning alert-dismissible fade show"
-		id="msgAlerta"
-		role="alert">
-		<strong><span><c:out value="${msg_alerta}" /></span></strong>
-		<button type="button" class="btn-close" data-bs-dismiss="alert"
-			aria-label="Close"></button>
-	</div>
-
-</c:if>
-
-<c:if test="${msg_sucesso != null}">
-
-	<br />
-	<div class="alert alert-success alert-dismissible fade show"
-		id="msgSucesso"
-		role="alert">
-		<strong><span><c:out value="${msg_sucesso}" /></span></strong>
-		<button type="button" class="btn-close" data-bs-dismiss="alert"
-			aria-label="Close"></button>
-	</div>
-
-</c:if>
