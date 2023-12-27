@@ -1,12 +1,1 @@
-br.com.itall
-br.com.itall.controller
-br.com.itall.controller.security
-br.com.itall.model
 br.com.itall.model.dao
-br.com.itall.model.dao.util
-br.com.itall.model.dto
-br.com.itall.model.entity
-br.com.itall.model.entity.cad
-br.com.itall.service
-br.com.itall.service.implement
-br.com.itall.tool

@@ -199,7 +199,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 * Método para exclusão de usuário
 	 * 
 	 * @param id (Long) Identificador do usuário
-	 * @throws SQLException 
+	 * @throws SQLException Tratamento de erros de SQL 
 	 */
 	public void del(Long id) throws SQLException {
 
