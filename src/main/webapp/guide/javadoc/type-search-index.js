@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"br.com.itall.model.dao","l":"UsuarioDAO"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"br.com.itall.service.implement","l":"UsuarioServiceImpl1"}];updateSearchResults();
