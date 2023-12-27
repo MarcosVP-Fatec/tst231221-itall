@@ -146,6 +146,7 @@ public class Data {
     /**
      * Converte <b>java.util.Date</b> => <b>LocalDateTime</b>  
      * @param data (java.util.Date)
+     * @return LocalDateTime
      */
     @SuppressWarnings("deprecation")
 	public static LocalDateTime dataToLocalDateTime( Date data ) {

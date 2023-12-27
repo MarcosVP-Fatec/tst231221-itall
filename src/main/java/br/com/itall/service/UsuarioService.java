@@ -42,6 +42,7 @@ public interface UsuarioService {
 	 * 
 	 * @param request (HttpServletRequest)
 	 * @param response (HttpServletResponse)
+	 * @return List&lt;UsuarioDTO&gt; Lista de usuários DTO para envio ao <i>Client</i>. 
 	 * @throws SQLException Trata erros de execução do SQL
 	 * @throws ServletException Trata erros de controller
 	 * @throws IOException Trata erros de IO

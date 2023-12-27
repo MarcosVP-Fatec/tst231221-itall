@@ -28,7 +28,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 * 
 	 * @param usuario (UsuarioModel)
 	 * @return UsuarioModel (Com o id já identificado)
-	 * @throws Exception 
+	 * @throws Exception Tratamento de erros em runtime da inclusão do usuário
 	 */
 	public UsuarioModel inc(UsuarioModel usuario) throws Exception {
 
