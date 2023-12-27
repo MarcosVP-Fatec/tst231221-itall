@@ -42,7 +42,7 @@ create table if not exists usuario (
       id                    bigint unsigned primary key auto_increment
     , nome                  varchar(80)     not null
     , email                 varchar(255)    not null
-    , senha                 varchar(80)     not null
+    , senha                 varchar(32)     not null
     , data_criacao    		timestamp		not null
     , constraint usuario_email_uk unique (email)
 );
@@ -50,5 +50,4 @@ create table if not exists usuario (
 create index usuario_nome_idx ON usuario (nome);
 create index usuario_email_idx ON usuario (email);
 
-select * from usuario;
--- drop table usuario;
+commit;

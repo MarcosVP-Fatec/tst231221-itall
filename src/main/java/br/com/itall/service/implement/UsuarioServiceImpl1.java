@@ -13,6 +13,7 @@ import br.com.itall.model.dao.UsuarioDAO;
 import br.com.itall.model.dto.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
+import br.com.itall.service.security.Criptografia;
 import br.com.itall.tool.Data;
 
 /**
@@ -71,6 +72,8 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			
 			if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
 			if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+			
+			usuario.setSenha(Criptografia.pwToMD5(usuario.getNome().trim()+usuario.getEmail().getDescription().trim()+usuario.getSenha().trim()));
 			
 			return usuarioDAO.inc(usuario);
 			
