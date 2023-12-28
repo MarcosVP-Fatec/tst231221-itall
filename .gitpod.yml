@@ -1,8 +1,11 @@
 ports:
 - port: 8080
+
 tasks:
-  - init: mysql < Reset.sql
+  - init: mysql < DDL.sql
+
 image: gitpod/workspace-mysql:latest
+
 vscode:
   extensions:
     - vscjava.vscode-java-pack
