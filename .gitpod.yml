@@ -1,5 +1,11 @@
+image: gitpod/workspace-full
+tasks:
+  - command: java --version
+  - init: mysql < DDL.sql
+
 ports:
 - port: 8080
-tasks:
-  - init: mysql < DDL.sql
-image: gitpod/workspace-mysql
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
