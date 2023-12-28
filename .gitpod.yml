@@ -1,11 +1,14 @@
-image: gitpod/workspace-full
-tasks:
-  - command: java --version
-  - init: mysql < DDL.sql
-
 ports:
 - port: 8080
-
+tasks:
+  - init: mysql < Reset.sql
+image: gitpod/workspace-mysql:latest
 vscode:
   extensions:
     - vscjava.vscode-java-pack
+    - redhat.java
+    - vscjava.vscode-java-debug
+    - vscjava.vscode-java-dependency
+    - vscjava.vscode-java-test
+    - vscjava.vscode-maven
+    - openjdk-8
