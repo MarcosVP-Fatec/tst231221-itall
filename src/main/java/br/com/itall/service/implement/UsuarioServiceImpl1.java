@@ -17,7 +17,6 @@ import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.service.security.Criptografia;
 import br.com.itall.tool.Data;
-import br.com.itall.tool.Texto;
 
 /**
  * Implementação nº 1 dos Serviços de UsuarioModel

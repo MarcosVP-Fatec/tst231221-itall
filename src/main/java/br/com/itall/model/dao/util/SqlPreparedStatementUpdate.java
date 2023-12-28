@@ -31,15 +31,18 @@ public class SqlPreparedStatementUpdate {
 	private List<Object> valores = new ArrayList<Object>();
 	
 	/**
-	 * @param origem
-	 * @param destino
-	 * @param sql
-	 * @return
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
+	 * Objeto que trata o SQL para o PreparedStatement rodar um update <br>
+	 * Vide o método principal.
+	 * 
+	 * @param origem (Object) 
+	 * @param destino (Object) 
+	 * @param sql (String)
+	 * @return SqlPreparedStatementUpdate
+	 * @throws IllegalAccessException Vide método principal
+	 * @throws IllegalArgumentException Vide método principal
+	 * @throws InvocationTargetException Vide método principal
+	 * @throws NoSuchMethodException Vide método principal
+	 * @throws SecurityException Vide método principal
 	 * @see #get(Object, Object, String, Object)
 	 */
 	public static SqlPreparedStatementUpdate get(Object origem, Object destino, String sql) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -49,22 +52,26 @@ public class SqlPreparedStatementUpdate {
 	/**
 	 * 
 	 * Objeto que trata o SQL para o PreparedStatement rodar um update <br>
-	 * Em uma tabela somente para os campos que tiveram alteração. <br>
-	 * Ao instanciar este objeto ele já faz o tratamento
+	 * Somente para os campos que tiveram alteração. <br>
+	 * Ao instanciar este objeto ele já faz o tratamento necessário<br>
+	 * Feito inicialmente para a entidade UsuarioModel
+	 * Ajustes podem ser necessários para novas implementações.
+	 * Os dois primeiros parâmetros precisam ser da mesma entidade. 
 	 * 
 	 * @author MarcosVP
 	 * @since 27/12/2023
 	 * @version 1.01.0
 	 * 
-	 * @param origem Object da entidade
-	 * @param destino Object da entidade
-	 * @param sql Expressão SQL do UPDATE
-	 * @return SqlPreparedStatementUpdate
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
+	 * @param origem (Object) Objeto da Entidade que está com as alterações
+	 * @param destino (Object) Objeto da Entidade do Banco de Dados.
+	 * @param sql Expressão SQL do UPDATE (Ex.: 'update usuario (SET) where id = ?')
+	 * @param id (Object) Utilizado para informar o id [Opcional]
+	 * @return SqlPreparedStatementUpdate Tratamento de erros da preparação do SQL.
+	 * @throws IllegalAccessException Tratamento de chamadas inválidas em <i>runtime</i>.
+	 * @throws IllegalArgumentException Tratamento de argumentos inválidos transmitidos em <i>runtime</i>.
+	 * @throws InvocationTargetException Tratamento de erros na identificação de métodos.
+	 * @throws NoSuchMethodException Tratamento de tentativa de evocar um método inexistente.
+	 * @throws SecurityException Tratamento de segurança
 	 */
 	public static SqlPreparedStatementUpdate get(Object origem, Object destino, String sql, Object id) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return new SqlPreparedStatementUpdate(origem, destino, sql, id);
