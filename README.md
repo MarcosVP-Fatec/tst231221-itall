@@ -17,6 +17,18 @@ MySQL|8.0.24|port: **3006**/db: **itall_dev**/user: **admin**/pw: **admin**
 * O arquivo .classpath.xml é uma cópia do .classpath utilizado no desenvolvimento
 * Utilizado Eclipse IDE 2023-12 rodando com Java 21.0.1 2023-10-17 LTS
 
+## Desenvolvimento
+Tópico|Caminho|
+:---|:---|
+Home|ITALL ou Home
+Usuário (Inclusão)|Usuário > Novo|
+Usuário (Lista)|Usuário > Lista
+Usuário (Alteração)|Usuário > Lista > **[Alterar]**
+Usuário (Exclusão)|Usuário > Lista > **[Excluir]**
+Manual Técnico|Ajuda > Manual Técnico (**JavaDoc**)
+
+
+
 ## Contatos
 English [Linked-In](https://www.linkedin.com/in/marcos-vinicio-pereira/?locale=en_US)  
 Portuguese [Linked-In](https://www.linkedin.com/in/marcos-vinicio-pereira/)  
@@ -25,6 +37,6 @@ Certificates [here](https://github.com/MarcosVP-Fatec/Certificados)
 
 
 > "É preciso amar as pessoas  
-> Como se não houvesse amanhã  
+> Como se não houvesse amanhã.  
 > Por que se você parar pra pensar  
-> Na verdade não há"  (Renato Russo)
+> Na verdade não há..."  (Renato Russo)
