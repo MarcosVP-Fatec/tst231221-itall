@@ -3,6 +3,8 @@
  */
 package br.com.itall.service.implement;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.service.security.Criptografia;
 import br.com.itall.tool.Data;
+import br.com.itall.tool.Texto;
 
 /**
  * Implementação nº 1 dos Serviços de UsuarioModel
@@ -41,13 +44,14 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
+			Boolean isMudarSenha = request.getParameter("isMudarSenha") != null; 
 			String senha = request.getParameter("senha");
+			if (senha == null) senha = "";
 			
 			String sData = request.getParameter("dataCriacao");
-			
 			LocalDateTime dataCriacao = (sData==null||sData.equals("")?null:Data.toDateTime(sData));
 			
-			return new UsuarioModel(id, nome, email, senha, dataCriacao);
+			return new UsuarioModel(id, nome, email, isMudarSenha, senha, dataCriacao);
 			
 		} catch (Exception e) {
 			return null;
@@ -56,32 +60,75 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioModel usuarioInc(UsuarioModel usuario) throws Exception {
+	public UsuarioModel usuarioAltInc(HttpServletRequest request, boolean isInc) throws Exception {
 		
+		UsuarioModel usuario = usuarioModelFromRequest(request);
+		
+		final String tipo = isInc ? "inclusão" : "alteração";
 		try {
 
-			if (usuario == null) throw new RuntimeException("Nenhum usuário foi informado para esta inclusão!");
-			if (usuario.getId() != null) throw new RuntimeException(String.format("Tentativa de incluir usuário com identificador informado!: %s", usuario.getId()));
-			if (usuario.getNome().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"nome\" em branco!");
+			if (usuario == null) throw new RuntimeException(String.format("Nenhum usuário foi informado para esta %s!", tipo));
 			
+			if (isInc) {
+				
+				if (usuario.getId() != null) throw new RuntimeException(String.format("Tentativa de incluir usuário com identificador informado: Id %s", usuario.getId()));
+				if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
+				if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+				
+			} else {
+				
+				if (usuario.getId() == null) throw new RuntimeException("Tentativa de alterar usuário sem identificador informado.");
+				/**
+				 * Para mudança de senha o usuário precisa confirmar sua senha anterior.
+				 */
+				if (usuario.isMudarSenha()) {
+					
+					String senhaAnterior = request.getParameter("senhaAnterior");
+					UsuarioModel usuOld = this.findById(usuario.getId());
+					
+					if (senhaAnterior.equals(usuario.getSenha())) {
+						throw new RuntimeException("Informe uma senha diferente para realizar a alteração!");
+					}
+					if (!criptSenha(usuario, senhaAnterior).equals(usuOld.getSenha()) ){
+						throw new RuntimeException("Senha atual inválida!");
+					}
+					if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
+					if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+				}
+				
+			}
+			
+			if (usuario.getNome().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"nome\" em branco!");
+
 			if (!usuario.getEmail().isValid()) {
 				throw new RuntimeException(usuario.getEmail().toMessages());
 			} else {
-				if (usuarioDAO.existByEmail(usuario.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", usuario.getEmail().getDescription()));
+				if (isInc) {
+					if (usuarioDAO.existByEmail(usuario.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", usuario.getEmail().getDescription()));
+				} else {
+					if (usuarioDAO.existByEmailOderUser(usuario.getEmail().getDescription(),usuario.getId())) throw new RuntimeException(String.format("O e-mail informado já existe para outro usuário: %s", usuario.getEmail().getDescription()));
+				}
 			}
 			
-			if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
-			if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+			if (!usuario.getSenha().isEmpty()) {
+				usuario.setSenha(this.criptSenha(usuario, usuario.getSenha()));
+			}
 			
-			usuario.setSenha(Criptografia.pwToMD5(usuario.getNome().trim()+usuario.getEmail().getDescription().trim()+usuario.getSenha().trim()));
-			
-			return usuarioDAO.inc(usuario);
+			if (isInc) {
+				return usuarioDAO.inc(usuario);
+			} else {
+				//Este ajuste é para não alterar a senha
+				if (usuario.getSenha().isEmpty()) {
+					usuario.setSenha(null);
+				}
+				return usuarioDAO.alt(usuario);
+			}
 			
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 
 		} catch (Exception e) {
-			final String msg = String.format("Falha inesperada ao incluir usuário: %s", e.getMessage());
+			final String msg = String.format("Falha inesperada na %s do usuário: %s", tipo, e.getMessage());
 			try {e.printStackTrace();} finally {}
 			throw new Exception(msg);
 		}
@@ -123,6 +170,21 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			throw new Exception(msg);
 		}
 		return usuario;
+	}
+
+	@Override
+	public UsuarioModel findById(Long id) throws SQLException {
+		return usuarioDAO.findById(id);
+	}
+
+	@Override
+	public String criptSenha(String nome, String email, String senha) throws NoSuchAlgorithmException {
+		return Criptografia.pwToMD5(nome.trim() + email.trim() + senha.trim() );
+	}
+
+	@Override
+	public String criptSenha(UsuarioModel usuario, String novaSenha) throws NoSuchAlgorithmException {
+		return this.criptSenha( usuario.getNome() , usuario.getEmail().getDescription() , novaSenha );
 	}
 
 }

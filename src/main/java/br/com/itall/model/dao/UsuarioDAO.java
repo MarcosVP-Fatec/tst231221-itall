@@ -11,6 +11,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import br.com.itall.model.dao.util.ConnectDAO;
+import br.com.itall.model.dao.util.SqlPreparedStatementUpdate;
 import br.com.itall.model.dto.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.tool.Texto;
@@ -44,7 +45,8 @@ public class UsuarioDAO extends ConnectDAO {
 			ps.setString(2, usuario.getEmail().getDescription());
 			ps.setString(3, usuario.getSenha());
 			ps.setTimestamp(4, Timestamp.valueOf(usuario.getDataCriacao()));
-
+			
+			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
 			int linhasAfetadas = ps.executeUpdate();
 			getConexao().commit();
@@ -71,6 +73,46 @@ public class UsuarioDAO extends ConnectDAO {
 	}
 
 	/**
+	 * Método para alteração de usuário
+	 * 
+	 * @param usuario (UsuarioModel)
+	 * @return UsuarioModel
+	 * @throws Exception Tratamento de erros em runtime da inclusão do usuário
+	 */
+	public UsuarioModel alt(UsuarioModel usuario) throws Exception {
+
+		try {
+			
+			String sql = "update usuario (SET) where id = ?";
+			
+			UsuarioModel usuDestino = findById(usuario.getId());
+			
+			SqlPreparedStatementUpdate psup = SqlPreparedStatementUpdate.get(usuario, usuDestino, sql, usuario.getId());
+			
+			sql = psup.getSqlExpression(); 
+
+			conectar();
+
+			PreparedStatement ps = getConexao().prepareStatement(sql);
+			
+			psup.multiSets(ps);
+
+			Texto.logSQL(ps);
+			getConexao().setAutoCommit(false);
+			ps.executeUpdate();
+			getConexao().commit();
+
+		} catch (Exception e) {
+			desconectar();
+			Texto.logConsole(e);
+			throw new RuntimeException(String.format("Erro inesperado na inclusão do usuário: %s",e.getMessage()));
+		}
+		
+		return usuario;
+
+	}
+
+	/**
 	 * Lista todos os usuários em ordem alfabética
 	 * 
 	 * @return List&lt;Usuario&gt;
@@ -84,6 +126,8 @@ public class UsuarioDAO extends ConnectDAO {
 
 		conectar();
 		PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		Texto.logSQL(ps);
 		getConexao().setAutoCommit(true);
 		ResultSet rs = ps.executeQuery();
 
@@ -122,6 +166,46 @@ public class UsuarioDAO extends ConnectDAO {
 
 			ps.setString(1, email.trim().toLowerCase());
 			
+			Texto.logSQL(ps);
+			getConexao().setAutoCommit(true);
+			boolean existe = ps.executeQuery().next(); 
+
+			ps.close();
+			desconectar();
+			
+			return existe;
+
+		} catch (Exception e) {
+			desconectar();
+			Texto.logConsole(e);
+			throw new RuntimeException(String.format("Erro inesperado na pesquisa do email \"%s\": %s",email,e.getMessage()));
+		}
+		
+	}
+
+	/**
+	 * Verifica se um determinado e-mail existe na tabela de usuários para outro usuário
+	 * 
+	 * @param email (String) Conta de e-ail
+	 * @param id (Long) Identificador do usuário atual
+	 * @return boolean
+	 * @throws SQLException Trata erros de execução SQL.
+	 */
+	public boolean existByEmailOderUser(String email, Long id) throws SQLException {
+		
+		try {
+			
+			final String sql = "select u.id from usuario u where u.id != ? and u.email = ?";
+
+			conectar();
+
+			PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			ps.setLong(1, id);
+			ps.setString(2, email.trim().toLowerCase());
+			
+			Texto.logSQL(ps);
+			getConexao().setAutoCommit(true);
 			boolean existe = ps.executeQuery().next(); 
 
 			ps.close();
@@ -158,6 +242,7 @@ public class UsuarioDAO extends ConnectDAO {
 
 			ps.setLong(1, id );
 			
+			Texto.logSQL(ps);
 			getConexao().setAutoCommit(true);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -182,9 +267,10 @@ public class UsuarioDAO extends ConnectDAO {
 	 */
 	public UsuarioModel usuarioModelFromResultSet(ResultSet rs) {
 		try {
-			return new UsuarioModel(rs.getLong("id")
+            return new UsuarioModel(rs.getLong("id")
 	                               ,rs.getString("nome")
 	                               ,rs.getString("email")
+	                               ,false
 	                               ,rs.getString("senha")
 	                               ,rs.getTimestamp("data_criacao").toLocalDateTime()
 	                               );

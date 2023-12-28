@@ -49,7 +49,7 @@ function msgShow(idName,msg) {
 		} else {
 			alert(msg);
 		}
-	} finally {
+	} catch (ignorar) {
 		alert(msg);	
 	} 
 }

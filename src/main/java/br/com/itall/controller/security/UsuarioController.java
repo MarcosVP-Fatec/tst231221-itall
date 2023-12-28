@@ -47,19 +47,27 @@ public class UsuarioController extends HttpServlet {
 		try {
 			switch (request.getParameter("opc")) {
 			case "usuarionovo":
-				usuarioNovo(request,response);
+				abrePaginaInclusaoUsuario(request,response);
 				break;
 				
-			case "usuarioinserir":
-				usuarioInc(request,response);
+			case "usuario_insert":
+				usuarioSqlInsert(request,response);
 				break;
 				
-			case "listarusuarios":
-				listAllUsuarios(request, response);
+			case "usuario_update":
+				usuarioSqlUpdate(request,response);
+				break;
+
+			case "usuarioslistar":
+				abrePaginaListaDeUsuarios(request, response);
 				break;	
 
-			case "removerusuario":
+			case "usuario_delete":
 				usuarioDel(request, response);
+				break;	
+
+			case "usuarioalterar":
+				abrePaginaAlteracaoUsuario(request, response);
 				break;	
 			}
 		} catch (Exception e) {
@@ -75,12 +83,30 @@ public class UsuarioController extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void usuarioNovo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		request.getRequestDispatcher("jsp/usr/usuario-novo.jsp")
+	private void abrePaginaInclusaoUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.reqAttibutes(request, null);
+		request.getRequestDispatcher("jsp/usr/usuario-cadastro.jsp")
 		       .forward(request, response);
 	}
 			
+	/**
+	 * @apiNote Abre a página de Cadastro de Usuário para Alteração
+	 * @param request (HttpServletRequest)
+	 * @param response (HttpServletResponse)
+	 * @throws ServletException
+	 * @throws IOException Tratamento de erros de IO
+	 * @throws SQLException Tratamento de erros em execução SQL
+	 */
+	private void abrePaginaAlteracaoUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+		
+		Long id = Long.valueOf(request.getParameter("id"));
+		UsuarioDTO dto = ( id == null || id == 0) ? new UsuarioDTO() : new UsuarioDTO( usuarioService.findById(id) ); 
+		this.reqAttibutes(request, dto);
+		request.getRequestDispatcher("jsp/usr/usuario-cadastro.jsp")
+		       .forward(request, response);
+		
+	}
+
 	/**
 	 * @apiNote Insere um novo usuário
 	 * @param request (HttpServletRequest)
@@ -89,32 +115,47 @@ public class UsuarioController extends HttpServlet {
 	 * @throws IOException
 	 * @throws SQLException 
 	 */
-	private void usuarioInc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	private void usuarioSqlInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	
 		try {
-	
-			usuarioService.usuarioInc(usuarioService.usuarioModelFromRequest(request));
+			usuarioService.usuarioAltInc(request, true);
 			request.setAttribute("msg_sucesso", "Novo usuário cadastrado com sucesso!");
-			
 		} catch (Exception e) {
 			request.setAttribute("msg_erro", e.getMessage());
-			
 		}
-		
-		request.getRequestDispatcher("jsp/usr/usuario-novo.jsp")
-	           .forward(request, response);
+		this.abrePaginaInclusaoUsuario(request, response);
 		
 	}
 
 	/**
-	 * Método de controle da visão de lista de usuário
+	 * @apiNote Altera dados de um novo usuário
+	 * @param request (HttpServletRequest)
+	 * @param response (HttpServletResponse)
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	private void usuarioSqlUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	
+		try {
+			usuarioService.usuarioAltInc(request, false);
+			request.setAttribute("msg_sucesso", "Usuário alterado com sucesso!");
+		} catch (Exception e) {
+			request.setAttribute("msg_erro", e.getMessage());
+		}
+		this.abrePaginaAlteracaoUsuario(request, response);
+		
+	}
+
+	/**
+	 * Método que abre a página de Lista de Usuários
 	 * 
 	 * @param request (HttpServletRequest)
 	 * @param response (HttpServletResponse)
 	 * @throws IOException Tratamento de erros de disco
 	 * @throws ServletException Tratamento de Erros de Servlet
 	 */
-	private void listAllUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void abrePaginaListaDeUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		List<UsuarioDTO> lista = new ArrayList<UsuarioDTO>();
 		
@@ -157,7 +198,24 @@ public class UsuarioController extends HttpServlet {
 			
 		}
 		
-		listAllUsuarios(request, response);
+		abrePaginaListaDeUsuarios(request, response);
 		
 	}
+	
+	/**
+	 * Função que gera os request.setAttribute dos campos da tela.<br>
+	 * Exemplo: request.setAttribute("fieldNome","Marcos");
+	 * @param request
+	 */
+	private void reqAttibutes(HttpServletRequest request, UsuarioDTO dto) {
+		
+		final boolean isInclu = dto == null || dto.getId() == null || dto.getId() == 0;
+		
+		request.setAttribute("acao_tela"  , isInclu ? "inc" : "alt"         );
+		request.setAttribute("fieldId"    , isInclu ? ""    : dto.getId()   );
+		request.setAttribute("fieldNome"  , isInclu ? ""    : dto.getNome() );
+		request.setAttribute("fieldEmail" , isInclu ? ""    : dto.getEmail());
+		
+	}
+	
 }

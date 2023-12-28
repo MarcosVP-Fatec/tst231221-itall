@@ -3,6 +3,7 @@ package br.com.itall.model.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.tool.Data;
 
 /**
@@ -22,6 +23,11 @@ public class UsuarioDTO {
     private Date dataCriacao;
 
     /**
+     * Construtor Básico
+     */
+    public UsuarioDTO() {}
+
+    /**
      * Construtor 
      *  
      * @param id (Long)
@@ -36,6 +42,19 @@ public class UsuarioDTO {
     	setEmail(email);
     	setDataCriacao(dataCriacao);
 	}
+    
+    /**
+     * Construtor 
+     * @param model (UsuarioModel)
+     */
+    public UsuarioDTO(UsuarioModel model) {
+    	setId(model.getId());
+    	setNome(model.getNome());
+    	setEmail(model.getEmail().getDescription());
+    	setDataCriacao(model.getDataCriacao());
+    	
+	}
+    
     
     /** @return id (Long) */
 	public Long getId() 									{ return id;    					}

@@ -15,7 +15,7 @@ public class Texto {
 	 * Este método não é para ficar permanente na aplicação.
 	 * @param texto (String) Mensagem que será impressa no console do servidor.
 	 */
-	public static void CONSOLE_LOG(Object texto) { System.out.println(texto); }
+	public static void CONSOLE_LOG(Object texto) { System.out.println(texto); } //Esta declaração é válida
 	
 	/**
 	 * Gera um log no console do servidor com data e hora local<br>
@@ -29,5 +29,14 @@ public class Texto {
 		} catch (Exception e) {}
 	}
 	
+	/**
+	 * Gera um log no console referente a SQL
+	 * @param sql (String) Sql que será armazenado
+	 */
+	public static void logSQL(Object sql) { 
+		try {
+			System.out.println(Data.dateMask("[yy-MM-dd hh:mm:ss,SSS] ") + sql);
+		} catch (Exception e) {}
+	}
 	
 }

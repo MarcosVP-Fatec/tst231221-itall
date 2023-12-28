@@ -27,10 +27,11 @@
 		<div class="row">
 			<div class="col">
 				<h2>Lista de Usuários</h2>
+				<jsp:include page="/jsp/include/mensagens.jsp" />
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th style="text-align: right;">Id</th>
 							<th>Nome</th>
 							<th>E-mail</th>
 							<th>Data Inclusão</th>
@@ -40,14 +41,16 @@
 					<tbody>
 						<c:forEach var="usu" items="${lista_usu}">
 							<tr>
-								<td><c:out value="${usu.id}" /></td>
+								<td style="text-align: right;"><c:out value="${usu.id}" /></td>
 								<td><c:out value="${usu.nome}" /></td>
 								<td><c:out value="${usu.email}" /></td>
 								<td><fmt:formatDate value="${usu.dataCriacao}" type="date" pattern="dd/MM/yyyy hh:mm" /></td>
 								<td> 																			
+									<a class="btn btn-outline-success btn-sm"
+									href="${pageContext.request.contextPath}/usr?opc=usuarioalterar&id=<c:out value="${usu.id}"/>">alterar</a>
 									<a class="btn btn-outline-danger btn-sm"
 									onclick="return confirm('Confirma a exclusão do usuário <c:out value="${usu.nome}"/> ?');"
-									href="${pageContext.request.contextPath}/usr?opc=removerusuario&id=<c:out value="${usu.id}"/>">excluir</a>
+									href="${pageContext.request.contextPath}/usr?opc=usuario_delete&id=<c:out value="${usu.id}"/>">excluir</a>
 								</td>
 								
 							</tr>
@@ -61,7 +64,6 @@
 				</div>
 
 			</div>
-			<jsp:include page="/jsp/include/mensagens.jsp" />
 		</div>
 	</div>
 

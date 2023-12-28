@@ -1,6 +1,8 @@
 package br.com.itall.model.entity.cad;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import br.com.itall.tool.Email;
 
@@ -17,7 +19,12 @@ import br.com.itall.tool.Email;
  */
 public class UsuarioModel {
 
-    private Long id;
+	/** Atributos para serem utilizados na automatização do Update */
+	private final List<String> attribs = Arrays.asList("nome,email,senha".split(",")); //,dataCriacao
+	/** Atributos para serem utilizados na automatização do Update */
+	private final List<String> fields = Arrays.asList("nome,email,senha".split(",")); //,data_criacao
+	
+	private Long id;
     
     /**
      * Tamanho do atributo "nome" (NOME) = 80 
@@ -36,6 +43,12 @@ public class UsuarioModel {
     private String senha;
     
     private LocalDateTime dataCriacao;
+    
+    /**
+     * Atributo transiente utilizado para alterar a senha.<br>
+     * Não é gravado no banco de dados
+     */
+    private Boolean isMudarSenha;
 
     /** Básico */
     public UsuarioModel() {}
@@ -43,15 +56,17 @@ public class UsuarioModel {
      * Parametrizado
      * @param id Identificador único
      * @param nome Nome completo do usuário
+     * @param isMudarSenha (Boolean)
      * @param email E-mail do usuário (Login do Sistema) 
      * @param senha Senha de acesso ao sistema
      * @param dataCriacao Data em que este registro foi criado
      */
-    public UsuarioModel(Long id, String nome, String email, String senha, LocalDateTime dataCriacao) {
+    public UsuarioModel(Long id, String nome, String email, Boolean isMudarSenha, String senha, LocalDateTime dataCriacao) {
 		super();
 		this.setId(id);
 		this.setNome(nome);
 		this.setEmail(email);
+		this.setIsMudarSenha(isMudarSenha);
 		this.setSenha(senha);
 		this.setDataCriacao(dataCriacao==null?LocalDateTime.now():dataCriacao);
 	}
@@ -109,6 +124,30 @@ public class UsuarioModel {
     /** @param dataCriacao (LocalDateTime) */
 	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+	/** @return isMudarSenha (Boolean) */
+	public Boolean isMudarSenha() {
+		return isMudarSenha;
+	}
+	/** @return isMudarSenha (Boolean) */
+	public Boolean getMudarSenha() {
+		return isMudarSenha();
+	}
+	/** @param isMudarSenha (Boolean) */
+	public void setIsMudarSenha(Boolean isMudarSenha) {
+		this.isMudarSenha = isMudarSenha;
+	}
+	/**
+	 * @return List&lt;String&gt; de nomes dos campos (Exceto o id)
+	 */
+	public List<String> getFields() {
+		return fields;
+	}
+	/**
+	 * @return List&lt;String&gt; de nomes de atributos (Exceto o id)
+	 */
+	public List<String> getAttribs() {
+		return attribs;
 	}
 
 }

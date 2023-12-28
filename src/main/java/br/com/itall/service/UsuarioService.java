@@ -1,6 +1,7 @@
 package br.com.itall.service;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,13 +30,14 @@ public interface UsuarioService {
 	public UsuarioModel usuarioModelFromRequest(HttpServletRequest request);
 
 	/**
-	 * Método que insere um novo usuário
+	 * Método que insere ou altera um usuário
 	 * 
-	 * @param usuario (UsuarioModel)
-	 * @return UsuarioModel que foi incluído com o id já identificado.
+	 * @param request (HttpServletRequest)
+	 * @param isInc (boolean) que indica se é inclusão (true) ou alteração (false)
+	 * @return UsuarioModel
 	 * @throws Exception Trata quaisquer erros que venham a ocorrer
 	 */
-	public UsuarioModel usuarioInc(UsuarioModel usuario) throws Exception;
+	public UsuarioModel usuarioAltInc(HttpServletRequest request, boolean isInc) throws Exception;
 	
 	/**
 	 * Lista todos os usuários em ordem alfabética
@@ -59,6 +61,34 @@ public interface UsuarioService {
 	 * @throws Exception Trata quaisquer erros que venham a ocorrer
 	 */
 	public UsuarioModel usuarioDel(Long id) throws Exception;
+	
+	/**
+	 * Método que gera um UsuarioModel pelo seu identificador
+	 * 
+	 * @param id (Long) identificador do usuário.
+	 * @return UsuarioModel
+	 * @throws SQLException Trata erros de execução SQL.
+	 */
+	public UsuarioModel findById(Long id) throws SQLException ;
+	
+	/**
+	 * Método padrão que criptografa uma senha
+	 * 
+	 * @param nome (String) Nome do Usuário
+	 * @param email (String) Email do Usuário
+	 * @param senha (String) Senha do Usuário
+	 * @return String (MD5)
+	 * @throws NoSuchAlgorithmException Trata erros ao calcular o hash da senha
+	 */
+	public String criptSenha(String nome, String email, String senha) throws NoSuchAlgorithmException;
 
-
+	/**
+	 * Método padrão que criptografa uma senha
+	 * 
+	 * @param usuario (UsuarioModel) 
+	 * @param novaSenha Nova Senha do Usuário
+	 * @return String (MD5)
+	 * @throws NoSuchAlgorithmException Trata erros ao calcular o hash da senha
+	 */
+	public String criptSenha(UsuarioModel usuario, String novaSenha) throws NoSuchAlgorithmException;
 }
