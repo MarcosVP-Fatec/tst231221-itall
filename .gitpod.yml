@@ -1,6 +1,10 @@
+image: gitpod/workspace-mysql:latest
+
+ports:
+- name: Aplicação
+  port: 8080
+  visibility: public
+
 tasks:
-  - command: echo 'left'
-    name: 'ANTES'
-  - command: echo 'right'
-    name: 'DEPOIS'
-    openMode: split-right
+  - init: mysql < DDL.sql
+
