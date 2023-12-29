@@ -1,17 +1,33 @@
-ports:
-- port: 8080
-
-tasks:
-  - init: mysql < DDL.sql
-
 image: gitpod/workspace-mysql:latest
 
-vscode:
-  extensions:
-    - vscjava.vscode-java-pack
-    - redhat.java
-    - vscjava.vscode-java-debug
-    - vscjava.vscode-java-dependency
-    - vscjava.vscode-java-test
-    - vscjava.vscode-maven
-    - openjdk-8
+ports:
+- name: Aplicação
+  port: 8080
+  visibility: public
+  #protocol: https
+
+- name: MySQL
+  port: 3306
+  visibility: private
+
+tasks:
+  
+  # Abre um terminal executando o DDL.sql no MySQL para criar as tabelas 
+  - name: MySQL
+    init: mysql < DDL.sql &&  
+          mysql itall_dev #Executa o MySQL já no banco de dados
+
+  - command: echo 'sem openMode'
+
+  - command: echo 'split-left'
+    openMode: split-left
+
+  - command: echo 'split-right'
+    openMode: split-right
+
+  - command: echo 'after'
+    openMode: tab-after
+
+  - command: echo 'before'
+    openMode: tab-before
+    
