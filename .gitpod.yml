@@ -18,8 +18,9 @@ tasks:
     init: |
       PS1='$ '
       clear
-      wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.70/bin/apache-tomcat-8.5.70.tar.gz
-      tar -xzvf apache-tomcat-8.5.70.tar.gz
+      wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.70/bin/apache-tomcat-8.5.70.tar.gz -P ~
+      tar -xzvf ~/apache-tomcat-8.5.70.tar.gz -C ~
+      rm ~/apache-tomcat-8.5.70.tar.gz
       export CATALINA_HOME=$HOME/apache-tomcat-8.5.70
       export PATH=$CATALINA_HOME/bin:$PATH
       sudo apt-get update
