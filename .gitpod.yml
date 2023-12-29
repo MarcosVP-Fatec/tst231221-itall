@@ -12,7 +12,6 @@ ports:
   visibility: private
 
 tasks:
-  # Instala o Java 1.8 e muda o ambiente para esta versão
   - name: Server
     init: |
       clear
