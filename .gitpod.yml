@@ -13,15 +13,23 @@ image: gitpod/workspace-mysql:latest
 
 tasks:
   # Instala o Java 1.8 e muda o ambiente para esta versão
-  - init: |
+  - name: Down Java 1.8
+    openMode: split-left
+    init: |
       PS1='$ '
+      clear
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk  
       export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
       export PATH=$JAVA_HOME/bin:$PATH  
+      echo "-----------------------------------------"
+      echo "Subindo a aplicação..."
+      echo "-----------------------------------------"
+      mvn clean package
 
   #Cria as tabelas no banco de dados e abre o MySql
   - name: MySQL
+    openMode: split-right
     init: |
       clear
       echo "-----------------------------------------"
@@ -33,9 +41,11 @@ tasks:
       echo "Criando as tabelas..."
       mysql < DDL.sql
       echo "Tabelas criadas."
+      sleep 2
 
   # Exibe as tabelas criadas no banco
-  - command: |
+  - openMode: split-right
+    command: |
       PS1='(Digite "mysql ital_dev" para entrar):$ '
       clear
       echo "-----------------------------------------"
