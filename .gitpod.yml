@@ -11,17 +11,6 @@ ports:
   onOpen: ignore
   visibility: private
 
-tasks:
-  # Instala o Java 1.8 e muda o ambiente para esta versão
-  - name: Server
-    init: |
-      clear
-      echo "-----------------------------------------"
-      echo "Instalando o Java 8...
-      echo "-----------------------------------------"
-      sudo apt-get update
-
-# Estas extensões são reclamadas pelo ambiente se usado o vscode.
 vscode:
   extensions:
     - vscjava.vscode-java-pack
