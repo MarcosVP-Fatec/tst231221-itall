@@ -14,6 +14,7 @@ image: gitpod/workspace-mysql:latest
 tasks:
   # Instala o Java 1.8 e muda o ambiente para esta versão
   - init: |
+      PS1='$ '
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk  
       export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -22,22 +23,24 @@ tasks:
   #Cria as tabelas no banco de dados e abre o MySql
   - name: MySQL
     init: |
-      echo -e "-----------------------------------------"
-      echo -e "Aguardando o MySQL subir..."
-      echo -e "-----------------------------------------"
+      clear
+      echo "-----------------------------------------"
+      echo "Aguardando o MySQL subir..."
+      echo "-----------------------------------------"
       while ! mysqladmin ping -h localhost --silent; do 
           sleep 1
       done
-      echo -e "Criano as tabelas..."
+      echo "Criando as tabelas..."
       mysql < DDL.sql
+      echo "Tabelas criadas."
 
   # Exibe as tabelas criadas no banco
   - command: |
-      PS1='(Digite "mysql" para entrar):$ '
+      PS1='(Digite "mysql ital_dev" para entrar):$ '
       clear
-      echo -e "-----------------------------------------"
-      echo -e "Aguardando a criação das tabelas..."
-      echo -e "-----------------------------------------"
+      echo "-----------------------------------------"
+      echo "Aguardando a criação das tabelas..."
+      echo "-----------------------------------------"
       while ! mysqladmin ping -h localhost --silent; do 
           sleep 5
       done
