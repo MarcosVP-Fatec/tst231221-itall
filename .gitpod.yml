@@ -12,6 +12,18 @@ ports:
 image: gitpod/workspace-mysql:latest
 
 tasks:
+  # Instala o Java 1.8 e muda o ambiente para esta versão
+  - name: Server
+    init: |
+      clear
+      echo "-----------------------------------------"
+      echo "Instalando o Java 8...
+      echo "-----------------------------------------"
+      sudo apt-get update
+      sudo apt-get install -y openjdk-8-jdk  
+      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+      export PATH=$JAVA_HOME/bin:$PATH  
+  
   # Exibe as tabelas criadas no banco
   - openMode: split-left
     name: MySQL
@@ -30,36 +42,6 @@ tasks:
       done
       clear
       mysql itall_dev
-
-  # Instala o Java 1.8 e muda o ambiente para esta versão
-  - name: Server
-    openMode: split-right
-    init: |
-      clear
-      echo "-----------------------------------------"
-      echo "Instalando o Java 8...
-      echo "-----------------------------------------"
-      sudo apt-get update
-      sudo apt-get install -y openjdk-8-jdk  
-      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-      export PATH=$JAVA_HOME/bin:$PATH  
-      echo "-----------------------------------------"
-      echo "Aguardando o MySQL subir..."
-      echo "-----------------------------------------"
-      while ! mysqladmin ping -h localhost --silent; do 
-          sleep 1
-      done
-      echo "-----------------------------------------"
-      echo "Criando as tabelas no banco de dados..."
-      echo "-----------------------------------------"
-      mysql < DDL.sql
-      echo "Tabelas criadas."
-      sudo touch /usr/lib/jvm/java-8-openjdk-amd64/tabelas_criadas
-      echo "-----------------------------------------"
-      echo "Subindo a aplicação..."
-      echo "-----------------------------------------"
-      mvn clean package
-
 
 # Estas extensões são reclamadas pelo ambiente se usado o vscode.
 vscode:
