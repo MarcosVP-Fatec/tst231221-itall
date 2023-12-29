@@ -12,8 +12,7 @@ ports:
   visibility: private
 
 tasks:
-  - init: mysql < DDL.sql
-
+  # Instala o Java 1.8 e o TomCat 8.5
   - init: |
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk  
