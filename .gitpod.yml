@@ -1,4 +1,6 @@
 tasks:
   - command: echo 'left'
+    name: 'ANTES'
   - command: echo 'right'
+    name: 'DEPOIS'
     openMode: split-right
