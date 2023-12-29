@@ -1,3 +1,5 @@
+image: gitpod/workspace-mysql:latest
+
 ports:
 - port: 8080
   name: WebSite
@@ -9,5 +11,4 @@ ports:
   onOpen: ignore
   visibility: private
 
-image: gitpod/workspace-mysql:latest
 
