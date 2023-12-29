@@ -55,14 +55,14 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.16.0</version>
 		</dependency>
+		<!-- TomCat 8.5.97-->
+    	<dependency>
+        	<groupId>org.apache.tomcat</groupId>
+        	<artifactId>tomcat-catalina</artifactId>
+        	<version>8.5.97</version>
+        	<scope>provided</scope>
+    	</dependency>
 	</dependencies>
-	<!-- TomCat 8.5.97-->
-    <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-catalina</artifactId>
-        <version>8.5.97</version>
-        <scope>provided</scope>
-    </dependency>
 	<build>
 		<plugins>
 			<plugin>
