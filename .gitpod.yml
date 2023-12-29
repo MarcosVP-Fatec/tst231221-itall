@@ -17,7 +17,15 @@ tasks:
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk  
       export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-      export PATH=$JAVA_HOME/bin:$PATH      
+      export PATH=$JAVA_HOME/bin:$PATH  
+
+  #Cria as tabels no banco de dados e abre o MySql
+  - name: MySQL
+    init: mysql < DDL.sql
+
+  #Executa o MySQ, abre o banco de dados da aplicação e exibe as tabelas criadas
+  - command: mysql itall_dev -e "show tables"
+
 
 vscode:
   extensions:
