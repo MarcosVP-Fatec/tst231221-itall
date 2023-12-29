@@ -43,12 +43,3 @@ tasks:
       clear
       mysql itall_dev
 
-# Estas extensões são reclamadas pelo ambiente se usado o vscode.
-vscode:
-  extensions:
-    - vscjava.vscode-java-pack
-    - redhat.java
-    - vscjava.vscode-java-debug
-    - vscjava.vscode-java-dependency
-    - vscjava.vscode-java-test
-    - vscjava.vscode-maven
