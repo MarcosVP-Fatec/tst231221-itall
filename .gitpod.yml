@@ -14,7 +14,6 @@ image: gitpod/workspace-mysql:latest
 tasks:
   # Instala o Java 1.8 e muda o ambiente para esta versão
   - name: Down Java 1.8
-    openMode: split-left
     init: |
       PS1='$ '
       clear
@@ -29,7 +28,7 @@ tasks:
 
   #Cria as tabelas no banco de dados e abre o MySql
   - name: MySQL
-    openMode: split-right
+    openMode: split-left
     init: |
       clear
       echo "-----------------------------------------"
@@ -41,7 +40,9 @@ tasks:
       echo "Criando as tabelas..."
       mysql < DDL.sql
       echo "Tabelas criadas."
+      sudo touch /usr/lib/jvm/java-8-openjdk-amd64/tabelas_criadas
       sleep 2
+      exit
 
   # Exibe as tabelas criadas no banco
   - openMode: split-right
@@ -51,8 +52,12 @@ tasks:
       echo "-----------------------------------------"
       echo "Aguardando a criação das tabelas..."
       echo "-----------------------------------------"
-      while ! mysqladmin ping -h localhost --silent; do 
-          sleep 5
+      while true; do
+        if [ -f arquivo.txt ]; then
+          break
+        else
+          sleep 1
+        fi
       done
       clear
       mysql itall_dev -e "show tables"
