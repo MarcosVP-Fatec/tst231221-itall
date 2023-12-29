@@ -13,24 +13,10 @@ ports:
 
 tasks:
   - init: |
-      clear
-      echo "-----------------------------------------"
-      echo "Instalando o Java 8...
-      echo "-----------------------------------------"
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk
       export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
       export PATH=$JAVA_HOME/bin:$PATH
-      echo "-----------------------------------------"
-      echo "Aguardando o MySQL subir..."
-      echo "-----------------------------------------"
-      while ! mysqladmin ping -h localhost --silent; do
-          sleep 1
-      done
-      echo "-----------------------------------------"
-      echo "Criando as tabelas no banco de dados..."
-      echo "-----------------------------------------"
-      mysql < DDL.sql
 
 vscode:
   extensions:
