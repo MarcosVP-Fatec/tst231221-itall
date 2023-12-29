@@ -13,7 +13,6 @@ image: gitpod/workspace-mysql:latest
 
 tasks:
   # Instala o Java 1.8 e muda o ambiente para esta versão
-  # Instala o tomcat 8.5
   - name: DownJava8
     init: |
       clear
