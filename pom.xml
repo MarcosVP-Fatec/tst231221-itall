@@ -106,12 +106,22 @@
             	<groupId>org.eclipse.jetty</groupId>
             	<artifactId>jetty-maven-plugin</artifactId>
             	<version>9.4.44.v20210927</version> 
-            	<configuration>
-	                <webApp>
-                    	<contextPath>/itall</contextPath>
-                	</webApp>
-            	</configuration>
-        	</plugin>
+<configuration>
+                <webApp>
+                    <contextPath>/itall</contextPath>
+                </webApp>
+                <systemProperties>
+                    <systemProperty>
+                        <name>org.eclipse.jetty.util.log.DEBUG</name>
+                        <value>true</value>
+                    </systemProperty>
+                </systemProperties>
+                <jvmArgs>
+                    <jvmArg>-Xdebug</jvmArg>
+                    <jvmArg>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArg>
+                </jvmArgs>
+            </configuration>
+			        	</plugin>
 		</plugins>
 	</build>
 </project>
