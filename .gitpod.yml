@@ -20,44 +20,6 @@ tasks:
       echo "Instalando o Java 8...
       echo "-----------------------------------------"
       sudo apt-get update
-      sudo apt-get install -y openjdk-8-jdk
-      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-      export PATH=$JAVA_HOME/bin:$PATH
-      echo "-----------------------------------------"
-      echo "Aguardando o MySQL subir..."
-      echo "-----------------------------------------"
-      while ! mysqladmin ping -h localhost --silent; do
-          sleep 1
-      done
-      echo "-----------------------------------------"
-      echo "Criando as tabelas no banco de dados..."
-      echo "-----------------------------------------"
-      mysql < DDL.sql
-      echo "Tabelas criadas."
-      sudo touch /usr/lib/jvm/java-8-openjdk-amd64/tabelas_criadas
-      echo "-----------------------------------------"
-      echo "Subindo a aplicação..."
-      echo "-----------------------------------------"
-      mvn clean package
-
-  # Exibe as tabelas criadas no banco
-  - openMode: split-left
-    name: MySQL
-    command: |
-      PS1='MySQL:$ '
-      clear
-      echo "-----------------------------------------"
-      echo "Aguardando a criação das tabelas..."
-      echo "-----------------------------------------"
-      while true; do
-        if [ -f /usr/lib/jvm/java-8-openjdk-amd64/tabelas_criadas ]; then
-          break
-        else
-          sleep 1
-        fi
-      done
-      clear
-      mysql itall_dev
 
 # Estas extensões são reclamadas pelo ambiente se usado o vscode.
 vscode:
