@@ -12,8 +12,7 @@ ports:
   visibility: private
 
 tasks:
-  - name: Server
-    init: |
+  - init: |
       clear
       echo "-----------------------------------------"
       echo "Instalando o Java 8...
