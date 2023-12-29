@@ -22,15 +22,26 @@ tasks:
   #Cria as tabelas no banco de dados e abre o MySql
   - name: MySQL
     init: |
+      echo -e "-----------------------------------------"
+      echo -e "Aguardando o MySQL subir..."
+      echo -e "-----------------------------------------"
       while ! mysqladmin ping -h localhost --silent; do 
           sleep 1
       done
+      echo -e "Criano as tabelas..."
       mysql < DDL.sql
 
-  #1) Executa o MySQL
-  #2) Abre o banco de dados da aplicação
-  #3) Exibe as tabelas criadas
+  # Exibe as tabelas criadas no banco
   - command: |
+      PS1='(Digite "mysql" para entrar):$ '
+      clear
+      echo -e "-----------------------------------------"
+      echo -e "Aguardando a criação das tabelas..."
+      echo -e "-----------------------------------------"
+      while ! mysqladmin ping -h localhost --silent; do 
+          sleep 5
+      done
+      clear
       mysql itall_dev -e "show tables"
 
 # Estas extensões são reclamadas pelo ambiente se usado o vscode.
