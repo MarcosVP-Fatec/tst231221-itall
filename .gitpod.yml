@@ -1,11 +1,6 @@
 tasks:
-  - command: echo 'sem openMode'
-  - command: echo 'split-left'
-    openMode: split-left
-  - command: echo 'split-right'
-    openMode: split-right
-  - command: echo 'after'
-    openMode: tab-after
-  - command: echo 'before'
-    openMode: tab-before
-    
+    - command: echo 'left'
+    - command: echo 'right'
+      openMode: split-right
+    - command: echo 'after'
+      openMode: tab-after
