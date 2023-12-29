@@ -1,19 +1,15 @@
 image: gitpod/workspace-mysql:latest
 
 ports:
-- name: WebSite
-  port: 8080
+- port: 8080
+  name: WebSite
   onOpen: open-browser
   visibility: public
-
-- name: MySQL
-  port: 3306
-  onOpen: open-preview
-  visibility: private
 
 tasks:
   # Instala o Java 1.8 e o TomCat 8.5
   - init: |
+      
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk  
       export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
