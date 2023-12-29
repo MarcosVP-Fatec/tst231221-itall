@@ -108,7 +108,7 @@
             	<version>9.4.44.v20210927</version> 
             	<configuration>
 	                <webApp>
-                    	<contextPath>/</contextPath>
+                    	<contextPath>/itall</contextPath>
                 	</webApp>
             	</configuration>
         	</plugin>
