@@ -1,6 +1,4 @@
 tasks:
   - command: echo 'left'
-    name: LEFT
   - command: echo 'right'
-    name: RIGHT
     openMode: split-right
