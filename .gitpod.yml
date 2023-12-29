@@ -11,33 +11,3 @@ ports:
 
 image: gitpod/workspace-mysql:latest
 
-tasks:
-  - name: Server
-    init: |
-      clear
-      echo "-----------------------------------------"
-      echo "Instalando o Java 8...
-      echo "-----------------------------------------"
-      sudo apt-get update
-      sudo apt-get install -y openjdk-8-jdk  
-      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-      export PATH=$JAVA_HOME/bin:$PATH  
-  
-  - openMode: split-left
-    name: MySQL
-    command: |
-      PS1='MySQL:$ '
-      clear
-      echo "-----------------------------------------"
-      echo "Aguardando a criação das tabelas..."
-      echo "-----------------------------------------"
-      while true; do
-        if [ -f /usr/lib/jvm/java-8-openjdk-amd64/tabelas_criadas ]; then
-          break
-        else
-          sleep 1
-        fi
-      done
-      clear
-      mysql itall_dev
-
