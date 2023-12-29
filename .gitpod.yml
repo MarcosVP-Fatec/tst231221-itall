@@ -1,10 +1,15 @@
-image: gitpod/workspace-mysql:latest
-
 ports:
 - port: 8080
   name: WebSite
   onOpen: open-browser
   visibility: public
+
+- port: 3306
+  name: MySQL
+  onOpen: ignore
+  visibility: private
+
+image: gitpod/workspace-mysql:latest
 
 tasks:
   # Instala o Java 1.8 e o TomCat 8.5
