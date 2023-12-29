@@ -12,7 +12,6 @@ ports:
 image: gitpod/workspace-mysql:latest
 
 tasks:
-  # Instala o Java 1.8 e muda o ambiente para esta versão
   - name: Server
     init: |
       clear
@@ -24,7 +23,6 @@ tasks:
       export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
       export PATH=$JAVA_HOME/bin:$PATH  
   
-  # Exibe as tabelas criadas no banco
   - openMode: split-left
     name: MySQL
     command: |
