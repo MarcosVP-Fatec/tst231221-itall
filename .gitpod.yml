@@ -1,10 +1,15 @@
 image: gitpod/workspace-mysql:latest
 
 ports:
-- name: Aplicação
+- name: Aplicação (FrontEnd)
   port: 8080
   onOpen: open-preview
   visibility: public
+
+- name: MySQL
+  port: 3306
+  onOpen: notify
+  visibility: private
 
 tasks:
   - init: mysql < DDL.sql
@@ -12,6 +17,8 @@ tasks:
   - init: |
       sudo apt-get update
       sudo apt-get install -y openjdk-8-jdk  
+      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+      export PATH=$JAVA_HOME/bin:$PATH      
 
 vscode:
   extensions:
