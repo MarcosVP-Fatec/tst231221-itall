@@ -1,6 +1,6 @@
 tasks:
-    - command: echo 'left'
-    - command: echo 'right'
-      openMode: split-right
-    - command: echo 'after'
-      openMode: tab-after
+  - command: echo 'left'
+    name: LEFT
+  - command: echo 'right'
+    name: RIGHT
+    openMode: split-right
