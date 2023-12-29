@@ -1,14 +1,14 @@
 image: gitpod/workspace-mysql:latest
 
 ports:
-- name: Aplicação (FrontEnd)
+- name: WebSite
   port: 8080
-  onOpen: open-preview
+  onOpen: open-browser
   visibility: public
 
 - name: MySQL
   port: 3306
-  onOpen: notify
+  onOpen: open-preview
   visibility: private
 
 tasks:
@@ -23,10 +23,12 @@ tasks:
   - name: MySQL
     init: mysql < DDL.sql
 
-  #Executa o MySQ, abre o banco de dados da aplicação e exibe as tabelas criadas
+  #1) Executa o MySQL
+  #2) Abre o banco de dados da aplicação
+  #3) Exibe as tabelas criadas
   - command: mysql itall_dev -e "show tables"
 
-
+# Estas extensões são reclamadas pelo ambiente se usado o vscode.
 vscode:
   extensions:
     - vscjava.vscode-java-pack
