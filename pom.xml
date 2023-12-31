@@ -84,7 +84,7 @@
             	<version>3.0</version>
 				<executions>
 					<execution>
-						<id>tomcat-run</id>
+						<id>tomcat8-run</id>
 						<goals>
 							<goal>run</goal>
 						</goals>
