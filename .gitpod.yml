@@ -44,6 +44,11 @@ tasks:
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
       sudo touch ~/tabelas_criadas
+      echo
+      echo ------------------------------------------------------------------------
+      echo Compilando o projeto...
+      echo ------------------------------------------------------------------------
+      mvn clean package
 
 
   - command: |
@@ -61,7 +66,7 @@ tasks:
       done
       clear
       mysql itall_dev -e "show tables"
-      echo Digite >> "mysql ital_dev" para entrar
+      echo Digite "mysql ital_dev" para entrar
     name: MySQL
       
 vscode:
