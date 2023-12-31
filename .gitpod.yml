@@ -44,8 +44,7 @@ tasks:
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
 
-  - openMode: split-right
-    command: PS1='(Digite "mysql ital_dev" para entrar):$ '
+  - command: PS1='(Digite "mysql ital_dev" para entrar):$ '
 
       
 vscode:
