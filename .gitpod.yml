@@ -44,7 +44,9 @@ tasks:
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
 
-  - command: PS1='(Digite "mysql ital_dev" para entrar):$ '
+  - command: |
+      PS1='(Digite "mysql ital_dev" para entrar):$ '
+      clear
 
       
 vscode:
