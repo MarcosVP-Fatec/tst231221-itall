@@ -45,13 +45,11 @@ tasks:
       mysql < DDL.sql
 
   - command: |
-      PS1='(MySQL):$ '
+      PS1='(MySQL) $ '
       clear
       echo Digite "mysql ital_dev" para entrar
     name: MySQL
     openIn: right
-    openMode: split-right
-
       
 vscode:
   extensions:
