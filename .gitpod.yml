@@ -43,13 +43,26 @@ tasks:
       echo Criando as tabelas no banco de dados...
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
+      sudo touch ~/tabelas_criadas
+
 
   - command: |
       PS1='(MySQL) $ '
       clear
-      echo Digite "mysql ital_dev" para entrar
+      echo -----------------------------------------
+      echo Aguardando a criação das tabelas...
+      echo -----------------------------------------
+      while true; do
+        if [ -f ~/tabelas_criadas ]; then
+          break
+        else
+          sleep 1
+        fi
+      done
+      clear
+      mysql itall_dev -e "show tables"
+      echo Digite >> "mysql ital_dev" para entrar
     name: MySQL
-    openIn: right
       
 vscode:
   extensions:
