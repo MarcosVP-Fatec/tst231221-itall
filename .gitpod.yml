@@ -48,8 +48,9 @@ tasks:
       PS1='(MySQL):$ '
       clear
       echo Digite "mysql ital_dev" para entrar
+    name: MySQL
     openIn: right
-    openMode: tab-after
+    openMode: split-right
 
       
 vscode:
