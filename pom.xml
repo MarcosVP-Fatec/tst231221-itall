@@ -92,6 +92,7 @@
 						<configuration>
 							<port>8080</port>
 							<path>/itall</path>
+							<prefix>tomcat8</prefix>
 						</configuration>
 					</execution>
             	</executions>
