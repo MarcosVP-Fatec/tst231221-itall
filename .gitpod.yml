@@ -45,7 +45,7 @@ tasks:
       mysql < DDL.sql
 
   - openMode: split-right
-    command: mysql itall_dev -e "show tables"
+    command: PS1='(Digite "mysql ital_dev" para entrar):$ '
 
       
 vscode:
