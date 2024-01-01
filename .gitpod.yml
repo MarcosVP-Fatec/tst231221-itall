@@ -5,6 +5,7 @@ ports:
   name: WebSite
   onOpen: open-browser
   visibility: public
+  protocol: http
 
 - port: 3306
   name: MySQL
