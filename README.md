@@ -1,5 +1,5 @@
-# Marcos Vinicio Pereira
-## Teste de Java - ITALL [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/MarcosVP-Fatec/tst231221-itall/tree/master)
+# Marcos Vinicio Pereira | Teste de Java - ITALL
+[(Como abrir pelo ![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod))](https://github.com/MarcosVP-Fatec/tst231221-itall/blob/master/GITPOD.md)
 
 ## Ambiente (Demais dependências estão no pom.xml)
 
