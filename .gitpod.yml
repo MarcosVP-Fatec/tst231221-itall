@@ -15,6 +15,24 @@ tasks:
   - name: WebServer
     init: |
       echo ------------------------------------------------------------------------
+      echo Enviroments Variables
+      echo ------------------------------------------------------------------------
+      echo export VSTOMCAT='apache-tomcat-8.5.97'                 >> ~/.bachrc
+      echo export CATALINA_HOME=/workspace/apache-tomcat-8.5.97   >> ~/.bachrc
+      echo export CATALINA_BASE=$CATALINA_HOME                    >> ~/.bachrc
+      echo export PATH=$CATALINA_HOME/bin:$PATH                   >> ~/.bachrc
+      echo export CATALINA_TMPDIR=$CATALINA_HOME/temp             >> ~/.bachrc
+      echo export CLASSPATH=$CATALINA_HOME/bin/bootstrap.jar;$CATALINA_HOME/bin/tomcat-juli.jar >> ~/.bachrc
+      echo export MAVEN_OPTS=-Dfile.encoding=UTF-8                >> ~/.bachrc
+      echo export CATALINA_OPTS=-Dfile.encoding=UTF-8             >> ~/.bachrc
+      echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64     >> ~/.bachrc
+      echo export JRE_HOME=$JAVA_HOME                             >> ~/.bachrc
+      echo export PATH=$JAVA_HOME/bin:$PATH                       >> ~/.bachrc  
+      source ~/.bashrc
+      sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
+      sudo chmod 777 "$CATALINA_HOME/bin/tomcat-juli.jar"
+
+      echo ------------------------------------------------------------------------
       echo Instaling Tomcat 8.5.97
       echo ------------------------------------------------------------------------
       wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.97/bin/apache-tomcat-8.5.97.tar.gz -P /workspace
@@ -36,7 +54,7 @@ tasks:
       mysql < DDL.sql
       sudo touch ~/tabelas_criadas
       echo
-      ./startweb.sh
+      echo "./startweb.sh"
 
   - command: |
       PS1='(MySQL) $ '
