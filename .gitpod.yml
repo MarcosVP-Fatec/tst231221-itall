@@ -24,6 +24,8 @@ tasks:
       wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.97/bin/apache-tomcat-8.5.97.tar.gz -P /workspace
       tar -xzvf /workspace/apache-tomcat-8.5.97.tar.gz -C /workspace
       rm /workspace/apache-tomcat-8.5.97.tar.gz
+      #Alteração para executar a aplicação da raiz
+      sudo cp ./tomcat_server.xml /workspace/apache-tomcat-8.5.97/conf/server.xml
 
       echo
       echo ------------------------------------------------------------------------
