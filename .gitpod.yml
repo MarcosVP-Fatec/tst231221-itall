@@ -17,9 +17,9 @@ tasks:
       echo ------------------------------------------------------------------------
       echo Enviroments Variables
       echo ------------------------------------------------------------------------
-      echo "export VSTOMCAT='apache-tomcat-8.5.97'"                 >> ~/.bashrc
-      echo "export CATALINA_HOME=/workspace/apache-tomcat-8.5.97"   >> ~/.bashrc
-      echo "export CATALINA_BASE=%CATALINA_HOME%"                   >> ~/.bashrc
+      echo export VSTOMCAT='apache-tomcat-8.5.97'                 >> ~/.bashrc
+      echo export CATALINA_HOME=/workspace/apache-tomcat-8.5.97   >> ~/.bashrc
+      echo export CATALINA_BASE=/workspace/apache-tomcat-8.5.97   >> ~/.bashrc
       source ~/.bashrc
       
       sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
