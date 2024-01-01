@@ -19,15 +19,15 @@ tasks:
       echo ------------------------------------------------------------------------
       echo "export VSTOMCAT='apache-tomcat-8.5.97'"                 >> ~/.bashrc
       echo "export CATALINA_HOME=/workspace/apache-tomcat-8.5.97"   >> ~/.bashrc
-      echo "export CATALINA_BASE=$CATALINA_HOME"                    >> ~/.bashrc
-      echo "export PATH=$CATALINA_HOME/bin:$PATH"                   >> ~/.bashrc
-      echo "export CATALINA_TMPDIR=$CATALINA_HOME/temp"             >> ~/.bashrc
-      echo "export CLASSPATH=$CATALINA_HOME/bin/bootstrap.jar;$CATALINA_HOME/bin/tomcat-juli.jar" >> ~/.bashrc
+      echo "export CATALINA_BASE=%CATALINA_HOME%"                   >> ~/.bashrc
+      echo "export PATH=%CATALINA_HOME%/bin:$PATH"                  >> ~/.bashrc
+      echo "export CATALINA_TMPDIR=%CATALINA_HOME%/temp"            >> ~/.bashrc
+      echo "export CLASSPATH=%CATALINA_HOME%/bin/bootstrap.jar;%CATALINA_HOME%/bin/tomcat-juli.jar" >> ~/.bashrc
       echo "export MAVEN_OPTS=-Dfile.encoding=UTF-8"                >> ~/.bashrc
       echo "export CATALINA_OPTS=-Dfile.encoding=UTF-8"             >> ~/.bashrc
       echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64"     >> ~/.bashrc
-      echo "export JRE_HOME=$JAVA_HOME"                             >> ~/.bashrc
-      echo "export PATH=$JAVA_HOME/bin:$PATH"                       >> ~/.bashrc  
+      echo "export JRE_HOME=%JAVA_HOME%                             >> ~/.bashrc
+      echo "export PATH=%JAVA_HOME%/bin:$PATH"                      >> ~/.bashrc  
       source ~/.bashrc
       
       sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
