@@ -1,11 +1,6 @@
 clear
-git add pom.xml
-git add .gitpod.yml
-git add up.sh
-git add startweb.sh
 git status
-git add up.sh
-git commit -m "yml"
+git commit -m "Documentação abrir pelo GitPod"
 git push
 git branch
 git status
