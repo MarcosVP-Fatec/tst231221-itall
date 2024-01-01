@@ -174,7 +174,7 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
-        <Context path="" docBase="/itall" reloadable="true" />
+        <Context path="/itall" docBase="itall" reloadable="true" />
 
       </Host>
     </Engine>

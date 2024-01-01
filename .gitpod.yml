@@ -16,7 +16,7 @@ ports:
   visibility: private
 
 tasks:
-  - name: Download
+  - name: Downloads
     init: |
       echo ------------------------------------------------------------------------
       echo Instaling Tomcat 8.5.97
