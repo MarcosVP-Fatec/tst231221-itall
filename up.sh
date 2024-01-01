@@ -7,5 +7,5 @@ git status
 git add up.sh
 git commit -m "yml"
 git push
-git status
 git branch
+git status
