@@ -35,20 +35,71 @@ end //
 delimiter ;
 
 -- ------------------------------------------------------------------------
--- USUARIO
+-- USUARIOS
 -- ------------------------------------------------------------------------
-call drop_index('usuario','usuario_nome_idx');
-call drop_index('usuario','usuario_email_idx');
-create table if not exists usuario (
+call drop_index('usuarios','usuarios_nome_idx');
+call drop_index('usuarios','usuarios_email_idx');
+create table if not exists usuarios (
       id                    bigint unsigned primary key auto_increment
     , nome                  varchar(80)     not null
     , email                 varchar(255)    not null
     , senha                 varchar(32)     not null
     , data_criacao    		timestamp		not null
-    , constraint usuario_email_uk unique (email)
+    , constraint usuarios_email_uk unique (email)
 );
+create index usuarios_nome_idx ON usuarios (nome);
+create index usuarios_email_idx ON usuarios (email);
 
-create index usuario_nome_idx ON usuario (nome);
-create index usuario_email_idx ON usuario (email);
+-- ------------------------------------------------------------------------
+-- CLIENTES
+-- ------------------------------------------------------------------------
+call drop_index('clientes','clientes_nome_idx');
+call drop_index('clientes','clientes_sobrenome_idx');
+call drop_index('clientes','clientes_email_idx');
+create table if not exists clientes (
+      id                    bigint unsigned primary key auto_increment
+    , nome                  varchar(80)     not null
+    , sobrenome             varchar(80)     not null
+    , sexo                  varchar(9)      not null
+    , data_nascimento	    date	        not null
+    , nacionalidade			varchar(20)   
+    , email                 varchar(255)    
+    , endereco				varchar(255)
+    , cidade				varchar(100)    
+    , estado				varchar(2)
+	, telefone				varchar(13)
+);
+create index clientes_nome_idx ON clientes (nome);
+create index clientes_sobrenome_idx ON clientes (sobrenome);
+create index clientes_email_idx ON clientes (email);
+
+call drop_index('produtos','produtos_nome_idx');
+call drop_index('produtos','produtos_descricao_idx');
+-- ------------------------------------------------------------------------
+-- PRODUTOS
+-- ------------------------------------------------------------------------
+create table if not exists produtos (
+      id                    bigint unsigned primary key auto_increment
+    , nome                  varchar(80)     not null
+    , descricao             varchar(80)     not null
+    , valor_venda           decimal(12,2)   
+    , quantidade			decimal(12,4)   
+);
+create index produtos_nome_idx ON produtos (nome);
+create index produtos_descricao_idx ON produtos (descricao);
+
+-- ------------------------------------------------------------------------
+-- PEDIDOS
+-- ------------------------------------------------------------------------
+call drop_index('pedidos','pedidos_nome_idx');
+call drop_index('pedidos','pedidos_descricao_idx');
+create table if not exists pedidos (
+      id                    bigint unsigned primary key auto_increment
+    , nome                  varchar(80)     not null
+    , descricao             varchar(80)     not null
+    , valor_venda           decimal(12,2)   
+);
+create index pedidos_nome_idx ON pedidos (nome);
+create index pedidos_descricao_idx ON pedidos (descricao);
 
 commit;
