@@ -1,5 +1,5 @@
 # Marcos Vinicio Pereira | Teste de Java - ITALL
-[(Como abrir pelo ![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod))](https://github.com/MarcosVP-Fatec/tst231221-itall/blob/master/GITPOD.md)
+[Como executar pelo ![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://github.com/MarcosVP-Fatec/tst231221-itall/blob/master/GITPOD.md)
 
 ## Ambiente (Demais dependências estão no pom.xml)
 
@@ -39,4 +39,5 @@ Certificates [here](https://github.com/MarcosVP-Fatec/Certificados)
 > "É preciso amar as pessoas  
 > Como se não houvesse amanhã.  
 > Por que se você parar pra pensar  
-> Na verdade não há..."  (Renato Russo)
+> Na verdade não há..."  (Renato Russo/Legião Urbana)  
+> [🎵](https://www.youtube.com/watch?v=DEwLqT669Do)

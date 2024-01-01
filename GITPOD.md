@@ -1,42 +1,16 @@
-# Marcos Vinicio Pereira
-## Teste de Java - ITALL [![Como abrir Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/MarcosVP-Fatec/tst231221-itall/tree/master)
+## Roteiro para executar esta aplicação pelo GitPod
 
-## Ambiente (Demais dependências estão no pom.xml)
-
-Ferramenta|Versão|Local|
-:---|:---|:---|
-Apache Tomcat|8.5.97
-Java|1.8
-JavaDoc||src/main/webapp/guide/javadoc
-Bootstrap|5.1.3|src/main/webapp/libs
-JQuery|3.6.0-dist|src/main/webapp/libs
-MySQL|8.0.24|port: **3006**/db: **itall_dev**/user: **admin**/pw: **admin**
-
-* Use DDL.sql to create DB and user (This will be automatic in GitPod)
-* Encoding UTF-8
-* O arquivo .classpath.xml é uma cópia do .classpath utilizado no desenvolvimento
-* Utilizado Eclipse IDE 2023-12 rodando com Java 21.0.1 2023-10-17 LTS
-
-## Desenvolvimento
-Tópico|Caminho|
-:---|:---|
-Home|ITALL ou Home
-Usuário (Inclusão)|Usuário > Novo|
-Usuário (Lista)|Usuário > Lista
-Usuário (Alteração)|Usuário > Lista > **[Alterar]**
-Usuário (Exclusão)|Usuário > Lista > **[Excluir]**
-Manual Técnico|Ajuda > Manual Técnico (**JavaDoc**)
-
-
-
-## Contatos
-English [Linked-In](https://www.linkedin.com/in/marcos-vinicio-pereira/?locale=en_US)  
-Portuguese [Linked-In](https://www.linkedin.com/in/marcos-vinicio-pereira/)  
-Certificates [here](https://github.com/MarcosVP-Fatec/Certificados)
-
+Não será necessário instalar nada.
+Etapa|Descrição|Atalho|
+---:|:---|:---|
+1|Acessar o repositório e logar com seu usuário|Você já está aqui
+2|Abrir o repositório pelo GitPod|<a href="https://gitpod.io/#https://github.com/MarcosVP-Fatec/tst231221-itall/tree/master" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/ae79fbb17edaf2aa57ec8688b746de050226ac46d3c6c50a38c9cb3d2c64768c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f476974706f642d52656164792d2d746f2d2d436f64652d626c75653f6c6f676f3d676974706f64" alt="Como abrir Gitpod Ready-to-Code" data-canonical-src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod" style="max-width: 100%;"></a>
+3|Clique na opção|"Continue with GitHub"
+4||
 
 
 > "É preciso amar as pessoas  
 > Como se não houvesse amanhã.  
 > Por que se você parar pra pensar  
-> Na verdade não há..."  (Renato Russo)
+> Na verdade não há..."  (Renato Russo/Legião Urbana)  
+> [🎵](https://www.youtube.com/watch?v=DEwLqT669Do)
