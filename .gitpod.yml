@@ -16,11 +16,8 @@ ports:
   visibility: private
 
 tasks:
-  - name: WebServer
+  - name: Download
     init: |
-      sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
-      sudo chmod 777 "$CATALINA_HOME/bin/tomcat-juli.jar"
-
       echo ------------------------------------------------------------------------
       echo Instaling Tomcat 8.5.97
       echo ------------------------------------------------------------------------
@@ -53,15 +50,35 @@ tasks:
       echo export PATH=\"/usr/lib/jvm/java-8-openjdk-amd64/bin:\$PATH\" >> ~/.bashrc  
       source ~/.bashrc
 
+      sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
+      sudo chmod 777 "$CATALINA_HOME/bin/tomcat-juli.jar"
+
       echo
       echo ------------------------------------------------------------------------
       echo Creating tables...
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
       sudo touch ~/tabelas_criadas
-      echo
+      mysql itall_dev -e "show tables"
+
+  - command: |
+      PS1='(Server) $ '
+      clear
+      echo -------------------------------------------------------
+      echo Aguardando download de dependências...
+      echo -------------------------------------------------------
+      while true; do
+        if [ -f ~/tabelas_criadas ]; then
+          break
+        else
+          sleep 1
+        fi
+      done
+      source ~/.bashrc
+      clear
       ./startweb.sh
       mysql itall_dev -e "show tables"
+    name: Server
 
   - command: |
       PS1='(MySQL) $ '
@@ -78,8 +95,8 @@ tasks:
       done
       source ~/.bashrc
       clear
-      mysql itall_dev -e "show tables"
       echo Digite "mysql itall_dev" para entrar
+      mysql itall_dev
     name: MySQL
       
 vscode:
