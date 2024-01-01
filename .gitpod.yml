@@ -43,10 +43,10 @@ tasks:
       echo export MAVEN_OPTS=-Dfile.encoding=UTF-8                      >> ~/.bashrc
       echo export CATALINA_OPTS=-Dfile.encoding=UTF-8                   >> ~/.bashrc
       echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64           >> ~/.bashrc
-      echo export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64            >> ~/.bashrc
+      echo export JRE_HOME=\$JAVA_HOME            >> ~/.bashrc
 
-      echo export PATH="/workspace/apache-tomcat-8.5.97/bin:\$PATH"     >> ~/.bashrc
-      echo export PATH="/usr/lib/jvm/java-8-openjdk-amd64/bin:\$PATH"   >> ~/.bashrc  
+      echo export PATH=\"/workspace/apache-tomcat-8.5.97/bin:\$PATH\"   >> ~/.bashrc
+      echo export PATH=\"/usr/lib/jvm/java-8-openjdk-amd64/bin:\$PATH\" >> ~/.bashrc  
       source ~/.bashrc
 
       echo
