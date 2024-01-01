@@ -22,6 +22,6 @@ if lsof -Pi :$PORTA -sTCP:LISTEN -t >/dev/null; then
     echo "Porta $PORTA encerrada."
 fi
 
-cp target/$ARQWAR $CATALINA_HOME/webapps/itall.war
+cp target/$ARQWAR $CATALINA_HOME/webapps/ROOT.war
 
 catalina.sh start
