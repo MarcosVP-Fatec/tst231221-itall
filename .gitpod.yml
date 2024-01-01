@@ -58,8 +58,9 @@ tasks:
       echo Creating tables...
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
+      mvn clean
       sudo touch ~/tabelas_criadas
-      mysql itall_dev -e "show tables"
+      exit
 
   - command: |
       PS1='(Server) $ '
@@ -95,7 +96,6 @@ tasks:
       done
       source ~/.bashrc
       clear
-      echo Digite "mysql itall_dev" para entrar
       mysql itall_dev
     name: MySQL
       
