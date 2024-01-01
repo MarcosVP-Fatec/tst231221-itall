@@ -35,7 +35,7 @@ public class UsuarioDAO extends ConnectDAO {
 
 		try {
 			
-			final String sql = "insert into usuario (nome, email, senha, data_criacao) values (?,?,?,?)";
+			final String sql = "insert into usuarios (nome, email, senha, data_criacao) values (?,?,?,?)";
 
 			conectar();
 
@@ -83,7 +83,7 @@ public class UsuarioDAO extends ConnectDAO {
 
 		try {
 			
-			String sql = "update usuario (SET) where id = ?";
+			String sql = "update usuarios (SET) where id = ?";
 			
 			UsuarioModel usuDestino = findById(usuario.getId());
 			
@@ -121,7 +121,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 */
 	public List<UsuarioDTO> listarTodosUsuarios() throws SQLException, NamingException {
 
-		String sql = "select * from usuario u order by upper(u.nome), u.email";
+		String sql = "select * from usuarios u order by upper(u.nome), u.email";
 		List<UsuarioDTO> lista = new ArrayList<UsuarioDTO>();
 
 		conectar();
@@ -158,7 +158,7 @@ public class UsuarioDAO extends ConnectDAO {
 		
 		try {
 			
-			final String sql = "select u.id from usuario u where u.email = ?";
+			final String sql = "select u.id from usuarios u where u.email = ?";
 
 			conectar();
 
@@ -195,7 +195,7 @@ public class UsuarioDAO extends ConnectDAO {
 		
 		try {
 			
-			final String sql = "select u.id from usuario u where u.id != ? and u.email = ?";
+			final String sql = "select u.id from usuarios u where u.id != ? and u.email = ?";
 
 			conectar();
 
@@ -234,7 +234,7 @@ public class UsuarioDAO extends ConnectDAO {
 		
 		try {
 			
-			final String sql = "select * from usuario u where u.id = ?";
+			final String sql = "select * from usuarios u where u.id = ?";
 
 			conectar();
 
@@ -291,7 +291,7 @@ public class UsuarioDAO extends ConnectDAO {
 
 		try {
 			
-			final String sql = "delete from usuario where id = ?";
+			final String sql = "delete from usuarios where id = ?";
 
 			conectar();
 
