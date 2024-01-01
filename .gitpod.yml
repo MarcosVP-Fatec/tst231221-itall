@@ -1,11 +1,106 @@
-ports:
-- port: 8080
-
-tasks:
-  - init: mysql < DDL.sql
-
 image: gitpod/workspace-mysql:latest
 
+ports:
+- port: 8080
+  name: WebSite
+  onOpen: open-browser
+  visibility: public
+
+- port: 3306
+  name: MySQL
+  onOpen: ignore
+  visibility: private
+
+- port: 8005
+  onOpen: ignore
+  visibility: private
+
+tasks:
+  - name: Downloads
+    init: |
+      echo ------------------------------------------------------------------------
+      echo Instaling Tomcat 8.5.97
+      echo ------------------------------------------------------------------------
+      wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.97/bin/apache-tomcat-8.5.97.tar.gz -P /workspace
+      tar -xzvf /workspace/apache-tomcat-8.5.97.tar.gz -C /workspace
+      rm /workspace/apache-tomcat-8.5.97.tar.gz
+      #Alteração para executar a aplicação da raiz
+      #sudo cp ./tomcat_server.xml /workspace/apache-tomcat-8.5.97/conf/server.xml
+
+      echo
+      echo ------------------------------------------------------------------------
+      echo Instaling java-8-openjdk-amd64...
+      echo ------------------------------------------------------------------------
+      sudo apt-get update
+      sudo apt-get install -y openjdk-8-jdk
+      sudo rm /usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+      echo ------------------------------------------------------------------------
+      echo Enviroments Variables
+      echo ------------------------------------------------------------------------
+      echo export VSTOMCAT=\"apache-tomcat-8.5.97\"                     >> ~/.bashrc
+      echo export CATALINA_HOME=/workspace/\$VSTOMCAT                   >> ~/.bashrc
+      echo export CATALINA_BASE=\$CATALINA_HOME                         >> ~/.bashrc
+      echo export CATALINA_TMPDIR=\$CATALINA_HOME/temp                  >> ~/.bashrc
+      echo export CLASSPATH=\"\$CATALINA_HOME/bin/bootstrap.jar\;\$CATALINA_HOME/bin/tomcat-juli.jar\" >> ~/.bashrc
+      echo export MAVEN_OPTS=-Dfile.encoding=UTF-8                      >> ~/.bashrc
+      echo export CATALINA_OPTS=-Dfile.encoding=UTF-8                   >> ~/.bashrc
+      echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64           >> ~/.bashrc
+      echo export JRE_HOME=\$JAVA_HOME                                  >> ~/.bashrc
+
+      echo export PATH=\"\$CATALINA_HOME/bin:\$PATH\"                   >> ~/.bashrc
+      echo export PATH=\"/usr/lib/jvm/java-8-openjdk-amd64/bin:\$PATH\" >> ~/.bashrc  
+      source ~/.bashrc
+
+      sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
+      sudo chmod 777 "$CATALINA_HOME/bin/tomcat-juli.jar"
+
+      echo
+      echo ------------------------------------------------------------------------
+      echo Creating tables...
+      echo ------------------------------------------------------------------------
+      mysql < DDL.sql
+      mvn clean
+      sudo touch ~/tabelas_criadas
+      exit
+
+  - command: |
+      PS1='(Server) $ '
+      clear
+      echo -------------------------------------------------------
+      echo Aguardando download de dependências...
+      echo -------------------------------------------------------
+      while true; do
+        if [ -f ~/tabelas_criadas ]; then
+          break
+        else
+          sleep 1
+        fi
+      done
+      source ~/.bashrc
+      clear
+      ./startweb.sh
+      mysql itall_dev -e "show tables"
+    name: Server
+
+  - command: |
+      PS1='(MySQL) $ '
+      clear
+      echo -------------------------------------------------------
+      echo Aguardando subir a aplicação e a criação das tabelas...
+      echo -------------------------------------------------------
+      while true; do
+        if [ -f ~/tabelas_criadas ]; then
+          break
+        else
+          sleep 1
+        fi
+      done
+      source ~/.bashrc
+      clear
+      mysql itall_dev
+    name: MySQL
+      
 vscode:
   extensions:
     - vscjava.vscode-java-pack
@@ -14,4 +109,3 @@ vscode:
     - vscjava.vscode-java-dependency
     - vscjava.vscode-java-test
     - vscjava.vscode-maven
-    - openjdk-8

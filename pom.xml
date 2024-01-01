@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.itall</groupId>
-	<artifactId>comercial</artifactId>
+	<artifactId>itall</artifactId>
 	<version>1.01.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.20</version>
+			<version>8.0.33</version>
 		</dependency>
 		<!-- JSON -->
 		<dependency>
@@ -53,9 +53,14 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.15</version>
+			<version>1.16.0</version>
 		</dependency>
-
+		<!-- TomCat 8.5.97-->
+    	<dependency>
+        	<groupId>org.apache.tomcat</groupId>
+        	<artifactId>tomcat-catalina</artifactId>
+        	<version>8.5.97</version>
+    	</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -70,7 +75,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
+				<version>3.4.0</version>
 			</plugin>
 		</plugins>
 	</build>
