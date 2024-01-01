@@ -55,7 +55,7 @@ tasks:
       mysql < DDL.sql
       sudo touch ~/tabelas_criadas
       echo
-      echo "./startweb.sh"
+      ./startweb.sh
 
   - command: |
       PS1='(MySQL) $ '
