@@ -14,22 +14,6 @@ ports:
 tasks:
   - name: WebServer
     init: |
-      echo ------------------------------------------------------------------------
-      echo Enviroments Variables
-      echo ------------------------------------------------------------------------
-      echo export VSTOMCAT='apache-tomcat-8.5.97'                       >> ~/.bashrc
-      echo export CATALINA_HOME=/workspace/apache-tomcat-8.5.97         >> ~/.bashrc
-      echo export CATALINA_BASE=/workspace/apache-tomcat-8.5.97         >> ~/.bashrc
-      echo export PATH=/workspace/apache-tomcat-8.5.97/bin:$PATH        >> ~/.bashrc
-      echo export CATALINA_TMPDIR=/workspace/apache-tomcat-8.5.97/temp  >> ~/.bashrc
-      echo export CLASSPATH=/workspace/apache-tomcat-8.5.97/bin/bootstrap.jar;/workspace/apache-tomcat-8.5.97/bin/tomcat-juli.jar >> ~/.bashrc
-      echo export MAVEN_OPTS=-Dfile.encoding=UTF-8                      >> ~/.bashrc
-      echo export CATALINA_OPTS=-Dfile.encoding=UTF-8                   >> ~/.bashrc
-      echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64           >> ~/.bashrc
-      echo export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64            >> ~/.bashrc
-      echo export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH      >> ~/.bashrc  
-      source ~/.bashrc
-      
       sudo chmod 777 "$CATALINA_HOME/bin/bootstrap.jar"
       sudo chmod 777 "$CATALINA_HOME/bin/tomcat-juli.jar"
 
@@ -48,6 +32,22 @@ tasks:
       sudo apt-get install -y openjdk-8-jdk
       sudo rm /usr/lib/jvm/java-1.8.0-openjdk-amd64
 
+      echo ------------------------------------------------------------------------
+      echo Enviroments Variables
+      echo ------------------------------------------------------------------------
+      echo export VSTOMCAT='apache-tomcat-8.5.97'                       >> ~/.bashrc
+      echo export CATALINA_HOME=/workspace/apache-tomcat-8.5.97         >> ~/.bashrc
+      echo export CATALINA_BASE=/workspace/apache-tomcat-8.5.97         >> ~/.bashrc
+      echo export PATH=/workspace/apache-tomcat-8.5.97/bin:$PATH        >> ~/.bashrc
+      echo export CATALINA_TMPDIR=/workspace/apache-tomcat-8.5.97/temp  >> ~/.bashrc
+      echo export CLASSPATH=/workspace/apache-tomcat-8.5.97/bin/bootstrap.jar;/workspace/apache-tomcat-8.5.97/bin/tomcat-juli.jar >> ~/.bashrc
+      echo export MAVEN_OPTS=-Dfile.encoding=UTF-8                      >> ~/.bashrc
+      echo export CATALINA_OPTS=-Dfile.encoding=UTF-8                   >> ~/.bashrc
+      echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64           >> ~/.bashrc
+      echo export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64            >> ~/.bashrc
+      echo export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH      >> ~/.bashrc  
+      source ~/.bashrc
+
       echo
       echo ------------------------------------------------------------------------
       echo Creating tables...
@@ -60,9 +60,9 @@ tasks:
   - command: |
       PS1='(MySQL) $ '
       clear
-      echo -----------------------------------------
-      echo Aguardando a criação das tabelas...
-      echo -----------------------------------------
+      echo -------------------------------------------------------
+      echo Aguardando subir a aplicação e a criação das tabelas...
+      echo -------------------------------------------------------
       while true; do
         if [ -f ~/tabelas_criadas ]; then
           break
