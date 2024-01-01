@@ -60,6 +60,7 @@ tasks:
       echo Creating tables...
       echo ------------------------------------------------------------------------
       mysql < DDL.sql
+      mysql < DML.sql
       mvn clean
       sudo touch ~/tabelas_criadas
       exit
