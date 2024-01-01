@@ -6,6 +6,7 @@ use itall_dev;
 create user if not exists 'admin'@'localhost' identified by 'admin';
 grant all on itall_dev.* to admin@'localhost';
 
+
 -- ------------------------------------------------------------------------
 -- PROCEDURE drop_index
 -- ------------------------------------------------------------------------
