@@ -17,10 +17,10 @@ tasks:
       echo ------------------------------------------------------------------------
       echo Instaling Tomcat 8.5.97
       echo ------------------------------------------------------------------------
-      wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.97/bin/apache-tomcat-8.5.97.tar.gz -P ~
-      tar -xzvf ~/apache-tomcat-8.5.97.tar.gz -C ~
-      rm ~/apache-tomcat-8.5.97.tar.gz
-      export CATALINA_HOME=$HOME/apache-tomcat-8.5.97
+      wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.97/bin/apache-tomcat-8.5.97.tar.gz -P /workspace
+      tar -xzvf /workspace/apache-tomcat-8.5.97.tar.gz -C /workspace
+      rm /workspace/apache-tomcat-8.5.97.tar.gz
+      export CATALINA_HOME=/workspace/apache-tomcat-8.5.97
       export CATALINA_BASE=$CATALINA_HOME
       export PATH=$CATALINA_HOME/bin:$PATH
       export CATALINA_TMPDIR=$CATALINA_HOME/temp
