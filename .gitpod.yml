@@ -25,7 +25,7 @@ tasks:
       tar -xzvf /workspace/apache-tomcat-8.5.97.tar.gz -C /workspace
       rm /workspace/apache-tomcat-8.5.97.tar.gz
       #Alteração para executar a aplicação da raiz
-      #sudo cp ./tomcat_server.xml /workspace/apache-tomcat-8.5.97/conf/server.xml
+      #sudo cp .res/tomcat_server.xml /workspace/apache-tomcat-8.5.97/conf/server.xml
 
       echo
       echo ------------------------------------------------------------------------
@@ -59,8 +59,8 @@ tasks:
       echo ------------------------------------------------------------------------
       echo Creating tables...
       echo ------------------------------------------------------------------------
-      mysql < DDL.sql
-      mysql < DML.sql
+      mysql < .res/DDL.sql
+      mysql < .res/DML.sql
       mvn clean
       sudo touch ~/tabelas_criadas
       exit
