@@ -50,12 +50,12 @@ public class UsuarioModel {
     public UsuarioModel() {}
     /**
      * Parametrizado
-     * @param id Identificador único
-     * @param nome Nome completo do usuário
-     * @param isMudarSenha (Boolean)
-     * @param email E-mail do usuário (Login do Sistema) 
-     * @param senha Senha de acesso ao sistema
-     * @param dataCriacao Data em que este registro foi criado
+     * @param id (Long) Identificador único
+     * @param nome (String) Nome completo do usuário
+     * @param email (String) E-mail do usuário (Login do Sistema) 
+     * @param isMudarSenha (Boolean) - Transiente para indicar que vai mudar a senha
+     * @param senha (String) Senha de acesso ao sistema
+     * @param dataCriacao (LocalDateTime) Data em que este registro foi criado
      */
     public UsuarioModel(Long id, String nome, String email, Boolean isMudarSenha, String senha, LocalDateTime dataCriacao) {
 		super();
