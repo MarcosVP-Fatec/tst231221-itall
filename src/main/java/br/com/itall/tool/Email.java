@@ -23,6 +23,9 @@ public class Email {
 	private String invalidChar = "";
 	private List<String> failures = new ArrayList<String>();
 	
+	/** Tamanho padrão do atributo "email" a ser utilizado nos componentes*/
+	public final static int EMAIL_FIELD_LEN = 255;
+	
 	/**
 	 * Construtor <b><i>Private</i></b><br>
 	 * Armazena a conta do e-mail, separa seus componentes e verifica se já erros.<br>
@@ -78,7 +81,7 @@ public class Email {
 	 * @return Email
 	 */
 	public static Email get(String email) {
-		return new Email(email);
+		return new Email(email.trim().toLowerCase());
 	}
 
     /** Retorna se o e-mail é válido 

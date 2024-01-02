@@ -1,4 +1,4 @@
-package br.com.itall.model.dao;
+package br.com.itall.model.dao.cad;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import javax.naming.NamingException;
 
 import br.com.itall.model.dao.util.ConnectDAO;
 import br.com.itall.model.dao.util.SqlPreparedStatementUpdate;
-import br.com.itall.model.dto.UsuarioDTO;
+import br.com.itall.model.dto.cad.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.tool.Texto;
 
@@ -59,7 +59,8 @@ public class UsuarioDAO extends ConnectDAO {
 					idGerado = chavesGeradas.getLong(1); // Obtém a chave gerada automaticamente
 				}
 			}
-
+			
+			desconectar();
 			usuario.setId(idGerado);
 
 		} catch (Exception e) {
@@ -115,7 +116,7 @@ public class UsuarioDAO extends ConnectDAO {
 	/**
 	 * Lista todos os usuários em ordem alfabética
 	 * 
-	 * @return List&lt;Usuario&gt;
+	 * @return List&lt;UsuarioDTO&gt;
 	 * @throws SQLException Trata erros de execução do SQL
 	 * @throws NamingException Trata erros de sintaxe do SQL
 	 */
@@ -150,7 +151,7 @@ public class UsuarioDAO extends ConnectDAO {
 	/**
 	 * Verifica se um determinado e-mail existe na tabela de usuários
 	 * 
-	 * @param email (String) Conta de e-ail
+	 * @param email (String) Conta de e-mail
 	 * @return boolean
 	 * @throws SQLException Trata erros de execução SQL.
 	 */

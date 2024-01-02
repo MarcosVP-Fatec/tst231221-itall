@@ -23,6 +23,7 @@
 				<h2>Teste de Programação Java</h2>
 			</div>
 		</div>
+		<jsp:include page="/jsp/include/mensagens.jsp" />
 	</div>
 
 </body>

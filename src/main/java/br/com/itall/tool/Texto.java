@@ -39,4 +39,14 @@ public class Texto {
 		} catch (Exception e) {}
 	}
 	
+	/**
+	 * Tira espaços duplos de dentro de um texto
+	 * @param texto (String)
+	 * @return String
+	 */
+	public static String tiraEspacosDuplos(String texto) {
+		while (texto.contains("  ")) texto = texto.replace("  "," ");
+		return texto;
+	}
+	
 }

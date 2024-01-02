@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.itall.model.dto.UsuarioDTO;
+import br.com.itall.model.dto.cad.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 
 /**
@@ -54,7 +54,7 @@ public interface UsuarioService {
 	public List<UsuarioDTO> listAllUsuarios(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, NamingException, Exception;
 	
 	/**
-	 * Método que exclui novo usuário pelo seu id
+	 * Método que exclui usuário pelo seu id
 	 * 
 	 * @param id (Long)
 	 * @return UsuarioModel que foi incluído localizado para exclusão

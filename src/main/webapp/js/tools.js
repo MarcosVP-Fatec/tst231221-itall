@@ -12,38 +12,56 @@ function msgHideAll() {
 /****************************************************************************************
  * @author MarcosVP
  * @description Função que exibe uma mensagem de ERRO na tela
- * @param msg {string} 
+ * @param msg string Mensagem
+ * @param nfecha int tempo em segundos para fechar (Default não fecha)  
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShowErro(msg) { return msgShow("msgErro", msg); }
+function msgShowErro(msg,nfecha) { return msgShow("msgErro", msg, nfecha); }
 
 /****************************************************************************************
  * @author MarcosVP
+ * @description Função que abre um timeout para fechar a mensagem
+ * @param id Id da Mensagem
+ * @param nfechar Tempo em Segundos
+ */
+function fecharMsg(id,nfechar){
+	if (nfechar && nfechar > 0){
+		if (nfechar > 600) nfechar = 600; //5 minutos
+		window.setTimeout(function() { $("#"+id).hide(); }, nfechar*1000);
+	} 
+} 
+/****************************************************************************************
+ * @author MarcosVP
  * @description Função que exibe uma mensagem de ALERTA na tela
- * @param msg {string} 
+ * @param msg string Mensagem
+ * @param nfecha int tempo em segundos para fechar (Default não fecha)  
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShowAlerta(msg) { return msgShow("msgAlerta", msg); }
+function msgShowAlerta(msg, nfecha) { return msgShow("msgAlerta", msg, nfecha); }
 
 /****************************************************************************************
  * @author MarcosVP
  * @description Função que exibe uma mensagem de SUCESSO na tela
- * @param msg {string} 
+ * @param msg string Mensagem
+ * @param nfecha int tempo em segundos para fechar (Default não fecha)  
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShowSucesso(msg) { return msgShow("msgSucesso", msg); }
+function msgShowSucesso(msg, nfecha) { return msgShow("msgSucesso", msg, nfecha); } 
 
 /****************************************************************************************
  * @author MarcosVP
  * @description Função que exibe uma mensagem conforme o id do componente
- * @param msg {string} 
+ * @param idName string id do componente da mensagem
+ * @param msg string Mensagem que será exibida
+ * @param nfechar int Tempo em segundos para fechar a mensagem (Default não fecha)
  * @requires jsp:include page="../include/links.jsp"  
  */
-function msgShow(idName,msg) {
+function msgShow(idName,msg,nfechar) {
 	try {
 		msgHideAll();
 		const id = $("#"+idName);
 		if (id.length > 0){
+			fecharMsg(idName,nfechar)		
 			id.find('span').html(msg);
 			id.show();	
 		} else {

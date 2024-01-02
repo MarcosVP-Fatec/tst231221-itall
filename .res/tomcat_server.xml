@@ -173,9 +173,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-
-        <Context path="" docBase="itall" reloadable="true" />
-
+        <Context docBase="tst231221-itall" path="/itall" reloadable="true" source="org.eclipse.jst.jee.server:tst231221-itall"/>
       </Host>
     </Engine>
   </Service>

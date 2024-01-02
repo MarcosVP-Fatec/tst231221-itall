@@ -7,7 +7,7 @@ import java.util.List;
 import br.com.itall.tool.Email;
 
 /**
- * Entidade da tabela "usuario" <br>
+ * Entidade da tabela "usuarios" <br>
  * Tipo CADASTRO
  * Registro dos usuários do sistema <br>
  * O e-mail não poderá se repetir por se tratar do Login único.
@@ -26,14 +26,10 @@ public class UsuarioModel {
 	
 	private Long id;
     
-    /**
-     * Tamanho do atributo "nome" (NOME) = 80 
-     */
+    /** Tamanho do atributo "nome" (NOME) = 80 */
     public final static short NOME_FIELD_LEN = 80;
     private String nome;
     
-    /** Tamanho do atributo "email" (EMAIL) = 255 */
-    public final static int EMAIL_FIELD_LEN = 255;
     private Email email;
     
     /** Tamanho do atributo "senha" (SENHA) = 80 */
@@ -54,12 +50,12 @@ public class UsuarioModel {
     public UsuarioModel() {}
     /**
      * Parametrizado
-     * @param id Identificador único
-     * @param nome Nome completo do usuário
-     * @param isMudarSenha (Boolean)
-     * @param email E-mail do usuário (Login do Sistema) 
-     * @param senha Senha de acesso ao sistema
-     * @param dataCriacao Data em que este registro foi criado
+     * @param id (Long) Identificador único
+     * @param nome (String) Nome completo do usuário
+     * @param email (String) E-mail do usuário (Login do Sistema) 
+     * @param isMudarSenha (Boolean) - Transiente para indicar que vai mudar a senha
+     * @param senha (String) Senha de acesso ao sistema
+     * @param dataCriacao (LocalDateTime) Data em que este registro foi criado
      */
     public UsuarioModel(Long id, String nome, String email, Boolean isMudarSenha, String senha, LocalDateTime dataCriacao) {
 		super();
@@ -107,7 +103,7 @@ public class UsuarioModel {
 	 * @see Email
 	 */
 	public void setEmail(String email) {
-		this.email = Email.get(email.trim().toLowerCase());
+		this.email = Email.get(email);
 	}
     /** @return senha (String) */
 	public String getSenha() {

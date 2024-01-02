@@ -38,13 +38,13 @@ public class Data {
     }
     
     /**
-	 * Função que transforma uma String "99/99/9999" em data
+	 * Converte: <b>String</b> "99/99/9999" => <b>LocalDateTime</b>
      * @author MarcosVP
      * @param sData "dd/mm/yyyy hh:MM:ss"
      * @return LocalDateTime
      * 
      */
-    public static LocalDateTime toDateTime(String sData) {
+    public static LocalDateTime convertStringToLocalDateTime(String sData) {
     	
     	try {
     		return LocalDateTime.of(Integer.parseInt(sData.substring( 6,10))
@@ -61,11 +61,25 @@ public class Data {
     }
     
     /**
-	 * Converte: <b>java.time.LocalDateTime</b> => <b>java.time.Instant</b><br>
+	 * Converte: <b>String</b> "99/99/9999" => <b>LocalDate</b>
+     * @param sData "dd/mm/yyyy hh:MM:ss"
+     * @return LocalDateTime
      * @author MarcosVP
-     * @return Long (java.time.Instant.toEpochMilli())
+     * @since 02/01/2024
      */
-    
+    public static LocalDate convertStringToLocalDate(String sData) {
+    	
+    	try {
+    		return LocalDate.of(Integer.parseInt(sData.substring( 6,10))
+    				           ,Integer.parseInt(sData.substring( 3, 5))
+    				           ,Integer.parseInt(sData.substring( 0, 2))
+    				           );
+		} catch (Exception e) {
+			try { e.printStackTrace(); } catch (Exception e2) {}
+		}
+		return null;
+    }
+
     /**
 	 * Converte: <b>java.time.LocalDateTime</b> => <b>java.time.Instant</b><br>
      * @author MarcosVP
@@ -73,7 +87,7 @@ public class Data {
      * @return Long (java.time.Instant.toEpochMilli())
      */
 	@SuppressWarnings("deprecation")
-	public static Long toInstant(LocalDateTime data) {
+	public static Long convertLocalDateTimeToInstant(LocalDateTime data) {
     	//Se não existir fração em segundos faz um ajuste devido a um bug encontrado.
     	Long segundos = (new java.util.Date(data.getYear()-1900
 		                                   ,data.getMonthValue()-1
@@ -98,8 +112,8 @@ public class Data {
 	 * @param data (LocalDateTime)
      * @return java.sql.Date
 	 */
-    public static java.sql.Date toDateSql(LocalDateTime data) {
-    	return new java.sql.Date(toInstant(data));
+    public static java.sql.Date convertLocalDateTimeToDateSql(LocalDateTime data) {
+    	return new java.sql.Date(convertLocalDateTimeToInstant(data));
     }
     
     /** METHOD OVERLOADING <br>
@@ -149,7 +163,7 @@ public class Data {
      * @return LocalDateTime
      */
     @SuppressWarnings("deprecation")
-	public static LocalDateTime dataToLocalDateTime( Date data ) {
+	public static LocalDateTime convertDateToLocalDateTime( Date data ) {
     	
     	int horas, minutos, segundos;
     	try { horas = data.getHours();} finally {}
@@ -165,16 +179,27 @@ public class Data {
     }
     
     /**
+     * Converte <b>java.util.Date</b> => <b>LocalDate</b>  
+     * @param data (java.util.Date)
+     * @return LocalDate
+     */
+    @SuppressWarnings("deprecation")
+	public static LocalDate convertDateToLocalDate( Date data ) {
+    	return LocalDate.of(data.getYear()+1900
+    			           ,data.getMonth()+1
+    			           ,data.getDate());
+    }
+
+    /**
      * Converte <b>LocalDateTime</b> => <b>java.util.Date</b> <br>
      * Faz a conversão do fuso horário antes.
      *  
      * @param localDT (LocalDateTime)
-     * @return Date
+     * @return java.util.Date
      */
-    public static Date localDateTimeToDate(LocalDateTime localDT) {
+    public static Date convertLocalDateTimeToDate(LocalDateTime localDT) {
 			return Date.from(localDT.atZone(ZoneId.systemDefault()).toInstant());
     }
-    
     
 }
 

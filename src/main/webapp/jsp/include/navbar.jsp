@@ -9,6 +9,7 @@ Coloque na primeira linha após a tag <body>
 	<jsp:include page="/jsp/include/navbar.jsp" />
 
 --%>
+
 <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
 
 	<div class="container-fluid">
@@ -23,41 +24,77 @@ Coloque na primeira linha após a tag <body>
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 				<!-- Home -->
-				<li class="nav-item"><a class="nav-link active" aria-current="page" 
-				    href="${pageContext.request.contextPath}/">
-					Home</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="${pageContext.request.contextPath}/">
+						Home</a></li>
+
+				<!-- Vendas -->
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdownVendas"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Vendas</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownVendas">
+						<li><a class="dropdown-item"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
+							onclick='msgShowAlerta("Pedido Novo => em desenvolvimento",3)'>Pedido - Novo</a></li>
+						<li><a class="dropdown-item"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
+							onclick='msgShowAlerta("Pedido Lista => em desenvolvimento",3)'>Pedido - Lista</a></li>
+					</ul></li>
+
+				<!-- Cadastros -->
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdownCadastros"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Cadastros</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
+						<li><a class="dropdown-item"
+							<%-- href="${pageContext.request.contextPath}/cliente?opc=clientenovo">Cliente - Novo</a></li> --%>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
+							onclick='msgShowAlerta("Cliente Novo => em desenvolvimento",3)'>Cliente - Novo</a></li>
+						<li><a class="dropdown-item"
+							<%-- href="${pageContext.request.contextPath}/cliente?opc=clientelistar">Cliente - Lista</a></li> --%>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
+							onclick='msgShowAlerta("Cliente Lista => em desenvolvimento",3)'>Cliente - Lista</a></li>
+						
+						<li class="dropdown-divider"></li>
+						
+						<li><a class="dropdown-item"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
+							onclick='msgShowAlerta("Produto Novo => em desenvolvimento",3)'>Produto - Novo</a></li>
+						<li><a class="dropdown-item" 
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
+							onclick='msgShowAlerta("Produto Lista => em desenvolvimento",3)'>Produto - Lista</a></li>
+					</ul></li>
 
 				<!-- Usuário -->
 				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsuarios"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Usuários</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/usr?opc=usuarionovo">Novo</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/usr?opc=usuarioslistar">Lista</a></li>
-<!-- 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">Something else here</a></li>
- -->					</ul></li>
- 
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/usr?opc=usuarionovo">Novo</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/usr?opc=usuarioslistar">Lista</a></li>
+					</ul></li>
+
 				<!-- Ajuda -->
 				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdownAjuda"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Ajuda</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" target="_blank" href="${pageContext.request.contextPath}/guide/javadoc/index.html">Manual Técnico</a></li>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownAjuda">
+						<li><a class="dropdown-item" target="_blank"
+							href="${pageContext.request.contextPath}/guide/javadoc/index.html">Manual
+								Técnico</a></li>
 					</ul></li>
 
 
-<!-- 				<li class="nav-item"><a class="nav-link disabled">Disabled</a>
+				<!-- 				<li class="nav-item"><a class="nav-link disabled">Disabled</a>
 				</li>
  -->
 			</ul>
-			<form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
 		</div>
 	</div>
 </nav>
