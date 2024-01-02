@@ -11,7 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.itall.model.dao.UsuarioDAO;
+import br.com.itall.model.dao.cad.UsuarioDAO;
 import br.com.itall.model.dto.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;

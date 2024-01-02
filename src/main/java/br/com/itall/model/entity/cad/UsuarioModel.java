@@ -7,7 +7,7 @@ import java.util.List;
 import br.com.itall.tool.Email;
 
 /**
- * Entidade da tabela "usuario" <br>
+ * Entidade da tabela "usuarios" <br>
  * Tipo CADASTRO
  * Registro dos usuários do sistema <br>
  * O e-mail não poderá se repetir por se tratar do Login único.
@@ -26,14 +26,10 @@ public class UsuarioModel {
 	
 	private Long id;
     
-    /**
-     * Tamanho do atributo "nome" (NOME) = 80 
-     */
+    /** Tamanho do atributo "nome" (NOME) = 80 */
     public final static short NOME_FIELD_LEN = 80;
     private String nome;
     
-    /** Tamanho do atributo "email" (EMAIL) = 255 */
-    public final static int EMAIL_FIELD_LEN = 255;
     private Email email;
     
     /** Tamanho do atributo "senha" (SENHA) = 80 */
@@ -107,7 +103,7 @@ public class UsuarioModel {
 	 * @see Email
 	 */
 	public void setEmail(String email) {
-		this.email = Email.get(email.trim().toLowerCase());
+		this.email = Email.get(email);
 	}
     /** @return senha (String) */
 	public String getSenha() {

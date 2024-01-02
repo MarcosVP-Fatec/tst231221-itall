@@ -1,4 +1,4 @@
-package br.com.itall.model.dao;
+package br.com.itall.model.dao.cad;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,7 +59,8 @@ public class UsuarioDAO extends ConnectDAO {
 					idGerado = chavesGeradas.getLong(1); // Obtém a chave gerada automaticamente
 				}
 			}
-
+			
+			desconectar();
 			usuario.setId(idGerado);
 
 		} catch (Exception e) {
