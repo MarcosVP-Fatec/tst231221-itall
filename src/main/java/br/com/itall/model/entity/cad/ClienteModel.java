@@ -53,6 +53,37 @@ public class ClienteModel {
     
     private String telefone;
     
+    /** Básico */
+    public ClienteModel() {}
+    /**
+     * Parametrizado
+	 * @param id (Long)
+	 * @param nome (String)
+	 * @param sobrenome (String)
+	 * @param sexo (String) F,M
+	 * @param dataNascimento (LocalDate)
+	 * @param nacionalidade (String)
+	 * @param email (String)
+	 * @param endereco (String)
+	 * @param cidade (String)
+	 * @param estado (String)
+	 * @param telefone (String)
+	 */
+	public ClienteModel(Long id, String nome, String sobrenome, String sexo, LocalDate dataNascimento,
+			String nacionalidade, String email, String endereco, String cidade, String estado, String telefone) {
+		setId(id);
+		setNome(sobrenome);
+		setSobrenome(sobrenome);
+		setSexo(sexo);
+		setDataNascimento(dataNascimento);
+		setNacionalidade(nacionalidade);
+		setEmail(email);
+		setEndereco(endereco);
+		setCidade(cidade);
+		setEstado(estado);
+		setTelefone(telefone);
+	}
+    
     /** @return id (Long) */
 	public Long getId() {
 		return id;
