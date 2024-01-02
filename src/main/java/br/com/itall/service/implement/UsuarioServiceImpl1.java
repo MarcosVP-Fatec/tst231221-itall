@@ -1,6 +1,3 @@
-/**
- * Pacote de implementações dos serviços
- */
 package br.com.itall.service.implement;
 
 import java.security.NoSuchAlgorithmException;
@@ -12,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.itall.model.dao.cad.UsuarioDAO;
-import br.com.itall.model.dto.UsuarioDTO;
+import br.com.itall.model.dto.cad.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.UsuarioService;
 import br.com.itall.service.security.Criptografia;
@@ -48,7 +45,7 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			if (senha == null) senha = "";
 			
 			String sData = request.getParameter("dataCriacao");
-			LocalDateTime dataCriacao = (sData==null||sData.equals("")?null:Data.toDateTime(sData));
+			LocalDateTime dataCriacao = (sData==null||sData.equals("")?null:Data.convertStringToLocalDateTime(sData));
 			
 			return new UsuarioModel(id, nome, email, isMudarSenha, senha, dataCriacao);
 			

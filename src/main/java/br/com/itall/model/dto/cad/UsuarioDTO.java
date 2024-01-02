@@ -1,4 +1,4 @@
-package br.com.itall.model.dto;
+package br.com.itall.model.dto.cad;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -74,6 +74,6 @@ public class UsuarioDTO {
 	 * Faz a transformação automática para o tipo Date
 	 * @param dataCriacao (LocalDateTime)
 	 */
-	public void setDataCriacao(LocalDateTime dataCriacao) 	{ this.dataCriacao = Data.localDateTimeToDate(dataCriacao);	}
+	public void setDataCriacao(LocalDateTime dataCriacao) 	{ this.dataCriacao = Data.convertLocalDateTimeToDate(dataCriacao);	}
 
 }
