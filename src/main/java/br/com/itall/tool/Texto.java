@@ -30,6 +30,14 @@ public class Texto {
 	}
 	
 	/**
+	 * Gera um log no console do servidor com data e hora local precedido por [ERRO]<br>
+	 * @see #logConsole(Object)
+	 * Utilizado para colocar logs intencionais de rastreio.
+	 * @param texto (String) Mensagem que será impressa no console do servidor.
+	 */
+	public static void logConsoleErro(Object texto) { logConsole("[ERRO] " + texto.toString()); }
+
+	/**
 	 * Gera um log no console referente a SQL
 	 * @param sql (String) Sql que será armazenado
 	 */
