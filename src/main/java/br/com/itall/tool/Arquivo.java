@@ -20,7 +20,7 @@ public class Arquivo {
 	 * Lê um arquivo em disco e retorna o seu conteúdo.
 	 * Não usar esta função para arquivos muito grandes.
 	 * 
-	 * @param cPathArq (String) Caminho e nome do arquivo
+	 * @param pathArq (String) Caminho e nome do arquivo
 	 * @return (String) Conteúdo lido.
 	 */
 	public static String fileRead( String pathArq ) {
