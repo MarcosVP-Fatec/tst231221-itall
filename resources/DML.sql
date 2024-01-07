@@ -13,3 +13,5 @@ INSERT INTO usuarios (nome, email, senha, data_criacao) VALUES ('NOEL NOEL', 'no
 INSERT INTO usuarios (nome, email, senha, data_criacao) VALUES ('XAVIER XAVIER', 'xavier@teste.com.br', '0c6467d74d41476a58d40fe9502ce8fd', '2023-12-27 18:51:58');
 INSERT INTO usuarios (nome, email, senha, data_criacao) VALUES ('DIANA DIANA', 'diana@teste.com.br', '76db68387858950b01604762cec13e45', '2023-12-27 19:26:17');
 INSERT INTO usuarios (nome, email, senha, data_criacao) VALUES ('ELIANA ELIANA', 'eliana@teste.com.br', 'a73a75a01612e2a0cefe88b0768fe76f', '2023-12-28 05:34:51');
+
+commit;

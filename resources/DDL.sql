@@ -60,14 +60,14 @@ create table if not exists clientes (
       id                    bigint unsigned primary key auto_increment
     , nome                  varchar(80)     not null
     , sobrenome             varchar(80)     not null
-    , sexo                  varchar(9)      not null
+    , sexo                  char(1)         not null check (sexo IN ('F','M'))
     , data_nascimento	    date	        not null
     , nacionalidade			varchar(20)   
     , email                 varchar(255)    
     , endereco				varchar(255)
     , cidade				varchar(100)    
     , estado				varchar(2)
-	, telefone				varchar(13)
+	, telefone				varchar(20)
 );
 create index clientes_nome_idx ON clientes (nome);
 create index clientes_sobrenome_idx ON clientes (sobrenome);

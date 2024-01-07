@@ -3,7 +3,7 @@
 REM 
 REM Comando de prompt para geração do JavaDoc
 REM 
-REM Na raiz do repositório usar: .res\geradoc
+REM Na raiz do repositório usar: resources\geradoc
 REM Este script utiliza os arquivos javadoc.properties e javadoc.xml.
 REM 
 
