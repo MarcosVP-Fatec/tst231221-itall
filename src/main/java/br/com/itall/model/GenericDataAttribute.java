@@ -18,10 +18,13 @@ public class GenericDataAttribute {
 	private boolean isToUpdate;
 	
 	/** Construtor
-	 *  @param fieldName (String) Nome do atributo
-	 *  @param isId (boolean) Indica se é identificador
+	 *  @param fieldName (String) Nome do campo no banco de dados.
+	 *  @param attributeName (String) Nome do atributo na classe.
+	 *  @param fieldLen (Integer) Tamanho do campo.
+	 *  @param isId (boolean) Indica se é identificador.
+	 *  @param isToInsert (boolean = true) Indica se é campo que entrará na inclusão de novos dados.
+	 *  @param isToUpdate (boolean = true) Indica se é campo que entrará na alteração de novos dados.
 	 */
-	
 	public GenericDataAttribute(String fieldName
 			                   ,String attributeName
 			                   ,Integer fieldLen

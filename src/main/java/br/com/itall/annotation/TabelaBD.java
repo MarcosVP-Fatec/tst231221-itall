@@ -19,5 +19,6 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface TabelaBD {
+	/** @return name (String) */
     String name(); 
 }

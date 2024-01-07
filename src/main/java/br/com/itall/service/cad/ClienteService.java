@@ -71,7 +71,7 @@ public interface ClienteService {
 	 * Estes limites são definidos por anotação nas classes Model.
 	 * Utilizar
 	 * 
-	 * @return Map<String,Integer>
+	 * @return Map&lt;String,Integer&gt;
 	 */
 	public Map<String,Integer> getFieldSizes();
 

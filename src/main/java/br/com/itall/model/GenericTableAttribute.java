@@ -13,7 +13,7 @@ public class GenericTableAttribute {
 	private String tableName;
 	
 	/** Construtor
-	 * @param tableName (String) Nome da tabela no banco de dados
+	 * @param name (String) Nome da tabela no banco de dados
 	 */
 	public GenericTableAttribute(String name) {
 		setTableName(name);
