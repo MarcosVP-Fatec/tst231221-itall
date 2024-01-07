@@ -20,6 +20,8 @@ import br.com.itall.tool.Texto;
  * DAO da entidade UsuarioModel
  * 
  * @author MarcosVP
+ * @since 24/12/2023
+ * @version 1.01.0
  * @see br.com.itall.model.entity.cad.UsuarioModel
  */
 public class UsuarioDAO extends ConnectDAO {
