@@ -1,8 +1,8 @@
-package br.com.itall.service.implement;
+package br.com.itall.service.implement.cad;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.itall.model.dao.cad.ClienteDAO;
 import br.com.itall.model.dto.cad.ClienteDTO;
 import br.com.itall.model.entity.cad.ClienteModel;
-import br.com.itall.service.ClienteService;
-import br.com.itall.tool.Data;
+import br.com.itall.service.cad.ClienteService;
 
 /**
  * Implementação nº 1 dos Serviços de ClienteModel
@@ -31,37 +30,7 @@ public class ClienteServiceImpl1 implements ClienteService {
 	}
 
 	@Override
-	public ClienteModel clienteModelFromRequest(HttpServletRequest request) {
-		
-		try {
-			
-			String idString = request.getParameter("id");
-			Long id = (idString==null||idString.equals("")?null:Long.valueOf(idString));
-			
-			String nome = request.getParameter("nome");
-			String sobrenome = request.getParameter("sobrenome");
-			String sexo = request.getParameter("sexo");
-			String sData = request.getParameter("dataNascimento");
-			LocalDate dataNascimento = (sData==null||sData.equals("")?null:Data.convertStringToLocalDate(sData));
-			String nacionalidade = request.getParameter("nacionalidade");
-			String email = request.getParameter("email");
-			String endereco = request.getParameter("endereco");
-			String cidade = request.getParameter("cidade");
-			String estado = request.getParameter("estado");
-			String telefone = request.getParameter("telefone");
-			
-			return new ClienteModel(id, nome, sobrenome, sexo, dataNascimento, nacionalidade, email, endereco, cidade, estado, telefone);
-			
-		} catch (Exception e) {
-			return null;
-		}
-		
-	}
-
-	@Override
-	public ClienteModel clienteAltInc(HttpServletRequest request, boolean isInc) throws Exception {
-		
-		ClienteModel cliente = clienteModelFromRequest(request);
+	public ClienteModel clienteAltInc(ClienteModel cliente, boolean isInc) throws Exception {
 		
 		final String tipo = isInc ? "inclusão" : "alteração";
 		try {
@@ -81,15 +50,16 @@ public class ClienteServiceImpl1 implements ClienteService {
 			if (cliente.getNome().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"nome\" em branco!");
 			if (cliente.getSobrenome().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"sobrenome\" em branco!");
 			if (cliente.getSexo().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"sexo\" em branco!");
-			if (cliente.getSexo().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"sexo\" em branco!");
 
-			if (!cliente.getEmail().isValid()) {
-				throw new RuntimeException(cliente.getEmail().toMessages());
-			} else {
-				if (isInc) {
-					if (clienteDAO.existByEmail(cliente.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", cliente.getEmail().getDescription()));
+			if (!cliente.getEmail().getDescription().isEmpty()) {
+				if (!cliente.getEmail().isValid()) {
+					throw new RuntimeException(cliente.getEmail().toMessages());
 				} else {
-					if (clienteDAO.existByEmailOderUser(cliente.getEmail().getDescription(),cliente.getId())) throw new RuntimeException(String.format("O e-mail informado já existe para outro cliente: %s", cliente.getEmail().getDescription()));
+					if (isInc) {
+						if (clienteDAO.existByEmail(cliente.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", cliente.getEmail().getDescription()));
+					} else {
+						if (clienteDAO.existByEmailOderUser(cliente.getEmail().getDescription(),cliente.getId())) throw new RuntimeException(String.format("O e-mail informado já existe para outro cliente: %s", cliente.getEmail().getDescription()));
+					}
 				}
 			}
 			
@@ -150,6 +120,11 @@ public class ClienteServiceImpl1 implements ClienteService {
 	@Override
 	public ClienteModel findById(Long id) throws SQLException {
 		return clienteDAO.findById(id);
+	}
+
+	@Override
+	public Map<String, Integer> getFieldSizes() {
+		return new ClienteModel().getFieldSizes();
 	}
 
 }

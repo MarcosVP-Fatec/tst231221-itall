@@ -35,7 +35,7 @@ public class Arquivo {
             }
             
             BufferedReader handleR = new BufferedReader(new FileReader(arq));
-            StringBuilder buffer = new StringBuilder();
+            StringBuffer buffer = new StringBuffer();
             String linha;
             while ((linha = handleR.readLine()) != null) {
                 buffer.append(linha).append("\n");
@@ -77,6 +77,9 @@ public class Arquivo {
         } catch (IOException e) {
         	Texto.logConsoleErro(e.getMessage());
         }
+        
+        return true;
 		
 	}
+	
 }

@@ -101,7 +101,7 @@ public class SqlPreparedStatementUpdate {
 		@SuppressWarnings("unchecked")
 		List<String> listaFields = (List<String>) destino.getClass().getMethod("getFields").invoke(destino);
 		
-		StringBuilder sbCampos = new StringBuilder();
+		StringBuffer sbCampos = new StringBuffer();
 		
 		for (Iterator<String> it = ((Collection<String>) listaAttrib ).iterator(); it.hasNext();) {
 			
@@ -276,9 +276,9 @@ public class SqlPreparedStatementUpdate {
 	
 	@Override
 	public String toString() {
-		StringBuilder txt = new StringBuilder("SQL    : " + getSqlExpression()+"\n"+
-	                                          "METHODS: " + getMethods() + "\n" +
-				                              "VALUES : ");
+		StringBuffer txt = new StringBuffer("SQL    : " + getSqlExpression()+"\n"+
+	                                        "METHODS: " + getMethods() + "\n" +
+				                            "VALUES : ");
 		String virgula = "";
 		for (Object valor : getValores()) {
 			txt.append(virgula+valor);

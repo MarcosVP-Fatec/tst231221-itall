@@ -1,8 +1,9 @@
-package br.com.itall.service;
+package br.com.itall.service.cad;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -22,22 +23,14 @@ import br.com.itall.model.entity.cad.ClienteModel;
 public interface ClienteService {
 
 	/**
-	 * Monta um objeto ClienteModel a partir do HttpServletRequest
-	 * 
-	 * @param request (HttpServletRequest)
-	 * @return ClienteModel (nullable)
-	 */
-	public ClienteModel clienteModelFromRequest(HttpServletRequest request);
-
-	/**
 	 * Método que insere ou altera um cliente
 	 * 
-	 * @param request (HttpServletRequest)
+	 * @param cliente (ClienteModel)
 	 * @param isInc (boolean) que indica se é inclusão (true) ou alteração (false)
 	 * @return ClienteModel
 	 * @throws Exception Trata quaisquer erros que venham a ocorrer
 	 */
-	public ClienteModel clienteAltInc(HttpServletRequest request, boolean isInc) throws Exception;
+	public ClienteModel clienteAltInc(ClienteModel cliente, boolean isInc) throws Exception;
 	
 	/**
 	 * Lista todos os clientes em ordem alfabética
@@ -71,4 +64,15 @@ public interface ClienteService {
 	 */
 	public ClienteModel findById(Long id) throws SQLException ;
 	
+	/**
+	 * Método que retorna um Map com características de tamanho dos campos.<br>
+	 * Este objeto será lido nas páginas JSP para definir os limites dos campos e<br>
+	 * validar a digitação dos mesmos.
+	 * Estes limites são definidos por anotação nas classes Model.
+	 * Utilizar
+	 * 
+	 * @return Map<String,Integer>
+	 */
+	public Map<String,Integer> getFieldSizes();
+
 }

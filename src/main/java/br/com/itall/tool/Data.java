@@ -61,7 +61,8 @@ public class Data {
     }
     
     /**
-	 * Converte: <b>String</b> "99/99/9999" => <b>LocalDate</b>
+	 * Converte: <b>String</b> "dd/MM/yyyy" => <b>LocalDate</b>
+	 * Converte: <b>String</b> "yyyy-MM-dd" => <b>LocalDate</b>
      * @param sData "dd/mm/yyyy hh:MM:ss"
      * @return LocalDateTime
      * @author MarcosVP
@@ -70,6 +71,14 @@ public class Data {
     public static LocalDate convertStringToLocalDate(String sData) {
     	
     	try {
+    		
+    		// Para datas no formato YYYY-MM-DD
+    		if (sData.substring(4,5).equals("-")) {
+        		return LocalDate.of(Integer.parseInt(sData.substring( 0, 4))
+				                   ,Integer.parseInt(sData.substring( 5, 7))
+				                   ,Integer.parseInt(sData.substring( 8,10))
+				                   );
+    		} 
     		return LocalDate.of(Integer.parseInt(sData.substring( 6,10))
     				           ,Integer.parseInt(sData.substring( 3, 5))
     				           ,Integer.parseInt(sData.substring( 0, 2))

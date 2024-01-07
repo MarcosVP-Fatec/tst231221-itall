@@ -35,25 +35,10 @@ public class ClienteDAO extends ConnectDAO {
 
 		try {
 			
-			final String sql = "insert into clientes (nome, sobrenome, sexo, data_nascimento, nacionalidade, email, endereco, cidade, estado, telefone) values (?,?,?,?,?,?,?,?,?,?)";
-
 			conectar();
 
-			PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = cliente.generateSqlInsert(getConexao());
 
-
-			ps.setString( 1, cliente.getNome());
-			ps.setString( 2, cliente.getSobrenome());
-			ps.setString( 3, cliente.getSexo());
-			ps.setObject( 4, cliente.getDataNascimento());
-			ps.setString( 5, cliente.getNacionalidade());
-			ps.setString( 6, cliente.getEmail().getDescription());
-			ps.setString( 7, cliente.getEndereco());
-			ps.setString( 8, cliente.getCidade());
-			ps.setString( 9, cliente.getEstado());
-			ps.setString(10, cliente.getEstado());
-			ps.setString(11, cliente.getTelefone());
-			
 			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
 			int linhasAfetadas = ps.executeUpdate();
@@ -72,6 +57,7 @@ public class ClienteDAO extends ConnectDAO {
 
 		} catch (Exception e) {
 			desconectar();
+			e.printStackTrace();
 			Texto.logConsole(e);
 			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente: %s",e.getMessage()));
 		}

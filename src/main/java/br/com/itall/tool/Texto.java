@@ -57,4 +57,68 @@ public class Texto {
 		return texto;
 	}
 	
+	/**
+	 * Função que coloca a primeira letra de uma palavra em maiúsculo.<br>
+	 * 
+	 * @param palavra (String)
+	 * @return String Palavra
+	 */
+	public static String capFirst(String palavra) {
+		if (palavra == null || palavra.isEmpty()) return palavra;
+        return palavra.substring(0, 1).toUpperCase() + palavra.substring(1);
+	}
+	
+	
+	/**
+	 * Trata um <b>texto</b> preenchendo com espaços à esquerda<br>
+	 * @see #padL(String, int, Character)
+	 * @param texto (String) Texto que será tratado.
+	 * @param tamanho (int) Tamanho desejado para o texto resultante
+	 * @return (String) "   texto".
+	 */
+	public static String padL( String texto , int tamanho) { return padL( texto, tamanho, ' '); }
+
+	/**
+	 * Trata um <b>texto</b> preenchendo com determinado caractere à esquerda<br>
+	 * - Se o tamanho solicitado for menor que o <b>texto</b> de parâmetro<br>
+	 *   não faz tratamento retornando o próprio <b>texto</b>.
+	 * - Não retira espaços do texto, portanto tem que tratar isso pela sua chamada.
+	 * - Se o caractere de preenchimento não for informado será considerado um espaço.
+	 * 
+	 * @param texto (String) Texto que será tratado.
+	 * @param tamanho (int) Tanaho desejado para o texto resultante
+	 * @param letra (Character) &#91;Optional&#93; Letra que será inserida. Default ' '.
+	 * @return (String) "   texto".
+	 */
+	public static String padL( String texto , int tamanho, Character letra ) {
+		if (texto==null || texto.length() >= tamanho) return texto;
+		return String.format("%" + (tamanho-texto.length()) + "s", "").replace(' ', letra==null?' ':letra) + texto;
+	}
+	
+	/**
+	 * Trata um <b>texto</b> preenchendo com espaços à direita<br>
+	 * @see #padR(String, int, Character)
+	 * @param texto (String) Texto que será tratado.
+	 * @param tamanho (int) Tamanho desejado para o texto resultante
+	 * @return (String) "texto   ".
+	 */
+	public static String padR( String texto , int tamanho) { return padL( texto, tamanho, ' '); }
+
+	/**
+	 * Trata um <b>texto</b> preenchendo com determinado caractere à direita<br>
+	 * - Se o tamanho solicitado for menor que o <b>texto</b> de parâmetro<br>
+	 *   não faz tratamento retornando o próprio <b>texto</b>.
+	 * - Não retira espaços do texto, portanto tem que tratar isso pela sua chamada.
+	 * - Se o caractere de preenchimento não for informado será considerado um espaço.
+	 * 
+	 * @param texto (String) Texto que será tratado.
+	 * @param tamanho (int) Tanaho desejado para o texto resultante
+	 * @param letra (Character) &#91;Optional&#93; Letra que será inserida. Default ' '.
+	 * @return (String) "   texto".
+	 */
+	public static String padR( String texto , int tamanho, Character letra ) {
+		if (texto==null || texto.length() >= tamanho) return texto;
+		return texto + String.format("%" + (tamanho-texto.length()) + "s", "").replace(' ', letra==null?' ':letra);
+	}
+
 }

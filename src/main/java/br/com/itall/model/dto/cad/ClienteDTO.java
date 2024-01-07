@@ -13,7 +13,12 @@ import br.com.itall.model.entity.cad.ClienteModel;
 */
 public class ClienteDTO extends ClienteModel{
 
-	/**
+    /**
+     * Construtor Básico
+     */
+    public ClienteDTO() { super(); }
+
+    /**
 	 * Construtor - Lista de Clientes
 	 * @param id (Long)
 	 * @param nome (String)
@@ -33,4 +38,21 @@ public class ClienteDTO extends ClienteModel{
 		setTelefone(telefone);
 	}
 	
+    /**
+     * Construtor pelo Model
+     * @param model (ClienteModel)
+     */
+    public ClienteDTO(ClienteModel model) {
+    	setId(model.getId());
+    	setNome(model.getNome());
+    	setSobrenome(model.getSobrenome());
+    	setSexo(model.getSexo());
+    	setDataNascimento(model.getDataNascimento());
+    	setNacionalidade(model.getNacionalidade());
+    	setEmail(model.getEmail().getDescription());
+    	setEndereco(model.getEndereco());
+    	setCidade(model.getCidade());
+    	setEstado(model.getEstado());
+    	setTelefone(model.getTelefone());    	
+	}
 }
