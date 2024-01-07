@@ -37,7 +37,7 @@
 		msgHideAll();
 		if (document.getElementById("fieldSenha1").value !== document
 				.getElementById("fieldSenha2").value) {
-			msgShowErro("As senhas digitadas estão diferentes!");
+			msgShowErro("As senhas digitadas estão diferentes!",3);
 			return false;
 		}
 		return true;
@@ -72,7 +72,7 @@
 
 					<!-- ID -->
 					<div style="display: none;">
-						<label for="fieldNome" class="form-label">Identificador</label> <input
+						<label for="fieldId" class="form-label">Identificador</label> <input
 							type="text" class="form-control" name="id" value="${fieldId}"
 							id="fieldId">
 					</div>
