@@ -44,7 +44,7 @@ public class UsuarioDTO {
 	}
     
     /**
-     * Construtor 
+     * Construtor pelo Model
      * @param model (UsuarioModel)
      */
     public UsuarioDTO(UsuarioModel model) {

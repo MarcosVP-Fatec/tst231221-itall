@@ -43,19 +43,21 @@ Coloque na primeira linha após a tag <body>
 					</ul></li>
 
 				<!-- Cadastros -->
+				
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdownCadastros"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Cadastros</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
+					
+						<!-- Clientes -->
+						
 						<li><a class="dropdown-item"
-							<%-- href="${pageContext.request.contextPath}/cliente?opc=clientenovo">Cliente - Novo</a></li> --%>
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
-							onclick='msgShowAlerta("Cliente Novo => em desenvolvimento",3)'>Cliente - Novo</a></li>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Inclusão de clientes"
+							href="${pageContext.request.contextPath}/cliente?opc=pagenew">Cliente - Novo</a></li>
 						<li><a class="dropdown-item"
-							<%-- href="${pageContext.request.contextPath}/cliente?opc=clientelistar">Cliente - Lista</a></li> --%>
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
-							onclick='msgShowAlerta("Cliente Lista => em desenvolvimento",3)'>Cliente - Lista</a></li>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Listagem de clientes"
+							href="${pageContext.request.contextPath}/cliente?opc=pagelist">Cliente - Lista</a></li>
 						
 						<li class="dropdown-divider"></li>
 						
@@ -74,9 +76,11 @@ Coloque na primeira linha após a tag <body>
 						Usuários</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
 						<li><a class="dropdown-item"
-							href="${pageContext.request.contextPath}/usr?opc=usuarionovo">Novo</a></li>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Inclusão de usuários"
+							href="${pageContext.request.contextPath}/usr?opc=pagenew">Novo</a></li>
 						<li><a class="dropdown-item"
-							href="${pageContext.request.contextPath}/usr?opc=usuarioslistar">Lista</a></li>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Visualize todos os usuários para alterar ou excluir"
+							href="${pageContext.request.contextPath}/usr?opc=pagelist">Lista</a></li>
 					</ul></li>
 
 				<!-- Ajuda -->

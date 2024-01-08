@@ -24,8 +24,8 @@ public class ConnectDB {
 	/** 
 	 * Método que lê o recurso e distribui as conexões conforme necessário. <br>
 	 * @return Connection 
-	 * @throws SQLException Se ocorrer erro na execução do SQL
-	 * @throws NamingException Se ocorrer algum erro de Sintaxe SQL
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+	 * @throws NamingException Superclasse de todas as exceções lançadas por operações nas interfaces Context e DirContext. Foi adaptada para estar em conformidade com o mecanismo de encadeamento de exceções de uso geral.
 	 *  
 	 */
 	public static Connection getConnection() throws SQLException, NamingException {

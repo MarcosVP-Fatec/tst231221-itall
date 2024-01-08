@@ -1,11 +1,12 @@
 package br.com.itall.model.entity.cad;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
+import br.com.itall.model.GenericModel;
 import br.com.itall.tool.Email;
 import br.com.itall.tool.Texto;
+import br.com.itall.tool.annotation.CampoBD;
+import br.com.itall.tool.annotation.TabelaBD;
 
 /**
  * Entidade da tabela "clientes" <br>
@@ -18,45 +19,47 @@ import br.com.itall.tool.Texto;
  * @version 1.01.0
  *
  */
-public class ClienteModel {
+@TabelaBD(name = "clientes")
+public class ClienteModel extends GenericModel {
 
-	/** Atributos para serem utilizados na automatização do Update */
-	private final List<String> attribs = Arrays.asList("nome,sobrenome,sexo,dataNascimento,nacionalidade,email,endereco,cidade,estado,telefone".split(",")); 
-	/** Atributos para serem utilizados na automatização do Update */
-	private final List<String> fields = Arrays.asList("nome,sobrenome,sexo,data_nascimento,nacionalidade,email,endereco,cidade,estado,telefone".split(",")); 
-	
+	@CampoBD(is_id = true)
 	private Long id;
     
-    /** Tamanho do atributo "nome" (NOME) = 80 */
-    public final static short NOME_FIELD_LEN = 80;
+    @CampoBD(field_len = 80)
     private String nome;
     
-    /** Tamanho do atributo "sobrenome" (SOBRENOME) = 80 */
-    public final static short SOBRENOME_FIELD_LEN = 80;
+    @CampoBD(field_len = 80)
     private String sobrenome;
 
-    /** Tamanho do atributo "sexo" (SEXO) = 1 */
-    public final static short SEXO_FIELD_LEN = 1;
+    @CampoBD(field_len = 1)
     private String sexo;
     
+    @CampoBD(field_name = "data_nascimento")
     private LocalDate dataNascimento;
     
+    @CampoBD(field_len = 20)
     private String nacionalidade;
     
+    @CampoBD(field_name = "email", field_len = 255)
     private Email email;
     
+    @CampoBD(field_len = 255)
     private String endereco;
     
+    @CampoBD(field_len = 100)
     private String cidade;
     
+    @CampoBD(field_len = 2)
     private String estado;
     
+    @CampoBD(field_len = 20)
     private String telefone;
     
     /** Básico */
     public ClienteModel() {}
+    
     /**
-     * Parametrizado
+     * Construtor Parametrizado
 	 * @param id (Long)
 	 * @param nome (String)
 	 * @param sobrenome (String)
@@ -72,7 +75,7 @@ public class ClienteModel {
 	public ClienteModel(Long id, String nome, String sobrenome, String sexo, LocalDate dataNascimento,
 			String nacionalidade, String email, String endereco, String cidade, String estado, String telefone) {
 		setId(id);
-		setNome(sobrenome);
+		setNome(nome);
 		setSobrenome(sobrenome);
 		setSexo(sexo);
 		setDataNascimento(dataNascimento);
@@ -164,7 +167,7 @@ public class ClienteModel {
 	 * @param nacionalidade (String)
 	 */
 	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = Texto.tiraEspacosDuplos(nacionalidade.trim().toUpperCase());
+		this.nacionalidade = Texto.tiraEspacosDuplos(nacionalidade.trim());
 	}
 	
 	/** @return endereco (String) */
@@ -202,7 +205,7 @@ public class ClienteModel {
 	 * @param estado (String)
 	 */
 	public void setEstado(String estado) {
-		this.estado = estado.trim().toUpperCase();
+		this.estado = estado == null ? estado : estado.trim().toUpperCase();
 	}
 	
 	/**
@@ -216,19 +219,6 @@ public class ClienteModel {
 	 */
 	public void setTelefone(String telefone) {
 		this.telefone = telefone.trim();
-	}
-
-	/**
-	 * @return List&lt;String&gt; de nomes dos campos (Exceto o id)
-	 */
-	public List<String> getFields() {
-		return fields;
-	}
-	/**
-	 * @return List&lt;String&gt; de nomes de atributos (Exceto o id)
-	 */
-	public List<String> getAttribs() {
-		return attribs;
 	}
 	
 }

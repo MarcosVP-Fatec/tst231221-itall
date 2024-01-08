@@ -17,14 +17,24 @@ MySQL|8.0.24|port: **3006**/db: **itall_dev**/user: **admin**/pw: **admin**
 * O arquivo .classpath.xml é uma cópia do .classpath utilizado no desenvolvimento
 * Utilizado Eclipse IDE 2023-12 rodando com Java 21.0.1 2023-10-17 LTS
 
+Destaque de recursos do Java utilizados|
+:---|
+Reflexão em Java
+Anotações personalizadas
+Exceções personalizadas
+
 ## Desenvolvimento
 Tópico|Caminho|
 :---|:---|
 Home|ITALL ou Home
-Usuário (Inclusão)|Usuário > Novo|
-Usuário (Lista)|Usuário > Lista
-Usuário (Alteração)|Usuário > Lista > **[Alterar]**
-Usuário (Exclusão)|Usuário > Lista > **[Excluir]**
+Usuários (Inclusão)|Usuário > Novo|
+Usuários (Lista)|Usuário > Lista
+Usuários (Alteração)|Usuário > Lista > **[Alterar]**
+Usuários (Exclusão)|Usuário > Lista > **[Excluir]**
+Clientes (Inclusão)|Clientes > Novo|
+Clientes (Lista)|Clientes > Lista
+Clientes (Alteração)|Clientes > Lista > **[Alterar]**
+Clientes (Exclusão)|Clientes > Lista > **[Excluir]**
 Manual Técnico|Ajuda > Manual Técnico (**JavaDoc**)
 
 

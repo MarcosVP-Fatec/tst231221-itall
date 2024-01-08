@@ -37,7 +37,7 @@
 		msgHideAll();
 		if (document.getElementById("fieldSenha1").value !== document
 				.getElementById("fieldSenha2").value) {
-			msgShowErro("As senhas digitadas estão diferentes!");
+			msgShowErro("As senhas digitadas estão diferentes!",3);
 			return false;
 		}
 		return true;
@@ -61,10 +61,10 @@
 
 				<form onsubmit="return preValid();"
 					<c:if test="${acao_tela eq 'inc'}">
-				        action="${pageContext.request.contextPath}/usr?opc=usuario_insert"
+				        action="${pageContext.request.contextPath}/usr?opc=insert"
 					</c:if>
 					<c:if test="${acao_tela eq 'alt'}">
-				        action="${pageContext.request.contextPath}/usr?opc=usuario_update&id=${fieldId}"
+				        action="${pageContext.request.contextPath}/usr?opc=update&id=${fieldId}"
 					</c:if>
 					method="post">
 
@@ -72,7 +72,7 @@
 
 					<!-- ID -->
 					<div style="display: none;">
-						<label for="fieldNome" class="form-label">Identificador</label> <input
+						<label for="fieldId" class="form-label">Identificador</label> <input
 							type="text" class="form-control" name="id" value="${fieldId}"
 							id="fieldId">
 					</div>
@@ -90,6 +90,10 @@
 						<label for="fieldEmail" class="form-label">Endereço de
 							E-mail</label> <input type="email" class="form-control" name="email"
 							maxlength="255" required value="${fieldEmail}" id="fieldEmail"
+							<c:if test="${acao_tela == 'alt'}">
+								disabled
+								title="O e-mail identifica o usuário e não pode ser alterado."
+							</c:if>
 							placeholder=".....Fique tranquilo! Seu e-mail não será divulgado.">
 					</div>
 
@@ -149,9 +153,14 @@
 						<c:if test="${acao_tela == 'inc'}">Incluir</c:if>
 						<c:if test="${acao_tela == 'alt'}">Alterar</c:if>
 					</button>
-					<a href="#" class="btn btn-secondary active" role="button"
-						onclick="gotoHome();" aria-pressed="false">Voltar</a>
-
+					<a class="btn btn-secondary active" role="button" aria-pressed="false"
+						<c:if test="${acao_tela == 'inc'}">
+							href="#" onclick="gotoHome();"
+						</c:if>
+						<c:if test="${acao_tela == 'alt'}">
+							href="${pageContext.request.contextPath}/usr?opc=pagelist"
+						</c:if>
+					>Voltar</a>
 				</form>
 
 			</div>

@@ -22,8 +22,8 @@ public class ConnectDAO {
 	
 	/**
 	 * Método que pede uma conexão e a guarda para uso da classe filha DAO.
-	 * @throws SQLException Se ocorrer erro na execução do SQL
-	 * @throws NamingException Se ocorrer algum erro de Sintaxe SQL
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+	 * @throws NamingException Superclasse de todas as exceções lançadas por operações nas interfaces Context e DirContext. Foi adaptada para estar em conformidade com o mecanismo de encadeamento de exceções de uso geral.
 	 */
 	public void conectar() throws SQLException, NamingException {
 		if (con == null || con.isClosed() ) con = ConnectDB.getConnection();
@@ -33,7 +33,7 @@ public class ConnectDAO {
 	 * Método que fecha a conexão recebida anteriormente para uso da classe filha DAO.<br>
 	 * Antes de fechar a conexão faz um Rollback(). 
 	 * 
-	 * @throws SQLException Se ocorrer erro na execução do SQL 
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL). 
 	 */
 	public void desconectar() throws SQLException {
 		if (con != null && !con.isClosed()) {

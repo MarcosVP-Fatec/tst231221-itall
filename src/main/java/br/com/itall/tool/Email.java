@@ -119,7 +119,7 @@ public class Email {
 	 * @param email String - Conta do e-mail. 
 	 */
 	public void setInvalidChar(String email)  { 
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 		// abcdefgihjklmnopqrstuvwxyz.-@_0123456789
 		for (String letra : email.split("")) {
 			sb.append("abcdefgihjklmnopqrstuvwxyz.-@_0123456789".indexOf(letra) > -1?" ":"^"); 
@@ -131,20 +131,20 @@ public class Email {
 	}
 	
 	/**
-	 * Ajuste no método padrão para retornar a conta do e-mail quando for passada somente a classe como parâmetro.
+	 * Ajuste no método padrão para retornar a conta do e-mail quando for passada somente a classe como parâmetro.<br>
+	 * Este método não pode ser alterado por ser utilizado internamente pela reflexibilidade.
+	 * @see #getDescription()
 	 * @return String Conta do e-mail. 
 	 */
 	@Override
-	public String toString() {
-		return getDescription();
-	}
+	public String toString() { return getDescription(); }
 
 	/**
 	 * Texto alternativo ao toString para exibir os dados gerados em logs.
 	 * @return String
 	 */
 	public String toStringLog() {
-		StringBuilder sb = new StringBuilder(String.format("Email    : \"%s\"\n",this.getDescription()));
+		StringBuffer sb = new StringBuffer(String.format("Email    : \"%s\"\n",this.getDescription()));
 		if (getInvalidChar().length() > 0 ) sb.append(String.format("Inválidos:  %s\n",this.getInvalidChar()));
 		sb.append(String.format("Usuário  : %s\n",this.getUser()));
 		sb.append(String.format("Domínio  : %s\n",this.getDomain()));
@@ -163,7 +163,7 @@ public class Email {
 	 * @return String
 	 */
 	public String toMessages() {
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 		if (!this.isValid) {
 			sb.append("E-mail inválido !!!\n");
 			sb.append(String.format(" E-mail   : \"%s\"\n",this.getDescription()));

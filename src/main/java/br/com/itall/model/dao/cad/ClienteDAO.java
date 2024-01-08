@@ -1,7 +1,7 @@
 package br.com.itall.model.dao.cad;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import br.com.itall.model.dao.util.ConnectDAO;
-import br.com.itall.model.dao.util.SqlPreparedStatementUpdate;
 import br.com.itall.model.dto.cad.ClienteDTO;
 import br.com.itall.model.entity.cad.ClienteModel;
 import br.com.itall.tool.Data;
@@ -29,31 +28,16 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param cliente (ClienteModel)
 	 * @return ClienteModel (Com o id já identificado)
-	 * @throws Exception Tratamento de erros em runtime da inclusão do cliente
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
 	public ClienteModel inc(ClienteModel cliente) throws Exception {
 
 		try {
 			
-			final String sql = "insert into clientes (nome, sobrenome, sexo, data_nascimento, nacionalidade, email, endereco, cidade, estado, telefone) values (?,?,?,?,?,?,?,?,?,?)";
-
 			conectar();
 
-			PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = cliente.generateSqlInsert(getConexao());
 
-
-			ps.setString( 1, cliente.getNome());
-			ps.setString( 2, cliente.getSobrenome());
-			ps.setString( 3, cliente.getSexo());
-			ps.setObject( 4, cliente.getDataNascimento());
-			ps.setString( 5, cliente.getNacionalidade());
-			ps.setString( 6, cliente.getEmail().getDescription());
-			ps.setString( 7, cliente.getEndereco());
-			ps.setString( 8, cliente.getCidade());
-			ps.setString( 9, cliente.getEstado());
-			ps.setString(10, cliente.getEstado());
-			ps.setString(11, cliente.getTelefone());
-			
 			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
 			int linhasAfetadas = ps.executeUpdate();
@@ -71,9 +55,9 @@ public class ClienteDAO extends ConnectDAO {
 			cliente.setId(idGerado);
 
 		} catch (Exception e) {
-			desconectar();
+			desconectar(); //e.printStackTrace();
 			Texto.logConsole(e);
-			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente: %s",e.getMessage()));
+			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente \"%s\": %s",cliente.getNome(),e.getMessage()));
 		}
 		
 		return cliente;
@@ -84,25 +68,19 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param cliente (ClienteModel)
 	 * @return ClienteModel
-	 * @throws Exception Tratamento de erros em runtime da inclusão do cliente
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
 	public ClienteModel alt(ClienteModel cliente) throws Exception {
 
 		try {
 			
-			String sql = "update clientes (SET) where id = ?";
+			//String sql = "update clientes (SET) where id = ?";
 			
 			ClienteModel cliDestino = findById(cliente.getId());
 			
-			SqlPreparedStatementUpdate psup = SqlPreparedStatementUpdate.get(cliente, cliDestino, sql, cliente.getId());
-			
-			sql = psup.getSqlExpression(); 
-
 			conectar();
-
-			PreparedStatement ps = getConexao().prepareStatement(sql);
 			
-			psup.multiSets(ps);
+			PreparedStatement ps = cliente.generateSqlUpdate(getConexao(), cliente, cliDestino);
 
 			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
@@ -115,6 +93,7 @@ public class ClienteDAO extends ConnectDAO {
 			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente: %s",e.getMessage()));
 		}
 		
+		desconectar();
 		return cliente;
 
 	}
@@ -130,7 +109,7 @@ public class ClienteDAO extends ConnectDAO {
         		                  ,rs.getString("nome")
         		                  ,rs.getString("sobrenome")
         		                  ,rs.getString("sexo")
-        		                  ,Data.convertDateToLocalDate(rs.getDate("dataNascimento"))
+        		                  ,Data.convertDateToLocalDate(rs.getDate("data_nascimento"))
         		                  ,rs.getString("nacionalidade")
         		                  ,rs.getString("email")
         		                  ,rs.getString("endereco")
@@ -149,7 +128,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param id (Long) identificador do cliente.
 	 * @return ClienteModel
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public ClienteModel findById(Long id) throws SQLException {
 		
@@ -186,8 +165,8 @@ public class ClienteDAO extends ConnectDAO {
 	 * Lista todos os cliente em ordem alfabética
 	 * 
 	 * @return List&lt;ClienteDTO&gt;
-	 * @throws SQLException Trata erros de execução do SQL
-	 * @throws NamingException Trata erros de sintaxe do SQL
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+	 * @throws NamingException Superclasse de todas as exceções lançadas por operações nas interfaces Context e DirContext. Foi adaptada para estar em conformidade com o mecanismo de encadeamento de exceções de uso geral.
 	 */
 	public List<ClienteDTO> listarTodosClientes() throws SQLException, NamingException {
 
@@ -206,6 +185,7 @@ public class ClienteDAO extends ConnectDAO {
 			lista.add(new ClienteDTO(rs.getLong("id")
 		                  			,rs.getString("nome")
 		                  			,rs.getString("sobrenome")
+		                  			,Data.convertDateToLocalDate(rs.getDate("data_nascimento")) 
 		                  			,rs.getString("email")
 		                  			,rs.getString("cidade")
 		                  			,rs.getString("estado")
@@ -223,7 +203,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param email (String) Conta de e-mail
 	 * @return boolean
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public boolean existByEmail(String email) throws SQLException {
 		
@@ -259,7 +239,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * @param email (String) Conta de e-ail
 	 * @param id (Long) Identificador do cliente atual
 	 * @return boolean
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public boolean existByEmailOderUser(String email, Long id) throws SQLException {
 		
@@ -295,7 +275,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * Método para exclusão de cliente
 	 * 
 	 * @param id (Long) Identificador do cliente
-	 * @throws SQLException Tratamento de erros de SQL 
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL). 
 	 */
 	public void del(Long id) throws SQLException {
 

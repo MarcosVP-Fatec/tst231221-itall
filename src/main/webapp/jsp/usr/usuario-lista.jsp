@@ -39,18 +39,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="usu" items="${lista_usu}">
+						<c:forEach var="linha" items="${lista_principal}">
 							<tr>
-								<td style="text-align: right;"><c:out value="${usu.id}" /></td>
-								<td><c:out value="${usu.nome}" /></td>
-								<td><c:out value="${usu.email}" /></td>
-								<td><fmt:formatDate value="${usu.dataCriacao}" type="date" pattern="dd/MM/yyyy hh:mm" /></td>
+								<td style="text-align: right;"><c:out value="${linha.id}" /></td>
+								<td><c:out value="${linha.nome}" /></td>
+								<td><c:out value="${linha.email}" /></td>
+								<td><fmt:formatDate value="${linha.dataCriacao}" type="date" pattern="dd/MM/yyyy hh:mm" /></td>
 								<td> 																			
 									<a class="btn btn-outline-success btn-sm"
-									href="${pageContext.request.contextPath}/usr?opc=usuarioalterar&id=<c:out value="${usu.id}"/>">alterar</a>
+									href="${pageContext.request.contextPath}/usr?opc=pageupd&id=<c:out value="${linha.id}"/>">alterar</a>
 									<a class="btn btn-outline-danger btn-sm"
-									onclick="return confirm('Confirma a exclusão do usuário <c:out value="${usu.nome}"/> ?');"
-									href="${pageContext.request.contextPath}/usr?opc=usuario_delete&id=<c:out value="${usu.id}"/>">excluir</a>
+									onclick="return confirm('Confirma a exclusão do usuário <c:out value="${linha.nome}"/> ?');"
+									href="${pageContext.request.contextPath}/usr?opc=delete&id=<c:out value="${linha.id}"/>">excluir</a>
 								</td>
 								
 							</tr>

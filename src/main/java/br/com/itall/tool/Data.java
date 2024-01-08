@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -61,7 +62,8 @@ public class Data {
     }
     
     /**
-	 * Converte: <b>String</b> "99/99/9999" => <b>LocalDate</b>
+	 * Converte: <b>String</b> "dd/MM/yyyy" => <b>LocalDate</b>
+	 * Converte: <b>String</b> "yyyy-MM-dd" => <b>LocalDate</b>
      * @param sData "dd/mm/yyyy hh:MM:ss"
      * @return LocalDateTime
      * @author MarcosVP
@@ -70,10 +72,59 @@ public class Data {
     public static LocalDate convertStringToLocalDate(String sData) {
     	
     	try {
+    		
+    		// Para datas no formato YYYY-MM-DD
+    		if (sData.substring(4,5).equals("-")) {
+        		return LocalDate.of(Integer.parseInt(sData.substring( 0, 4))
+				                   ,Integer.parseInt(sData.substring( 5, 7))
+				                   ,Integer.parseInt(sData.substring( 8,10))
+				                   );
+    		} 
     		return LocalDate.of(Integer.parseInt(sData.substring( 6,10))
     				           ,Integer.parseInt(sData.substring( 3, 5))
     				           ,Integer.parseInt(sData.substring( 0, 2))
     				           );
+		} catch (Exception e) {
+			try { e.printStackTrace(); } catch (Exception e2) {}
+		}
+		return null;
+    }
+
+    /**
+	 * Converte: <b>LocalDate</b> => <b>String</b> "yyyy-MM-dd" 
+	 * Formato de data/string utilizada em HTML.
+	 * 
+     * @param data (LocalDate)
+     * @return (String) "yyyy-MM-dd"
+     * @author MarcosVP
+     * @since 08/01/2024
+     */
+    public static String convertLocalDateToStringHtml(LocalDate data) {
+    	
+    	try {
+    		
+            return data.format( DateTimeFormatter.ofPattern("yyyy-MM-dd") );
+            
+		} catch (Exception e) {
+			try { e.printStackTrace(); } catch (Exception e2) {}
+		}
+		return null;
+    }
+
+    /**
+	 * Converte: <b>java.time.Date</b> => <b>String</b> "yyyy-MM-dd" 
+	 * Formato de data/string utilizada em HTML.
+	 * 
+     * @param data (java.time.Date)
+     * @return (String) "yyyy-MM-dd"
+     * @author MarcosVP
+     * @since 08/01/2024
+     */
+    public static String convertDateToStringHtml(Date data) {
+    	try {
+    		
+    		return convertLocalDateToStringHtml(convertDateToLocalDate(data));
+            
 		} catch (Exception e) {
 			try { e.printStackTrace(); } catch (Exception e2) {}
 		}
@@ -201,5 +252,16 @@ public class Data {
 			return Date.from(localDT.atZone(ZoneId.systemDefault()).toInstant());
     }
     
+    /**
+     * Converte <b>LocalDate</b> => <b>java.util.Date</b> <br>
+     * Faz a conversão do fuso horário antes.
+     *  
+     * @param localDT (LocalDate)
+     * @return java.util.Date
+     */
+    public static Date convertLocalDateToDate(LocalDate localDT) {
+			return Date.from(localDT.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
 }
 

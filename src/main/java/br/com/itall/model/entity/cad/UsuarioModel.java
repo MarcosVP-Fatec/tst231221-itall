@@ -1,10 +1,12 @@
 package br.com.itall.model.entity.cad;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
+import br.com.itall.model.GenericModel;
 import br.com.itall.tool.Email;
+import br.com.itall.tool.Texto;
+import br.com.itall.tool.annotation.CampoBD;
+import br.com.itall.tool.annotation.TabelaBD;
 
 /**
  * Entidade da tabela "usuarios" <br>
@@ -17,34 +19,27 @@ import br.com.itall.tool.Email;
  * @version 1.01.0
  *
  */
-public class UsuarioModel {
+@TabelaBD(name = "usuarios")
+public class UsuarioModel extends GenericModel {
 
-	/** Atributos para serem utilizados na automatização do Update */
-	private final List<String> attribs = Arrays.asList("nome,email,senha".split(",")); //,dataCriacao
-	/** Atributos para serem utilizados na automatização do Update */
-	private final List<String> fields = Arrays.asList("nome,email,senha".split(",")); //,data_criacao
-	
+	@CampoBD(is_id = true)
 	private Long id;
     
-    /** Tamanho do atributo "nome" (NOME) = 80 */
-    public final static short NOME_FIELD_LEN = 80;
+    @CampoBD(field_len = 80)
     private String nome;
     
+    @CampoBD(field_len = 255)
     private Email email;
     
-    /** Tamanho do atributo "senha" (SENHA) = 80 */
-    public final static short SENHA_FIELD_LEN = 80;
-    /** Tamanho mínimo do atributo "senha" (SENHA) = 3 */
-    public final static int SENHA_FIELD_LEN_MIN = 3;
+    @CampoBD(field_len = 80, field_len_min = 3)
     private String senha;
     
+    @CampoBD(field_name = "data_criacao", is_to_update = false)
     private LocalDateTime dataCriacao;
     
-    /**
-     * Atributo transiente utilizado para alterar a senha.<br>
-     * Não é gravado no banco de dados
-     */
+    /** Atributos transientes utilizados para alterar a senha. */
     private Boolean isMudarSenha;
+    private String senhaAnterior;
 
     /** Básico */
     public UsuarioModel() {}
@@ -87,7 +82,7 @@ public class UsuarioModel {
 	 * 
 	 * */
 	public void setNome(String nome) {
-		this.nome = nome.trim().toUpperCase();
+		this.nome = Texto.tiraEspacosDuplos(nome.trim().toUpperCase());
 	}
 	/** @return email (Email) 
 	 *  @see Email	 */
@@ -103,7 +98,7 @@ public class UsuarioModel {
 	 * @see Email
 	 */
 	public void setEmail(String email) {
-		this.email = Email.get(email);
+		this.email = ( email == null ? null : Email.get(email) );
 	}
     /** @return senha (String) */
 	public String getSenha() {
@@ -111,7 +106,7 @@ public class UsuarioModel {
 	}
     /** @param senha (String) */
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = (senha == null ? null : senha);
 	}
     /** @return dataCriacao (LocalDateTime) */
 	public LocalDateTime getDataCriacao() {
@@ -133,17 +128,17 @@ public class UsuarioModel {
 	public void setIsMudarSenha(Boolean isMudarSenha) {
 		this.isMudarSenha = isMudarSenha;
 	}
-	/**
-	 * @return List&lt;String&gt; de nomes dos campos (Exceto o id)
-	 */
-	public List<String> getFields() {
-		return fields;
+
+	/** @return senhaAnterior (String) */
+	public String getSenhaAnterior() {
+		return senhaAnterior;
 	}
-	/**
-	 * @return List&lt;String&gt; de nomes de atributos (Exceto o id)
+	/** @param senhaAnterior (String) 
+	 * 	@return UsuarioModel
 	 */
-	public List<String> getAttribs() {
-		return attribs;
+	public UsuarioModel setSenhaAnterior(String senhaAnterior) {
+		this.senhaAnterior = senhaAnterior;
+		return this;
 	}
 
 }
