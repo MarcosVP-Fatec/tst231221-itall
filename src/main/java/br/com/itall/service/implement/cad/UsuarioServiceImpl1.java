@@ -9,6 +9,7 @@ import br.com.itall.model.dto.cad.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.service.cad.UsuarioService;
 import br.com.itall.service.security.Criptografia;
+import br.com.itall.tool.exception.CrudException;
 
 /**
  * Implementação nº 1 dos Serviços de UsuarioModel
@@ -31,17 +32,31 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 		final String tipo = isInc ? "inclusão" : "alteração";
 		try {
 
-			if (usuario == null) throw new RuntimeException(String.format("Nenhum usuário foi informado para esta %s!", tipo));
+			if (usuario == null) throw new CrudException(String.format("Nenhum usuário foi informado para esta %s!", tipo)); 
 			
 			if (isInc) {
 				
-				if (usuario.getId() != null) throw new RuntimeException(String.format("Tentativa de incluir usuário com identificador informado: Id %s", usuario.getId()));
-				if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
-				if (usuario.getSenha().length() < usuario.getFieldSizes().get("SENHA_FIELD_LEN_MIN")) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+				if (usuario.getId() != null) throw new CrudException(String.format("Tentativa de incluir usuário com identificador informado: Id %s", usuario.getId()));
+				if (usuario.getSenha().isEmpty()) throw new CrudException("Tentativa de gravar usuário com \"senha\" em branco!");
+				if (usuario.getSenha().length() < usuario.getFieldSizes().get("SENHA_FIELD_LEN_MIN")) throw new CrudException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
 			
+				if (!usuario.getEmail().isValid()) {
+					throw new CrudException(usuario.getEmail().toMessages());
+				} else {
+					if (isInc) {
+						if (usuarioDAO.existByEmail(usuario.getEmail().getDescription())) throw new CrudException(String.format("O e-mail informado já existe: %s", usuario.getEmail().getDescription()));
+					} else {
+						if (usuarioDAO.existByEmailOderUser(usuario.getEmail().getDescription(),usuario.getId())) throw new CrudException(String.format("O e-mail informado já existe para outro usuário: %s", usuario.getEmail().getDescription()));
+					}
+				}
+
+				if (!usuario.getSenha().isEmpty()) {
+					usuario.setSenha(this.criptSenha(usuario, usuario.getSenha()));
+				}
+				
 			} else {
 				
-				if (usuario.getId() == null) throw new RuntimeException("Tentativa de alterar usuário sem identificador informado.");
+				if (usuario.getId() == null) throw new CrudException("Tentativa de alterar usuário sem identificador informado.");
 				/**
 				 * Para mudança de senha o usuário precisa confirmar sua senha anterior.
 				 */
@@ -51,33 +66,24 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 					UsuarioModel usuOld = this.findById(usuario.getId());
 					
 					if (senhaAnterior.equals(usuario.getSenha())) {
-						throw new RuntimeException("Informe uma senha diferente para realizar a alteração!");
+						throw new CrudException("Informe uma senha diferente para realizar a alteração!");
 					}
-					if (!criptSenha(usuario, senhaAnterior).equals(usuOld.getSenha()) ){
-						throw new RuntimeException("Senha atual inválida!");
+					if (!criptSenha(usuOld, senhaAnterior).equals(usuOld.getSenha()) ){
+						throw new CrudException("Senha atual inválida!");
 					}
-					if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
-					if (usuario.getSenha().length() < usuario.getFieldSizes().get("SENHA_FIELD_LEN_MIN")) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+					if (usuario.getSenha().isEmpty()) throw new CrudException("Tentativa de gravar usuário com \"senha\" em branco!");
+					if (usuario.getSenha().length() < usuario.getFieldSizes().get("SENHA_FIELD_LEN_MIN")) throw new CrudException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+					
+					if (!usuario.getSenha().isEmpty()) {
+						usuario.setSenha(this.criptSenha(usuOld, usuario.getSenha()));
+					}
+
 				}
 				
 			}
 			
-			if (usuario.getNome().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"nome\" em branco!");
+			if (usuario.getNome().isEmpty()) throw new CrudException("Tentativa de gravar usuário com \"nome\" em branco!");
 
-			if (!usuario.getEmail().isValid()) {
-				throw new RuntimeException(usuario.getEmail().toMessages());
-			} else {
-				if (isInc) {
-					if (usuarioDAO.existByEmail(usuario.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", usuario.getEmail().getDescription()));
-				} else {
-					if (usuarioDAO.existByEmailOderUser(usuario.getEmail().getDescription(),usuario.getId())) throw new RuntimeException(String.format("O e-mail informado já existe para outro usuário: %s", usuario.getEmail().getDescription()));
-				}
-			}
-			
-			if (!usuario.getSenha().isEmpty()) {
-				usuario.setSenha(this.criptSenha(usuario, usuario.getSenha()));
-			}
-			
 			if (isInc) {
 				return usuarioDAO.inc(usuario);
 			} else {
@@ -88,8 +94,8 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 				return usuarioDAO.alt(usuario);
 			}
 			
-		} catch (RuntimeException e) {
-			throw new RuntimeException(e.getMessage());
+		} catch (CrudException e) {
+			throw new CrudException(e.getMessage());
 			
 		} catch (Exception e) {
 			final String msg = String.format("Falha inesperada na %s do usuário: %s", tipo, e.getMessage());
@@ -135,13 +141,13 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 	}
 
 	@Override
-	public String criptSenha(String nome, String email, String senha) throws NoSuchAlgorithmException {
-		return Criptografia.pwToMD5(nome.trim() + email.trim() + senha.trim() );
+	public String criptSenha(String email, String senha) throws NoSuchAlgorithmException {
+		return Criptografia.pwToMD5(email.trim() + senha.trim() );
 	}
 
 	@Override
 	public String criptSenha(UsuarioModel usuario, String novaSenha) throws NoSuchAlgorithmException {
-		return this.criptSenha( usuario.getNome() , usuario.getEmail().getDescription() , novaSenha );
+		return this.criptSenha( usuario.getEmail().getDescription() , novaSenha );
 	}
 
 }

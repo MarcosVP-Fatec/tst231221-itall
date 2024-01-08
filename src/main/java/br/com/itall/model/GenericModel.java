@@ -17,11 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.itall.annotation.CampoBD;
-import br.com.itall.annotation.TabelaBD;
 import br.com.itall.tool.Email;
 import br.com.itall.tool.Numero;
 import br.com.itall.tool.Texto;
+import br.com.itall.tool.annotation.CampoBD;
+import br.com.itall.tool.annotation.TabelaBD;
 
 /**
  * Extensão dos Models para controle dos atributos que são campos no banco de
@@ -272,7 +272,9 @@ public abstract class GenericModel {
 
 			// Só considerar se forem da mesma classe com valores diferentes.
 			// Então entra na lista de valores que serão alterados mais abaixo
-			if ( ori.getClass().equals( des.getClass() ) && !ori.toString().equals(des.toString())) {
+			if (   ori != null 
+				&& (des == null || ori.getClass().equals( des.getClass() ) && !ori.toString().equals(des.toString())) 
+			   ){
 
 				qry.append( "\n   , "
 						  + var.getFieldName()

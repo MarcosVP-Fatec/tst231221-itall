@@ -94,8 +94,10 @@ public class UsuarioDAO extends ConnectDAO {
 
 		} catch (Exception e) {
 			desconectar();
+			String msg = e.getMessage();
 			Texto.logConsole(e);
-			throw new RuntimeException(String.format("Erro inesperado na alteração do usuário: %s",e.getMessage()));
+			e.printStackTrace();
+			throw new RuntimeException(String.format("Erro inesperado na alteração do usuário: %s",msg));
 		}
 		
 		desconectar();

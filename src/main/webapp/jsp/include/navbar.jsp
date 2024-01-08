@@ -56,9 +56,8 @@ Coloque na primeira linha após a tag <body>
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Inclusão de clientes"
 							href="${pageContext.request.contextPath}/cliente?opc=pagenew">Cliente - Novo</a></li>
 						<li><a class="dropdown-item"
-							<%-- href="${pageContext.request.contextPath}/cliente?opc=clientelistar">Cliente - Lista</a></li> --%>
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
-							onclick='msgShowAlerta("Cliente Lista => em desenvolvimento",3)'>Cliente - Lista</a></li>
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Listagem de clientes"
+							href="${pageContext.request.contextPath}/cliente?opc=pagelist">Cliente - Lista</a></li>
 						
 						<li class="dropdown-divider"></li>
 						

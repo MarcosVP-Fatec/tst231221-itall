@@ -66,9 +66,9 @@ public class ClienteController extends HttpServlet {
 		request.setAttribute("fieldNome" 			, isInclu || dto == null ? "" : dto.getNome());
 		request.setAttribute("fieldSobrenome" 		, isInclu || dto == null ? "" : dto.getSobrenome());
 		request.setAttribute("fieldSexo" 			, isInclu || dto == null ? "" : dto.getSexo());
-		request.setAttribute("fieldDataNascimento" 	, isInclu || dto == null ? "" : dto.getDataNascimento());
+		request.setAttribute("fieldDataNascimento" 	, isInclu || dto == null ? "" : Data.convertDateToStringHtml(dto.getDataNascimento()));
 		request.setAttribute("fieldNacionalidade" 	, isInclu || dto == null ? "" : dto.getNacionalidade());
-		request.setAttribute("fieldEmail"			, isInclu || dto == null ? "" : dto.getEmail().getDescription());
+		request.setAttribute("fieldEmail"			, isInclu || dto == null ? "" : dto.getEmail());
 		request.setAttribute("fieldEndereco" 		, isInclu || dto == null ? "" : dto.getEndereco());
 		request.setAttribute("fieldCidade" 			, isInclu || dto == null ? "" : dto.getCidade());
 		request.setAttribute("fieldEstado" 			, isInclu || dto == null ? "" : dto.getEstado());
@@ -103,7 +103,7 @@ public class ClienteController extends HttpServlet {
 	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
 	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
-	private void abrePaginaAlteracao(HttpServletRequest request, HttpServletResponse response) 
+	public void abrePaginaAlteracao(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException, SQLException {
 
 		Long id = Long.valueOf(request.getParameter("id"));
@@ -175,7 +175,7 @@ public class ClienteController extends HttpServlet {
 			lista = serv.listAllClientes(request, response);
 			if (lista.size() == 0)
 				request.setAttribute("msg_alerta", "Não há clientes cadastrados!");
-			request.setAttribute("lista1", lista);
+			request.setAttribute("lista_principal", lista);
 
 		} catch (Exception e) {
 
@@ -204,7 +204,7 @@ public class ClienteController extends HttpServlet {
 
 			Long id = Long.parseLong(request.getParameter("id"));
 			ClienteModel cliente = serv.clienteDel(id);
-			request.setAttribute("msg_sucesso", String.format("Sucesso na exclusão do cliente: %s", cliente.getNome()));
+			request.setAttribute("msg_sucesso", String.format("Sucesso na exclusão do cliente: %s", (cliente==null?String.valueOf(id):cliente.getNome()) ));
 
 		} catch (Exception e) {
 			request.setAttribute("msg_erro", e.getMessage());

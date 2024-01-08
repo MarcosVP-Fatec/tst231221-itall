@@ -1,7 +1,7 @@
 package br.com.itall.model.dao.cad;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import br.com.itall.model.dao.util.ConnectDAO;
-import br.com.itall.model.dao.util.SqlPreparedStatementUpdate;
 import br.com.itall.model.dto.cad.ClienteDTO;
 import br.com.itall.model.entity.cad.ClienteModel;
 import br.com.itall.tool.Data;
@@ -75,19 +74,13 @@ public class ClienteDAO extends ConnectDAO {
 
 		try {
 			
-			String sql = "update clientes (SET) where id = ?";
+			//String sql = "update clientes (SET) where id = ?";
 			
 			ClienteModel cliDestino = findById(cliente.getId());
 			
-			SqlPreparedStatementUpdate psup = SqlPreparedStatementUpdate.get(cliente, cliDestino, sql, cliente.getId());
-			
-			sql = psup.getSqlExpression(); 
-
 			conectar();
-
-			PreparedStatement ps = getConexao().prepareStatement(sql);
 			
-			psup.multiSets(ps);
+			PreparedStatement ps = cliente.generateSqlUpdate(getConexao(), cliente, cliDestino);
 
 			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
@@ -100,6 +93,7 @@ public class ClienteDAO extends ConnectDAO {
 			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente: %s",e.getMessage()));
 		}
 		
+		desconectar();
 		return cliente;
 
 	}
@@ -115,7 +109,7 @@ public class ClienteDAO extends ConnectDAO {
         		                  ,rs.getString("nome")
         		                  ,rs.getString("sobrenome")
         		                  ,rs.getString("sexo")
-        		                  ,Data.convertDateToLocalDate(rs.getDate("dataNascimento"))
+        		                  ,Data.convertDateToLocalDate(rs.getDate("data_nascimento"))
         		                  ,rs.getString("nacionalidade")
         		                  ,rs.getString("email")
         		                  ,rs.getString("endereco")
@@ -191,6 +185,7 @@ public class ClienteDAO extends ConnectDAO {
 			lista.add(new ClienteDTO(rs.getLong("id")
 		                  			,rs.getString("nome")
 		                  			,rs.getString("sobrenome")
+		                  			,Data.convertDateToLocalDate(rs.getDate("data_nascimento")) 
 		                  			,rs.getString("email")
 		                  			,rs.getString("cidade")
 		                  			,rs.getString("estado")

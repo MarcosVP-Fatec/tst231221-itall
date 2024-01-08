@@ -1,4 +1,4 @@
-package br.com.itall.annotation;
+package br.com.itall.tool.annotation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

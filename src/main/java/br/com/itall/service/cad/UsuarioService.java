@@ -18,7 +18,7 @@ public interface UsuarioService {
 	/**
 	 * Método que insere ou altera um usuário
 	 * 
-	 * @param request (HttpServletRequest)
+	 * @param usuario (UsuarioModel)
 	 * @param isInc (boolean) que indica se é inclusão (true) ou alteração (false)
 	 * @return UsuarioModel
 	 * @throws Exception Lançamento geral de erros de execução.
@@ -28,8 +28,6 @@ public interface UsuarioService {
 	/**
 	 * Lista de todos os usuários em ordem alfabética
 	 * 
-	 * @param request (HttpServletRequest)
-	 * @param response (HttpServletResponse)
 	 * @return List&lt;UsuarioDTO&gt; Lista de usuários DTO para envio ao <i>Client</i>. 
 	 * @throws Exception Lançamento geral de erros de execução.
 	 * 
@@ -63,7 +61,7 @@ public interface UsuarioService {
 	 * @return String (MD5)
 	 * @throws NoSuchAlgorithmException Trata erros ao calcular o hash da senha
 	 */
-	public String criptSenha(String nome, String email, String senha) throws NoSuchAlgorithmException;
+	public String criptSenha(String email, String senha) throws NoSuchAlgorithmException;
 
 	/**
 	 * Método padrão que criptografa uma senha

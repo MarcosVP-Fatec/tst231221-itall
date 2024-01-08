@@ -19,6 +19,7 @@ import br.com.itall.service.cad.UsuarioService;
 import br.com.itall.service.implement.cad.UsuarioServiceImpl1;
 import br.com.itall.tool.Data;
 import br.com.itall.tool.Texto;
+import br.com.itall.tool.exception.CrudException;
 
 /**
  * SERVLET de Usuários
@@ -139,7 +140,10 @@ public class UsuarioController extends HttpServlet {
 		try {
 			serv.usuarioAltInc( this.modelFromRequest(request), false);
 			request.setAttribute("msg_sucesso", "Usuário alterado com sucesso!");
+		} catch (CrudException e) {
+			request.setAttribute("msg_erro", e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("msg_erro", e.getMessage());
 		}
 		this.abrePaginaAlteracao(request, response);
@@ -164,7 +168,7 @@ public class UsuarioController extends HttpServlet {
 			lista = serv.listAllUsuarios();
 			if (lista.size() == 0)
 				request.setAttribute("msg_alerta", "Não há usuários cadastrados!");
-			request.setAttribute("lista_usu", lista);
+			request.setAttribute("lista_principal", lista);
 
 		} catch (Exception e) {
 

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -83,6 +84,47 @@ public class Data {
     				           ,Integer.parseInt(sData.substring( 3, 5))
     				           ,Integer.parseInt(sData.substring( 0, 2))
     				           );
+		} catch (Exception e) {
+			try { e.printStackTrace(); } catch (Exception e2) {}
+		}
+		return null;
+    }
+
+    /**
+	 * Converte: <b>LocalDate</b> => <b>String</b> "yyyy-MM-dd" 
+	 * Formato de data/string utilizada em HTML.
+	 * 
+     * @param data (LocalDate)
+     * @return (String) "yyyy-MM-dd"
+     * @author MarcosVP
+     * @since 08/01/2024
+     */
+    public static String convertLocalDateToStringHtml(LocalDate data) {
+    	
+    	try {
+    		
+            return data.format( DateTimeFormatter.ofPattern("yyyy-MM-dd") );
+            
+		} catch (Exception e) {
+			try { e.printStackTrace(); } catch (Exception e2) {}
+		}
+		return null;
+    }
+
+    /**
+	 * Converte: <b>java.time.Date</b> => <b>String</b> "yyyy-MM-dd" 
+	 * Formato de data/string utilizada em HTML.
+	 * 
+     * @param data (java.time.Date)
+     * @return (String) "yyyy-MM-dd"
+     * @author MarcosVP
+     * @since 08/01/2024
+     */
+    public static String convertDateToStringHtml(Date data) {
+    	try {
+    		
+    		return convertLocalDateToStringHtml(convertDateToLocalDate(data));
+            
 		} catch (Exception e) {
 			try { e.printStackTrace(); } catch (Exception e2) {}
 		}
@@ -210,5 +252,16 @@ public class Data {
 			return Date.from(localDT.atZone(ZoneId.systemDefault()).toInstant());
     }
     
+    /**
+     * Converte <b>LocalDate</b> => <b>java.util.Date</b> <br>
+     * Faz a conversão do fuso horário antes.
+     *  
+     * @param localDT (LocalDate)
+     * @return java.util.Date
+     */
+    public static Date convertLocalDateToDate(LocalDate localDT) {
+			return Date.from(localDT.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
 }
 

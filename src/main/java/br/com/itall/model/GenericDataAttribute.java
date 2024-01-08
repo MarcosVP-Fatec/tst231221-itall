@@ -3,7 +3,7 @@ package br.com.itall.model;
 /**
  * Objeto utilizado pela classe GenericModel<br>
  * Contém informações sobre cada atributo/campo de tabela.<br>
- * Obs.: Os métodos <b>setters</b> desta classe só podem ser utilizados pelo <b>constructor</b>.
+ * Obs.: Os métodos <b><i>setters</i></b> desta classe só podem ser utilizados pelo <b><i>constructor</i></b>.
  * @author MarcosVP
  * @since 04/01/2024
  * @version 1.01.0
@@ -25,6 +25,7 @@ public class GenericDataAttribute {
 	 *  @param isId (boolean) Indica se é identificador.
 	 *  @param isToInsert (boolean = true) Indica se é campo que entrará na inclusão de novos dados.
 	 *  @param isToUpdate (boolean = true) Indica se é campo que entrará na alteração de novos dados.
+	 *  @param isNotNull (boolean = false) Indica que o campo não irá aceitar <i>NOT NULL</i>. 
 	 */
 	public GenericDataAttribute(String fieldName
 			                   ,String attributeName

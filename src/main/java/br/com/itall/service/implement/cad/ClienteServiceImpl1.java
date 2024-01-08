@@ -10,6 +10,7 @@ import br.com.itall.model.dao.cad.ClienteDAO;
 import br.com.itall.model.dto.cad.ClienteDTO;
 import br.com.itall.model.entity.cad.ClienteModel;
 import br.com.itall.service.cad.ClienteService;
+import br.com.itall.tool.exception.CrudException;
 
 /**
  * Implementação nº 1 dos Serviços de ClienteModel
@@ -34,30 +35,30 @@ public class ClienteServiceImpl1 implements ClienteService {
 		final String tipo = isInc ? "inclusão" : "alteração";
 		try {
 
-			if (cliente == null) throw new RuntimeException(String.format("Nenhum cliente foi informado para esta %s!", tipo));
+			if (cliente == null) throw new CrudException(String.format("Nenhum cliente foi informado para esta %s!", tipo));
 			
 			if (isInc) {
 				
-				if (cliente.getId() != null) throw new RuntimeException(String.format("Tentativa de incluir cliente com identificador informado: Id %s", cliente.getId()));
+				if (cliente.getId() != null) throw new CrudException(String.format("Tentativa de incluir cliente com identificador informado: Id %s", cliente.getId()));
 				
 			} else {
 				
-				if (cliente.getId() == null) throw new RuntimeException("Tentativa de alterar cliente sem identificador informado.");
+				if (cliente.getId() == null) throw new CrudException("Tentativa de alterar cliente sem identificador informado.");
 				
 			}
 			
-			if (cliente.getNome().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"nome\" em branco!");
-			if (cliente.getSobrenome().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"sobrenome\" em branco!");
-			if (cliente.getSexo().isEmpty()) throw new RuntimeException("Tentativa de gravar cliente com \"sexo\" em branco!");
+			if (cliente.getNome().isEmpty()) throw new CrudException("Tentativa de gravar cliente com \"nome\" em branco!");
+			if (cliente.getSobrenome().isEmpty()) throw new CrudException("Tentativa de gravar cliente com \"sobrenome\" em branco!");
+			if (cliente.getSexo().isEmpty()) throw new CrudException("Tentativa de gravar cliente com \"sexo\" em branco!");
 
 			if (!cliente.getEmail().getDescription().isEmpty()) {
 				if (!cliente.getEmail().isValid()) {
-					throw new RuntimeException(cliente.getEmail().toMessages());
+					throw new CrudException(cliente.getEmail().toMessages());
 				} else {
 					if (isInc) {
-						if (clienteDAO.existByEmail(cliente.getEmail().getDescription())) throw new RuntimeException(String.format("O e-mail informado já existe: %s", cliente.getEmail().getDescription()));
+						if (clienteDAO.existByEmail(cliente.getEmail().getDescription())) throw new CrudException(String.format("O e-mail informado já existe: %s", cliente.getEmail().getDescription()));
 					} else {
-						if (clienteDAO.existByEmailOderUser(cliente.getEmail().getDescription(),cliente.getId())) throw new RuntimeException(String.format("O e-mail informado já existe para outro cliente: %s", cliente.getEmail().getDescription()));
+						if (clienteDAO.existByEmailOderUser(cliente.getEmail().getDescription(),cliente.getId())) throw new CrudException(String.format("O e-mail informado já existe para outro cliente: %s", cliente.getEmail().getDescription()));
 					}
 				}
 			}
@@ -68,8 +69,8 @@ public class ClienteServiceImpl1 implements ClienteService {
 				return clienteDAO.alt(cliente);
 			}
 			
-		} catch (RuntimeException e) {
-			throw new RuntimeException(e.getMessage());
+		} catch (CrudException e) {
+			throw new CrudException(e.getMessage());
 
 		} catch (Exception e) {
 			final String msg = String.format("Falha inesperada na %s do cliente: %s", tipo, e.getMessage());
@@ -99,18 +100,22 @@ public class ClienteServiceImpl1 implements ClienteService {
 
 	@Override
 	public ClienteModel clienteDel(Long id) throws Exception {
+
 		ClienteModel cliente = null;
 		try {
-			if (id == null || id == 0) throw new RuntimeException("O identificador do cliente não foi informado!");
+			if (id == null || id == 0) throw new CrudException("O identificador do cliente não foi informado!");
 			cliente = clienteDAO.findById(id);
 			
-			if (cliente == null) throw new RuntimeException(String.format("Cliente não localizado: Id %d", id));
+			if (cliente == null) throw new CrudException(String.format("Cliente não localizado: Id %d", id));
 			
 			clienteDAO.del(id);
 			
+		} catch (CrudException e) {
+			throw new CrudException(e.getMessage());
+			
 		} catch (Exception e) {
 			final String msg = String.format("Falha inesperada ao excluir cliente: %s", e.getMessage());
-			try {e.printStackTrace();} finally {}
+			e.printStackTrace();
 			throw new Exception(msg);
 		}
 		return cliente;

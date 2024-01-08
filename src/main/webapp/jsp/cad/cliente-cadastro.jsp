@@ -100,9 +100,15 @@
 						<label for="fieldSexo" class="form-label mb-1">Sexo</label> 
 						<select class="form-select custom-select-height" name="sexo" 
 							required id="fieldSexo">
-							<option disabled selected>.....Selecione o sexo do cliente.....</option>
-							<option value="F">Feminino</option>
-							<option value="M">Masculino</option>
+							<c:if test="${empty fieldEstado}">
+						        <option disabled selected>.....Selecione o sexo do cliente.....</option>
+						    </c:if>
+							<option value="F"
+									<c:if test="${fieldSexo eq 'F'}">selected</c:if>
+								>Feminino</option>
+							<option value="M"
+									<c:if test="${fieldSexo eq 'M'}">selected</c:if>
+								>Masculino</option>
 						</select>
 					</div>
                     </div>
@@ -198,7 +204,7 @@
 							href="#" onclick="gotoHome();"
 						</c:if>
 						<c:if test="${acao_tela == 'alt'}">
-							href="${pageContext.request.contextPath}/usr?opc=pagelist"
+							href="${pageContext.request.contextPath}/cliente?opc=pagelist"
 						</c:if>
 					>Voltar</a>
 

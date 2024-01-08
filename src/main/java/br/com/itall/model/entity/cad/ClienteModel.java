@@ -2,11 +2,11 @@ package br.com.itall.model.entity.cad;
 
 import java.time.LocalDate;
 
-import br.com.itall.annotation.CampoBD;
-import br.com.itall.annotation.TabelaBD;
 import br.com.itall.model.GenericModel;
 import br.com.itall.tool.Email;
 import br.com.itall.tool.Texto;
+import br.com.itall.tool.annotation.CampoBD;
+import br.com.itall.tool.annotation.TabelaBD;
 
 /**
  * Entidade da tabela "clientes" <br>
