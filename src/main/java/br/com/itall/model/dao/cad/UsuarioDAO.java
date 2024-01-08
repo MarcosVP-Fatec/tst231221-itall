@@ -4,14 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
 import br.com.itall.model.dao.util.ConnectDAO;
-import br.com.itall.model.dao.util.SqlPreparedStatementUpdate;
 import br.com.itall.model.dto.cad.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
 import br.com.itall.tool.Texto;
@@ -31,22 +29,17 @@ public class UsuarioDAO extends ConnectDAO {
 	 * 
 	 * @param usuario (UsuarioModel)
 	 * @return UsuarioModel (Com o id já identificado)
-	 * @throws Exception Tratamento de erros em runtime da inclusão do usuário
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
 	public UsuarioModel inc(UsuarioModel usuario) throws Exception {
 
 		try {
 			
-			final String sql = "insert into usuarios (nome, email, senha, data_criacao) values (?,?,?,?)";
+			//sql = "insert into usuarios (nome, email, senha, data_criacao) values (?,?,?,?)";
 
 			conectar();
 
-			PreparedStatement ps = getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-			ps.setString(1, usuario.getNome());
-			ps.setString(2, usuario.getEmail().getDescription());
-			ps.setString(3, usuario.getSenha());
-			ps.setTimestamp(4, Timestamp.valueOf(usuario.getDataCriacao()));
+			PreparedStatement ps = usuario.generateSqlInsert(getConexao());
 			
 			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
@@ -68,7 +61,7 @@ public class UsuarioDAO extends ConnectDAO {
 		} catch (Exception e) {
 			desconectar();
 			Texto.logConsole(e);
-			throw new RuntimeException(String.format("Erro inesperado na inclusão do usuário: %s",e.getMessage()));
+			throw new RuntimeException(String.format("Erro inesperado na inclusão do usuário \"%s\": %s",usuario.getNome(), e.getMessage()));
 		}
 		
 		return usuario;
@@ -80,26 +73,20 @@ public class UsuarioDAO extends ConnectDAO {
 	 * 
 	 * @param usuario (UsuarioModel)
 	 * @return UsuarioModel
-	 * @throws Exception Tratamento de erros em runtime da inclusão do usuário
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
-	public UsuarioModel alt(UsuarioModel usuario) throws Exception {
+	public UsuarioModel alt(UsuarioModel usuario) throws Exception {;
 
 		try {
 			
-			String sql = "update usuarios (SET) where id = ?";
+			//String sql = "update usuarios (SET) where id = ?";
 			
 			UsuarioModel usuDestino = findById(usuario.getId());
 			
-			SqlPreparedStatementUpdate psup = SqlPreparedStatementUpdate.get(usuario, usuDestino, sql, usuario.getId());
-			
-			sql = psup.getSqlExpression(); 
-
 			conectar();
 
-			PreparedStatement ps = getConexao().prepareStatement(sql);
+			PreparedStatement ps = usuario.generateSqlUpdate(getConexao(), usuario, usuDestino);
 			
-			psup.multiSets(ps);
-
 			Texto.logSQL(ps);
 			getConexao().setAutoCommit(false);
 			ps.executeUpdate();
@@ -108,9 +95,10 @@ public class UsuarioDAO extends ConnectDAO {
 		} catch (Exception e) {
 			desconectar();
 			Texto.logConsole(e);
-			throw new RuntimeException(String.format("Erro inesperado na inclusão do usuário: %s",e.getMessage()));
+			throw new RuntimeException(String.format("Erro inesperado na alteração do usuário: %s",e.getMessage()));
 		}
 		
+		desconectar();
 		return usuario;
 
 	}
@@ -119,8 +107,8 @@ public class UsuarioDAO extends ConnectDAO {
 	 * Lista todos os usuários em ordem alfabética
 	 * 
 	 * @return List&lt;UsuarioDTO&gt;
-	 * @throws SQLException Trata erros de execução do SQL
-	 * @throws NamingException Trata erros de sintaxe do SQL
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+	 * @throws NamingException Superclasse de todas as exceções lançadas por operações nas interfaces Context e DirContext. Foi adaptada para estar em conformidade com o mecanismo de encadeamento de exceções de uso geral.
 	 */
 	public List<UsuarioDTO> listarTodosUsuarios() throws SQLException, NamingException {
 
@@ -135,7 +123,6 @@ public class UsuarioDAO extends ConnectDAO {
 		ResultSet rs = ps.executeQuery();
 
 		while (rs.next()) {
-			
 			lista.add(new UsuarioDTO(rs.getLong("id")
 					                ,rs.getString("nome")
 					                ,rs.getString("email")
@@ -155,7 +142,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 * 
 	 * @param email (String) Conta de e-mail
 	 * @return boolean
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public boolean existByEmail(String email) throws SQLException {
 		
@@ -192,7 +179,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 * @param email (String) Conta de e-ail
 	 * @param id (Long) Identificador do usuário atual
 	 * @return boolean
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public boolean existByEmailOderUser(String email, Long id) throws SQLException {
 		
@@ -229,7 +216,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 * 
 	 * @param id (Long) identificador do usuário.
 	 * @return UsuarioModel
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public UsuarioModel findById(Long id) throws SQLException {
 		
@@ -288,7 +275,7 @@ public class UsuarioDAO extends ConnectDAO {
 	 * Método para exclusão de usuário
 	 * 
 	 * @param id (Long) Identificador do usuário
-	 * @throws SQLException Tratamento de erros de SQL 
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL). 
 	 */
 	public void del(Long id) throws SQLException {
 

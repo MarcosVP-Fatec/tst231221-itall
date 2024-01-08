@@ -1,19 +1,14 @@
-package br.com.itall.service.implement;
+package br.com.itall.service.implement.cad;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import br.com.itall.model.dao.cad.UsuarioDAO;
 import br.com.itall.model.dto.cad.UsuarioDTO;
 import br.com.itall.model.entity.cad.UsuarioModel;
-import br.com.itall.service.UsuarioService;
+import br.com.itall.service.cad.UsuarioService;
 import br.com.itall.service.security.Criptografia;
-import br.com.itall.tool.Data;
 
 /**
  * Implementação nº 1 dos Serviços de UsuarioModel
@@ -31,34 +26,7 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioModel usuarioModelFromRequest(HttpServletRequest request) {
-		
-		try {
-			
-			String idString = request.getParameter("id");
-			Long id = (idString==null||idString.equals("")?null:Long.valueOf(idString));
-			
-			String nome = request.getParameter("nome");
-			String email = request.getParameter("email");
-			Boolean isMudarSenha = request.getParameter("isMudarSenha") != null; 
-			String senha = request.getParameter("senha");
-			if (senha == null) senha = "";
-			
-			String sData = request.getParameter("dataCriacao");
-			LocalDateTime dataCriacao = (sData==null||sData.equals("")?null:Data.convertStringToLocalDateTime(sData));
-			
-			return new UsuarioModel(id, nome, email, isMudarSenha, senha, dataCriacao);
-			
-		} catch (Exception e) {
-			return null;
-		}
-		
-	}
-
-	@Override
-	public UsuarioModel usuarioAltInc(HttpServletRequest request, boolean isInc) throws Exception {
-		
-		UsuarioModel usuario = usuarioModelFromRequest(request);
+	public UsuarioModel usuarioAltInc(UsuarioModel usuario, boolean isInc) throws Exception {
 		
 		final String tipo = isInc ? "inclusão" : "alteração";
 		try {
@@ -69,8 +37,8 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 				
 				if (usuario.getId() != null) throw new RuntimeException(String.format("Tentativa de incluir usuário com identificador informado: Id %s", usuario.getId()));
 				if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
-				if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
-				
+				if (usuario.getSenha().length() < usuario.getFieldSizes().get("SENHA_FIELD_LEN_MIN")) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+			
 			} else {
 				
 				if (usuario.getId() == null) throw new RuntimeException("Tentativa de alterar usuário sem identificador informado.");
@@ -79,7 +47,7 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 				 */
 				if (usuario.isMudarSenha()) {
 					
-					String senhaAnterior = request.getParameter("senhaAnterior");
+					String senhaAnterior = usuario.getSenhaAnterior();
 					UsuarioModel usuOld = this.findById(usuario.getId());
 					
 					if (senhaAnterior.equals(usuario.getSenha())) {
@@ -89,7 +57,7 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 						throw new RuntimeException("Senha atual inválida!");
 					}
 					if (usuario.getSenha().isEmpty()) throw new RuntimeException("Tentativa de gravar usuário com \"senha\" em branco!");
-					if (usuario.getSenha().length() < UsuarioModel.SENHA_FIELD_LEN_MIN) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
+					if (usuario.getSenha().length() < usuario.getFieldSizes().get("SENHA_FIELD_LEN_MIN")) throw new RuntimeException("Tentativa de gravar usuário com tamanho de \"senha\" inválido!");
 				}
 				
 			}
@@ -122,7 +90,7 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 			
 		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
-
+			
 		} catch (Exception e) {
 			final String msg = String.format("Falha inesperada na %s do usuário: %s", tipo, e.getMessage());
 			try {e.printStackTrace();} finally {}
@@ -131,15 +99,8 @@ public class UsuarioServiceImpl1 implements UsuarioService {
 		
 	}
 	
-	/**
-	 * Lista todos os usuários em ordem alfabética
-	 * 
-	 * @param request (HttpServletRequest)
-	 * @param response (HttpServletResponse)
-	 * @throws Exception Erros na execução da pesquisa
-	 */
 	@Override
-	public List<UsuarioDTO> listAllUsuarios(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public List<UsuarioDTO> listAllUsuarios() throws Exception {
 
 		try {
 			return usuarioDAO.listarTodosUsuarios();

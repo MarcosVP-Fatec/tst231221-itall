@@ -12,7 +12,7 @@ import br.com.itall.model.GenericModel;
  * @version 1.01.0
  * 
  */
-//TODO Finalizar quando fizer a tabela no banco.
+//TODO - Finalizar quando fizer a tabela no banco.
 public class EstadoModel extends GenericModel {
 
 	private String uf;
@@ -27,6 +27,7 @@ public class EstadoModel extends GenericModel {
 		setUf(uf.toUpperCase());
 		setNome(nome);
 	}
+	
 	/** @return uf (String) 	*/ public String getUf() 			{ return uf;		}
 	/** @param uf (String) 		*/ public void setUf(String uf) 	{ this.uf = uf;		}
 	/** @return nome (String) 	*/ public String getNome() 			{ return nome;		}

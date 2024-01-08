@@ -2,7 +2,6 @@ package br.com.itall.service.implement.cad;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,7 +84,7 @@ public class ClienteServiceImpl1 implements ClienteService {
 	 * 
 	 * @param request (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws Exception Erros na execução da pesquisa
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
 	@Override
 	public List<ClienteDTO> listAllClientes(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -120,11 +119,6 @@ public class ClienteServiceImpl1 implements ClienteService {
 	@Override
 	public ClienteModel findById(Long id) throws SQLException {
 		return clienteDAO.findById(id);
-	}
-
-	@Override
-	public Map<String, Integer> getFieldSizes() {
-		return new ClienteModel().getFieldSizes();
 	}
 
 }

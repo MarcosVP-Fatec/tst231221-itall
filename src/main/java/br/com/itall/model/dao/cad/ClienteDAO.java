@@ -29,7 +29,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param cliente (ClienteModel)
 	 * @return ClienteModel (Com o id já identificado)
-	 * @throws Exception Tratamento de erros em runtime da inclusão do cliente
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
 	public ClienteModel inc(ClienteModel cliente) throws Exception {
 
@@ -56,10 +56,9 @@ public class ClienteDAO extends ConnectDAO {
 			cliente.setId(idGerado);
 
 		} catch (Exception e) {
-			desconectar();
-			e.printStackTrace();
+			desconectar(); //e.printStackTrace();
 			Texto.logConsole(e);
-			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente: %s",e.getMessage()));
+			throw new RuntimeException(String.format("Erro inesperado na inclusão do cliente \"%s\": %s",cliente.getNome(),e.getMessage()));
 		}
 		
 		return cliente;
@@ -70,7 +69,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param cliente (ClienteModel)
 	 * @return ClienteModel
-	 * @throws Exception Tratamento de erros em runtime da inclusão do cliente
+	 * @throws Exception Lançamento geral de erros de execução.
 	 */
 	public ClienteModel alt(ClienteModel cliente) throws Exception {
 
@@ -135,7 +134,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param id (Long) identificador do cliente.
 	 * @return ClienteModel
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public ClienteModel findById(Long id) throws SQLException {
 		
@@ -172,8 +171,8 @@ public class ClienteDAO extends ConnectDAO {
 	 * Lista todos os cliente em ordem alfabética
 	 * 
 	 * @return List&lt;ClienteDTO&gt;
-	 * @throws SQLException Trata erros de execução do SQL
-	 * @throws NamingException Trata erros de sintaxe do SQL
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+	 * @throws NamingException Superclasse de todas as exceções lançadas por operações nas interfaces Context e DirContext. Foi adaptada para estar em conformidade com o mecanismo de encadeamento de exceções de uso geral.
 	 */
 	public List<ClienteDTO> listarTodosClientes() throws SQLException, NamingException {
 
@@ -209,7 +208,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * 
 	 * @param email (String) Conta de e-mail
 	 * @return boolean
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public boolean existByEmail(String email) throws SQLException {
 		
@@ -245,7 +244,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * @param email (String) Conta de e-ail
 	 * @param id (Long) Identificador do cliente atual
 	 * @return boolean
-	 * @throws SQLException Trata erros de execução SQL.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	public boolean existByEmailOderUser(String email, Long id) throws SQLException {
 		
@@ -281,7 +280,7 @@ public class ClienteDAO extends ConnectDAO {
 	 * Método para exclusão de cliente
 	 * 
 	 * @param id (Long) Identificador do cliente
-	 * @throws SQLException Tratamento de erros de SQL 
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL). 
 	 */
 	public void del(Long id) throws SQLException {
 

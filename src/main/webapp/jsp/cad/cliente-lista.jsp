@@ -47,7 +47,7 @@
 								<td><fmt:formatDate value="${usu.dataCriacao}" type="date" pattern="dd/MM/yyyy hh:mm" /></td>
 								<td> 																			
 									<a class="btn btn-outline-success btn-sm"
-									href="${pageContext.request.contextPath}/usr?opc=pageupd&id=<c:out value="${usu.id}"/>">alterar</a>
+									href="${pageContext.request.contextPath}/usr?opc=pagelist&id=<c:out value="${usu.id}"/>">alterar</a>
 									<a class="btn btn-outline-danger btn-sm"
 									onclick="return confirm('Confirma a exclusão do usuário <c:out value="${usu.nome}"/> ?');"
 									href="${pageContext.request.contextPath}/usr?opc=delete&id=<c:out value="${usu.id}"/>">excluir</a>

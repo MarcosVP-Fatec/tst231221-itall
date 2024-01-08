@@ -15,7 +15,7 @@ import br.com.itall.model.entity.sta.EstadoModel;
  * @version 1.01.0
  * @see br.com.itall.model.entity.cad.UsuarioModel
  */
-//TODO Finalizar quando a tabela estados for criada
+//TODO - Finalizar quando a tabela estados for criada
 public class EstadoDAO {
 
 	static List<EstadoModel> estados;

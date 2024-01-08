@@ -16,6 +16,7 @@ public class GenericDataAttribute {
 	private boolean isId;
 	private boolean isToInsert;
 	private boolean isToUpdate;
+	private boolean isNotNull;
 	
 	/** Construtor
 	 *  @param fieldName (String) Nome do campo no banco de dados.
@@ -30,13 +31,16 @@ public class GenericDataAttribute {
 			                   ,Integer fieldLen
 			                   ,boolean isId
 			                   ,boolean isToInsert
-			                   ,boolean isToUpdate) {
+			                   ,boolean isToUpdate
+			                   ,boolean isNotNull
+			                   ){
 		setFieldName(fieldName);
 		setAttributeName(attributeName);
 		setFieldLen(fieldLen);
 		setId(isId);
 		setToInsert(isToInsert);
 		setToUpdate(isToUpdate);
+		setNotNull(isNotNull);
 	}
 
 	/** @return fieldName (String)*/					public String getFieldName() 						{ return fieldName;					 }
@@ -47,13 +51,13 @@ public class GenericDataAttribute {
 	/** @param isId (boolean)*/ 						private void setId(boolean isId) 					{ this.isId = isId; 				 }
 	/** @return isToInsert (boolean) 
 	 *  Indica que é para colocar no insert padrão*/	public boolean isToInsert() 						{ return isToInsert; 				 }
-	/** @param isToInsert (boolean) default True */		private void setToInsert(boolean isToInsert)		{ this.isToInsert = isToInsert; 	 }
+	/** @param isToInsert (boolean) default true */		private void setToInsert(boolean isToInsert)		{ this.isToInsert = isToInsert; 	 }
 	/** @return isToUpdate (boolean)
 	 *  Indica que é para colocar no update padrão*/	public boolean isToUpdate() 						{ return isToUpdate; 				 }
-	/** @param isToUpdate (boolean) default True */		private void setToUpdate(boolean isToUpdate)		{ this.isToUpdate = isToUpdate; 	 }
+	/** @param isToUpdate (boolean) default true */		private void setToUpdate(boolean isToUpdate)		{ this.isToUpdate = isToUpdate; 	 }
 	/** @return fieldLen (Integer) */					public Integer getFieldLen() 						{ return fieldLen;					 }
 	/** @param fieldLen (Integer) */					public void setFieldLen(Integer fieldLen) 			{ this.fieldLen = fieldLen;			 }
-	
-	
+	/** @return isNotNull (boolean) */					public boolean isNotNull() 							{ return isNotNull;					 }
+	/** @param isNotNull (boolean) default false*/		public void setNotNull(boolean isNotNull) 			{ this.isNotNull = isNotNull;		 }
 	
 }

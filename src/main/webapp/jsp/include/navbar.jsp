@@ -54,7 +54,7 @@ Coloque na primeira linha após a tag <body>
 						
 						<li><a class="dropdown-item"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Inclusão de clientes"
-							href="${pageContext.request.contextPath}/cliente?opc=novo">Cliente - Novo</a></li>
+							href="${pageContext.request.contextPath}/cliente?opc=pagenew">Cliente - Novo</a></li>
 						<li><a class="dropdown-item"
 							<%-- href="${pageContext.request.contextPath}/cliente?opc=clientelistar">Cliente - Lista</a></li> --%>
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Em desenvolvimento"
@@ -78,10 +78,10 @@ Coloque na primeira linha após a tag <body>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
 						<li><a class="dropdown-item"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Inclusão de usuários"
-							href="${pageContext.request.contextPath}/usr?opc=usuarionovo">Novo</a></li>
+							href="${pageContext.request.contextPath}/usr?opc=pagenew">Novo</a></li>
 						<li><a class="dropdown-item"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Visualize todos os usuários para alterar ou excluir"
-							href="${pageContext.request.contextPath}/usr?opc=usuarioslistar">Lista</a></li>
+							href="${pageContext.request.contextPath}/usr?opc=pagelist">Lista</a></li>
 					</ul></li>
 
 				<!-- Ajuda -->

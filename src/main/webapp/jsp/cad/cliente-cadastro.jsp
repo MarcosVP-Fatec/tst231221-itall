@@ -171,7 +171,7 @@
 						    </c:if>
 						    <c:forEach var="estado" items="${estados}">
 						        <option ${estado.uf eq fieldEstado ? "selected" : ""}
-						               >${estado.uf} - ${estado.nome}</option>
+						          value="${estado.uf}">${estado.uf} - ${estado.nome}</option>
 						    </c:forEach>
 						</select>
 					</div>
@@ -193,8 +193,14 @@
 						<c:if test="${acao_tela == 'inc'}">Incluir</c:if>
 						<c:if test="${acao_tela == 'alt'}">Alterar</c:if>
 					</button>
-					<a href="#" class="btn btn-secondary active" role="button"
-						onclick="gotoHome();" aria-pressed="false">Voltar</a>
+					<a class="btn btn-secondary active" role="button" aria-pressed="false"
+						<c:if test="${acao_tela == 'inc'}">
+							href="#" onclick="gotoHome();"
+						</c:if>
+						<c:if test="${acao_tela == 'alt'}">
+							href="${pageContext.request.contextPath}/usr?opc=pagelist"
+						</c:if>
+					>Voltar</a>
 
 				</form>
 

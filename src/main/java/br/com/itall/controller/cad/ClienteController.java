@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.itall.controller.ControllerDefault;
 import br.com.itall.model.dao.sta.EstadoDAO;
 import br.com.itall.model.dto.cad.ClienteDTO;
 import br.com.itall.model.entity.cad.ClienteModel;
@@ -42,48 +43,14 @@ public class ClienteController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		runReq(request, response);
+		ControllerDefault.runRequisition(this, request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		runReq(request, response);
+		ControllerDefault.runRequisition(this, request, response);
 	}
 
-	private void runReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			switch (request.getParameter("opc")) {
-			case "novo":
-				abrePaginaInclusao(request, response);
-				break;
-
-			case "insert":
-				sqlInsert(request, response);
-				break;
-
-			case "update":
-				sqlUpdate(request, response);
-				break;
-
-			case "listar":
-				abrePaginaLista(request, response);
-				break;
-
-			case "delete":
-				delete(request, response);
-				break;
-
-			case "alterar":
-				abrePaginaAlteracao(request, response);
-				break;
-			}
-			
-		} catch (Exception e) {
-			Texto.logConsole(e);
-			throw new ServletException(e);
-		}
-	}
-	
 	/**
 	 * Função que gera os request.setAttribute dos campos da tela.<br>
 	 * Exemplo: request.setAttribute("fieldNome","Marcos");
@@ -107,7 +74,7 @@ public class ClienteController extends HttpServlet {
 		request.setAttribute("fieldEstado" 			, isInclu || dto == null ? "" : dto.getEstado());
 		request.setAttribute("fieldTelefone" 		, isInclu || dto == null ? "" : dto.getTelefone());
 
-		request.setAttribute("fieldSizes", serv.getFieldSizes());
+		request.setAttribute("fieldSizes", new ClienteModel().getFieldSizes());
 		
 		request.setAttribute("estados", EstadoDAO.findAll() );
 		
@@ -117,13 +84,12 @@ public class ClienteController extends HttpServlet {
 	 * Abre a página de Cadastro de Cliente (Inclusão)
 	 * @param request  (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws ServletException
-	 * @throws IOException
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
 	 */
-	private void abrePaginaInclusao(HttpServletRequest request, HttpServletResponse response)
+	public void abrePaginaInclusao(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.
-		reqAttibutes(request, null);
+		this.reqAttibutes(request, null);
 		request.getRequestDispatcher("jsp/cad/cliente-cadastro.jsp")
 				.forward(request, response);
 	}
@@ -133,9 +99,9 @@ public class ClienteController extends HttpServlet {
 	 * 
 	 * @param request  (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws ServletException Tratamento de erros de conexão
-	 * @throws IOException      Tratamento de erros de IO
-	 * @throws SQLException     Tratamento de erros em execução SQL
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
 	private void abrePaginaAlteracao(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException, SQLException {
@@ -149,18 +115,19 @@ public class ClienteController extends HttpServlet {
 	}
 
 	/**
-	 * Insere um novo cliente
+	 * Insere um novo cliente.
+	 * 
 	 * @param request  (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws ServletException Tratamento de erros de conexão
-	 * @throws IOException      Tratamento de erros de IO
-	 * @throws SQLException     Tratamento de erros em execução SQL
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
-	private void sqlInsert(HttpServletRequest request, HttpServletResponse response)
+	public void sqlInsert(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		try {
-			serv.clienteAltInc( clienteModelFromRequest(request), true);
+			serv.clienteAltInc( this.modelFromRequest(request), true);
 			request.setAttribute("msg_sucesso", "Novo cliente cadastrado com sucesso!");
 		} catch (Exception e) {
 			request.setAttribute("msg_erro", e.getMessage());
@@ -173,15 +140,15 @@ public class ClienteController extends HttpServlet {
 	 * Altera dados de um novo cliente
 	 * @param request  (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws ServletException Tratamento de erros de conexão
-	 * @throws IOException      Tratamento de erros de IO
-	 * @throws SQLException     Tratamento de erros em execução SQL
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
-	private void sqlUpdate(HttpServletRequest request, HttpServletResponse response)
+	public void sqlUpdate(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		try {
-			serv.clienteAltInc( clienteModelFromRequest(request), false);
+			serv.clienteAltInc( this.modelFromRequest(request), false);
 			request.setAttribute("msg_sucesso", "Cliente alterado com sucesso!");
 		} catch (Exception e) {
 			request.setAttribute("msg_erro", e.getMessage());
@@ -191,14 +158,14 @@ public class ClienteController extends HttpServlet {
 	}
 
 	/**
-	 * Método que abre a página de Lista de Cliente
+	 * Abre a página de Lista de Cliente.
 	 * 
 	 * @param request  (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws IOException      Tratamento de erros de disco
-	 * @throws ServletException Tratamento de Erros de Servlet
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
 	 */
-	private void abrePaginaLista(HttpServletRequest request, HttpServletResponse response)
+	public void abrePaginaLista(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		List<ClienteDTO> lista = new ArrayList<ClienteDTO>();
@@ -226,11 +193,11 @@ public class ClienteController extends HttpServlet {
 	 * Exclui um novo cliente pelo seu id
 	 * @param request  (HttpServletRequest)
 	 * @param response (HttpServletResponse)
-	 * @throws ServletException Tratamento de erros de conexão
-	 * @throws IOException      Tratamento de erros de IO
-	 * @throws SQLException     Tratamento de erros em execução SQL
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
 	 */
-	private void delete(HttpServletRequest request, HttpServletResponse response)
+	public void sqlDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		try {
@@ -253,7 +220,7 @@ public class ClienteController extends HttpServlet {
 	 * @param request (HttpServletRequest)
 	 * @return ClienteModel (nullable)
 	 */
-	private ClienteModel clienteModelFromRequest(HttpServletRequest request) {
+	private ClienteModel modelFromRequest(HttpServletRequest request) {
 		
 		try {
 			
@@ -280,9 +247,6 @@ public class ClienteController extends HttpServlet {
 		}
 		
 	}
-	
-
-	
 
 }
 

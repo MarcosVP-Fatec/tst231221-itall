@@ -3,12 +3,13 @@ package br.com.itall.annotation;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Anotação que define que um atributo é um campo do Banco de Dados
+ * Anotação que define que um atributo é um campo do Banco de Dados.<br>
+ * Nesta anotação serão permitidos alguns parâmetros que definirão<br>
+ * comportamentos específicos da aplicação.
  *  @author MarcosVP
  *  @since 04/01/2024
  *  @version 1.01.0
@@ -34,4 +35,7 @@ public @interface CampoBD {
 	
     /** @return is_to_update (boolean) Sinaliza se o campo será tratado automaticamente nas alterações.*/
     boolean is_to_update() default true;
+    
+    /** @return is_not_null (boolean) Sinaliza se o campo <b>NÃO></b> permitirá null.*/
+    boolean is_not_null() default false;
 }

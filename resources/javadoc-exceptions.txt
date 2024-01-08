@@ -1,0 +1,11 @@
+	 * @throws ServletException Lançada por um <i><b>Servlet</b></i> para problemas específicos no processamento de solicitações HTTP ou outras dificuldades.
+	 * @throws IOException Lançada quando ocorre algum tipo de exceção de I/O produzida por falhas ou interrupções.
+	 * @throws SecurityException Lançado pelo <i><b>SecurityManager</b></i> para indicar uma violação de segurança.
+	 * @throws NoSuchMethodException Lançado quando um método específico não pode ser encontrado (Reflexão em Java).
+	 * @throws InvocationTargetException É uma exceção lançada por um método ou construtor quando invocados (Reflexão em Java).
+	 * @throws IllegalArgumentException Lançado para indicar que um método recebeu um argumento ilegal ou inapropriado.
+	 * @throws IllegalAccessException Lançada quando um aplicativo tenta obter um campo ou invocar um método, reflexivamente, cuja origem (método em execução) não tem acesso à definição da classe, campo, método ou construtor especificado.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+    * @throws NamingException Superclasse de todas as exceções lançadas por operações nas interfaces Context e DirContext. Foi adaptada para estar em conformidade com o mecanismo de encadeamento de exceções de uso geral.
+    * @throws Exception Lançamento geral de erros de execução.
+

@@ -38,11 +38,11 @@ public class SqlPreparedStatementUpdate {
 	 * @param destino (Object) 
 	 * @param sql (String)
 	 * @return SqlPreparedStatementUpdate
-	 * @throws IllegalAccessException Vide método principal
-	 * @throws IllegalArgumentException Vide método principal
-	 * @throws InvocationTargetException Vide método principal
-	 * @throws NoSuchMethodException Vide método principal
-	 * @throws SecurityException Vide método principal
+	 * @throws IllegalAccessException Lançada quando um aplicativo tenta obter um campo ou invocar um método, reflexivamente, cuja origem (método em execução) não tem acesso à definição da classe, campo, método ou construtor especificado.
+	 * @throws IllegalArgumentException Lançada para indicar que um método recebeu um argumento ilegal ou inapropriado.
+	 * @throws InvocationTargetException Lançada por um método ou construtor quando invocados (Reflexão em Java).
+	 * @throws NoSuchMethodException Lançada quando um método específico não pode ser encontrado (Reflexão em Java).
+	 * @throws SecurityException Lançada pelo <i><b>SecurityManager</b></i> para indicar uma violação de segurança.
 	 * @see #get(Object, Object, String, Object)
 	 */
 	public static SqlPreparedStatementUpdate get(Object origem, Object destino, String sql) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -66,12 +66,12 @@ public class SqlPreparedStatementUpdate {
 	 * @param destino (Object) Objeto da Entidade do Banco de Dados.
 	 * @param sql Expressão SQL do UPDATE (Ex.: 'update usuario (SET) where id = ?')
 	 * @param id (Object) Utilizado para informar o id [Opcional]
-	 * @return SqlPreparedStatementUpdate Tratamento de erros da preparação do SQL.
-	 * @throws IllegalAccessException Tratamento de chamadas inválidas em <i>runtime</i>.
-	 * @throws IllegalArgumentException Tratamento de argumentos inválidos transmitidos em <i>runtime</i>.
-	 * @throws InvocationTargetException Tratamento de erros na identificação de métodos.
-	 * @throws NoSuchMethodException Tratamento de tentativa de evocar um método inexistente.
-	 * @throws SecurityException Tratamento de segurança
+	 * @return SqlPreparedStatementUpdate
+	 * @throws IllegalAccessException Lançada quando um aplicativo tenta obter um campo ou invocar um método, reflexivamente, cuja origem (método em execução) não tem acesso à definição da classe, campo, método ou construtor especificado.
+	 * @throws IllegalArgumentException Lançada para indicar que um método recebeu um argumento ilegal ou inapropriado.
+	 * @throws InvocationTargetException Lançada por um método ou construtor quando invocados (Reflexão em Java).
+	 * @throws NoSuchMethodException Lançada quando um método específico não pode ser encontrado (Reflexão em Java).
+	 * @throws SecurityException Lançada pelo <i><b>SecurityManager</b></i> para indicar uma violação de segurança.
 	 */
 	public static SqlPreparedStatementUpdate get(Object origem, Object destino, String sql, Object id) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return new SqlPreparedStatementUpdate(origem, destino, sql, id);
@@ -88,11 +88,11 @@ public class SqlPreparedStatementUpdate {
 	 * @param destino Entidade de Destino
 	 * @param sql Expressão SQL que contenha (SET)
 	 * @return String SQL tratado
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
+	 * @throws SecurityException Lançada pelo <i><b>SecurityManager</b></i> para indicar uma violação de segurança. 
+	 * @throws NoSuchMethodException Lançada quando um método específico não pode ser encontrado (Reflexão em Java). 
+	 * @throws InvocationTargetException Lançada por um método ou construtor quando invocados (Reflexão em Java). 
+	 * @throws IllegalArgumentException Lançada para indicar que um método recebeu um argumento ilegal ou inapropriado. 
+	 * @throws IllegalAccessException Lançada quando um aplicativo tenta obter um campo ou invocar um método, reflexivamente, cuja origem (método em execução) não tem acesso à definição da classe, campo, método ou construtor especificado. 
 	 */
 	private SqlPreparedStatementUpdate(Object origem, Object destino, String sql, Object id) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		
@@ -148,12 +148,12 @@ public class SqlPreparedStatementUpdate {
 	 *			psu.multiSets(ps)
 	 * 
 	 * @param ps PreparedStatement
-	 * @throws SQLException Tratamento de Erros de execução SQL
-	 * @throws SecurityException Tratamento de erros
-	 * @throws NoSuchMethodException Tratamento de Falha ao Identificar o método
-	 * @throws InvocationTargetException Tratamento ao executar método dinamicamente
-	 * @throws IllegalArgumentException Tratamento de argumentos ilegais
-	 * @throws IllegalAccessException Tratamento de acesso ilegal.
+	 * @throws SQLException Lançada para fornecer informações sobre erros de acesso ao banco de dados (SQL).
+	 * @throws SecurityException Lançada pelo <i><b>SecurityManager</b></i> para indicar uma violação de segurança.
+	 * @throws NoSuchMethodException Lançada quando um método específico não pode ser encontrado (Reflexão em Java).
+	 * @throws InvocationTargetException Lançada por um método ou construtor quando invocados (Reflexão em Java).
+	 * @throws IllegalArgumentException Lançada para indicar que um método recebeu um argumento ilegal ou inapropriado.
+	 * @throws IllegalAccessException Lançada quando um aplicativo tenta obter um campo ou invocar um método, reflexivamente, cuja origem (método em execução) não tem acesso à definição da classe, campo, método ou construtor especificado.
 	 */
 	public void multiSets(PreparedStatement ps) throws SQLException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		for (int i = 0; i < this.valores.size(); i++) {
@@ -178,12 +178,14 @@ public class SqlPreparedStatementUpdate {
 		}
 	}
 	
+	//TODO - Ver se vai continuar
 	/**
 	 * Função que identifica qual o método set do PreparedStatement será utilizado<br>
 	 * de acordo com o tipo da classe.
 	 * @author MarcosVP
 	 * @since 27/12/2023
-	 * @version 1.01.0 
+	 * @version 1.01.0
+	 * 
 	 */
 	private void methodsAndValues(Object valor, List<String> methods, List<Object> valores) {
 		Object valorAjustado = null;

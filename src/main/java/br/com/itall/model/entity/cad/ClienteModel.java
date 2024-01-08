@@ -57,8 +57,9 @@ public class ClienteModel extends GenericModel {
     
     /** Básico */
     public ClienteModel() {}
+    
     /**
-     * Parametrizado
+     * Construtor Parametrizado
 	 * @param id (Long)
 	 * @param nome (String)
 	 * @param sobrenome (String)
@@ -204,7 +205,7 @@ public class ClienteModel extends GenericModel {
 	 * @param estado (String)
 	 */
 	public void setEstado(String estado) {
-		this.estado = estado.trim().toUpperCase();
+		this.estado = estado == null ? estado : estado.trim().toUpperCase();
 	}
 	
 	/**

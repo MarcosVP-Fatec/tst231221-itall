@@ -38,12 +38,12 @@ public class Texto {
 	public static void logConsoleErro(Object texto) { logConsole("[ERRO] " + texto.toString()); }
 
 	/**
-	 * Gera um log no console referente a SQL
+	 * Gera um log no console referente a SQL que foi executado.
 	 * @param sql (String) Sql que será armazenado
 	 */
 	public static void logSQL(Object sql) { 
 		try {
-			System.out.println(Data.dateMask("[yy-MM-dd hh:mm:ss,SSS] ") + sql);
+			System.out.println(Data.dateMask("[yy-MM-dd hh:mm:ss,SSS] ") + "[QUERY] " + sql);
 		} catch (Exception e) {}
 	}
 	
@@ -120,5 +120,5 @@ public class Texto {
 		if (texto==null || texto.length() >= tamanho) return texto;
 		return texto + String.format("%" + (tamanho-texto.length()) + "s", "").replace(' ', letra==null?' ':letra);
 	}
-
+	
 }
