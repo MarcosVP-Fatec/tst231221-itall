@@ -1,5 +1,4 @@
 br.com.itall
-br.com.itall.annotation
 br.com.itall.controller
 br.com.itall.controller.cad
 br.com.itall.controller.security
@@ -21,3 +20,5 @@ br.com.itall.service.implement.sta
 br.com.itall.service.security
 br.com.itall.service.sta
 br.com.itall.tool
+br.com.itall.tool.annotation
+br.com.itall.tool.exception

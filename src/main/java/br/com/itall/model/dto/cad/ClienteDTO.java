@@ -39,6 +39,7 @@ public class ClienteDTO {
 	 * @param id (Long)
 	 * @param nome (String)
 	 * @param sobrenome (String)
+     * @param dataNascimento (LocalDate)
 	 * @param email (String)
 	 * @param cidade (String)
 	 * @param estado (String)

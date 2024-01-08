@@ -55,7 +55,6 @@ public interface UsuarioService {
 	/**
 	 * Método padrão que criptografa uma senha
 	 * 
-	 * @param nome (String) Nome do Usuário
 	 * @param email (String) Email do Usuário
 	 * @param senha (String) Senha do Usuário
 	 * @return String (MD5)
